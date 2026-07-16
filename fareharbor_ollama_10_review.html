@@ -1,0 +1,1195 @@
+<title>Fareharbor Ollama — 10 Product Review</title>
+<style>
+    * { box-sizing: border-box; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        margin: 0; padding: 0; background: #f4f6f8; color: #1f2937;
+    }
+    header { background: #1a3c5e; color: white; padding: 28px 40px; }
+    header h1 { margin: 0 0 6px 0; font-size: 24px; }
+    header p { margin: 0; opacity: 0.85; font-size: 14px; }
+    .container { max-width: 1300px; margin: 0 auto; padding: 24px 40px 60px; }
+
+    .summary-bar {
+        background: white; border-radius: 10px; padding: 16px 24px; margin: -18px 0 28px 0;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08); display: flex; gap: 36px; flex-wrap: wrap;
+    }
+    .summary-bar .stat .value { font-size: 22px; font-weight: 700; color: #1a3c5e; }
+    .summary-bar .stat .label { font-size: 12px; color: #6b7280; }
+
+    .card {
+        background: white; border-radius: 10px; padding: 22px 26px; margin-bottom: 32px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-left: 4px solid #ccc; position: relative;
+    }
+    .card.border-success { border-left-color: #00a896; }
+    .card.border-failed { border-left-color: #ef4444; }
+    .card.border-other { border-left-color: #9ca3af; }
+    .card-num { position: absolute; top: 14px; left: 14px; font-size: 13px; font-weight: 700; color: #9ca3af; }
+
+    .card-header { margin-bottom: 16px; padding-left: 28px; }
+    .product-name { font-size: 20px; font-weight: 700; color: #1a3c5e; margin-bottom: 8px; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge {
+        font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 6px;
+        background: #eef2f7; color: #1a3c5e;
+    }
+    .badge.status-success { background: #00a896; color: white; }
+    .badge.status-failed { background: #ef4444; color: white; }
+    .badge.status-other { background: #9ca3af; color: white; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .col { border-radius: 8px; padding: 14px 16px; }
+    .col-extracted { background: #f0fdf4; }
+    .col-original { background: #eff6ff; }
+    .col-title { font-size: 14px; font-weight: 700; color: #1a3c5e; margin-bottom: 12px;
+                  text-transform: uppercase; letter-spacing: 0.03em; }
+
+    .field { margin-bottom: 12px; }
+    .field-label { font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 4px; }
+    .field-col { color: #9ca3af; font-weight: 400; }
+    .content-box {
+        font-family: 'SFMono-Regular', Consolas, monospace; font-size: 13px;
+        padding: 10px; border-radius: 4px; white-space: pre-wrap;
+        max-height: 150px; overflow-y: auto;
+    }
+    .content-box.filled { background: #f9fafb; border: 1px solid #00a896; }
+    .content-box.empty { background: #f3f4f6; border: 1px solid #d1d5db; color: #9ca3af; font-style: italic; }
+    .content-box.orig { background: #f9fafb; border: 1px solid #93c5fd; }
+
+    .raw-details { margin-top: 4px; }
+    .raw-details summary { cursor: pointer; font-size: 13px; color: #1a3c5e; font-weight: 600; }
+    .code-box {
+        background: #1e1e1e; color: #d4f4dd; border-radius: 4px; padding: 12px;
+        font-family: 'SFMono-Regular', Consolas, monospace; font-size: 12px;
+        white-space: pre-wrap; max-height: 300px; overflow-y: auto; margin-top: 8px;
+    }
+
+    .summary-section {
+        background: white; border-radius: 10px; padding: 22px 26px; margin-top: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .summary-section h2 { margin-top: 0; color: #1a3c5e; }
+    table.summary-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    table.summary-table th, table.summary-table td {
+        text-align: center; padding: 8px 10px; border-bottom: 1px solid #eef0f2;
+    }
+    table.summary-table th { background: #f8fafc; color: #374151; }
+    table.summary-table td.name-cell { text-align: left; }
+
+    @media (max-width: 900px) {
+        .two-col { grid-template-columns: 1fr; }
+    }
+</style>
+<header>
+    <h1>Fareharbor Ollama &mdash; 10 Product Review</h1>
+    <p>Manual verification &mdash; compare extracted vs original</p>
+</header>
+<div class="container">
+    <div class="summary-bar">
+        <div class="stat"><div class="value">10</div><div class="label">Total products</div></div>
+        <div class="stat"><div class="value">10</div><div class="label">Successful</div></div>
+        <div class="stat"><div class="value">0</div><div class="label">Failed</div></div>
+        <div class="stat"><div class="value">3.6/7</div><div class="label">Avg sections filled</div></div>
+        <div class="stat"><div class="value">87.3s</div><div class="label">Avg time</div></div>
+    </div>
+
+    
+    <div class="card border-success">
+        <div class="card-num">#1</div>
+        <div class="card-header">
+            <div class="product-name">Super Session</div>
+            <div class="badges">
+                <span class="badge">465195</span>
+                <span class="badge">zone3act</span>
+                <span class="badge">Belconnen, AU</span>
+                <span class="badge">$22.73 AUD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">5/7 filled</span>
+                <span class="badge">91.4s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box filled">Typically run during the school holidays, but is also ran throughout the year as special events - so keep an eye on our socials and don&#x27;t miss out!
+Slots are limited very limited, so book in as soon as you can if you&#x27;re interested!
+Check out our events page for upcoming Super Sessions!</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box filled">2.5 Hours of back to back laser tag games and all arcade machines on FREEPLAY.
+Ages 6+
+Because these are public games you will be playing with a large variety of ages (6yo - adult)</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box filled">$25 per person</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box filled">2.5 Hours of back to back laser tag games and all arcade machines on FREEPLAY.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">Please arrive 5 minutes prior to session
+Please note, we require a 7 day notice for rebookings (Pricing differences may occur during rebooking).
+If you&#x27;d like to rebook your reservation within this time frame, please click on &quot;Change Booking&quot; link appeared under your current booking dates and time in your confirmation email to do so.</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">2.5 Hours of back to back laser tag games and all arcade machines on FREEPLAY.
+Ages 6+
+Because these are public games you will be playing with a large variety of ages (6yo - adult)
+About
+Typically run during the school holidays, but is also ran throughout the year as special events - so keep an eye on our socials and don&#x27;t miss out!
+Slots are limited very limited, so book in as soon as you can if you&#x27;re interested!
+Check out our events page for upcoming Super Sessions!
+https://www.zone3act.com.au/events-calendar/
+Rates
+$25 per person</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Please arrive 5 minutes prior to session
+Please note, we require a 7 day notice for rebookings (Pricing differences may occur during rebooking).
+If you&#x27;d like to rebook your reservation within this time frame, please click on &quot;Change Booking&quot; link appeared under your current booking dates and time in your confirmation email to do so.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">All deposits are non-refundable.
+Please note, we require a 7 day notice for rebookings (Pricing differences may occur during rebooking). However, given 7 days’ notice we are happy to move a booking to a different time or day, or hold the deposit for up to 6 months.
+Additionally, we can only move a booking twice.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">{
+  &quot;highlights&quot;: &quot;2.5 Hours of back to back laser tag games and all arcade machines on FREEPLAY.\nAges 6+\nBecause these are public games you will be playing with a large variety of ages (6yo - adult)&quot;,
+  &quot;what_is_included&quot;: &quot;$25 per person&quot;,
+  &quot;what_is_not_included&quot;: &quot;&quot;,
+  &quot;itinerary&quot;: &quot;2.5 Hours of back to back laser tag games and all arcade machines on FREEPLAY.&quot;,
+  &quot;what_to_bring&quot;: &quot;&quot;,
+  &quot;booking_notes&quot;: &quot;Please arrive 5 minutes prior to session\nPlease note, we require a 7 day notice for rebookings (Pricing differences may occur during rebooking).\nIf you&#x27;d like to rebook your reservation within this time frame, please click on \&quot;Change Booking\&quot; link appeared under your current booking dates and time in your confirmation email to do so.&quot;,
+  &quot;about&quot;: &quot;Typically run during the school holidays, but is also ran throughout the year as special events - so keep an eye on our socials and don&#x27;t miss out!\nSlots are limited very limited, so book in as soon as you can if you&#x27;re interested!\nCheck out our events page for upcoming Super Sessions!&quot;
+}</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="card border-success">
+        <div class="card-num">#2</div>
+        <div class="card-header">
+            <div class="product-name">Public Games</div>
+            <div class="badges">
+                <span class="badge">463975</span>
+                <span class="badge">zone3act</span>
+                <span class="badge">Belconnen, AU</span>
+                <span class="badge">$13.64 AUD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">2/7 filled</span>
+                <span class="badge">69.5s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box filled">Briefing, House Rules and Q&amp;A:
+All players must be briefed before entering the Arena to Play Laser Tag.
+Don’t be late otherwise you may miss your first game.
+Timing:
+We run our days on a 20 minute rotation.
+So please allow for 30 minutes from your arrival time + 20 minutes for every game/break you book for.
+More Info:
+Because you may be playing with other groups there is the potential to have large differences in age groups. If this is a concern, consider making a private booking instead.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">Please arrive 10 minutes prior.
+Please note, we require a 7 day notice for rebookings (Pricing differences may occur during rebooking).
+If you&#x27;d like to rebook your reservation within this time frame, please click on &quot;Change Booking&quot; link appeared under your current booking dates and time in your confirmation email to do so.</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">Good for small groups, or larger groups happy to have other groups join them.
+Rates
+Pricing may vary during the day.
+Please note that only the last 2 timeslots on Fridays and Saturdays can have a 3rd game
+Duration
+50 mins to 2 hours, depending on how many games you&#x27;re here for
+About
+Briefing, House Rules and Q&amp;A:
+All players must be briefed before entering the Arena to Play Laser Tag.
+Don’t be late otherwise you may miss your first game.
+Timing:
+We run our days on a 20 minute rotation.
+So please allow for 30 minutes from your arrival time + 20 minutes for every game/break you book for.
+More Info:
+Because you may be playing with other groups there is the potential to have large differences in age groups. If this is a concern, consider making a private booking instead.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Please arrive 10 minutes prior.
+Please note, we require a 7 day notice for rebookings (Pricing differences may occur during rebooking).
+If you&#x27;d like to rebook your reservation within this time frame, please click on &quot;Change Booking&quot; link appeared under your current booking dates and time in your confirmation email to do so.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">All deposits are non-refundable.
+Please note, we require a 7 day notice for rebookings (Pricing differences may occur during rebooking). However, given 7 days’ notice we are happy to move a booking to a different time or day, or hold the deposit for up to 6 months.
+Additionally, we can only move a booking twice.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">{
+  &quot;highlights&quot;: &quot;&quot;,
+  &quot;what_is_included&quot;: &quot;&quot;,
+  &quot;what_is_not_included&quot;: &quot;&quot;,
+  &quot;itinerary&quot;: &quot;&quot;,
+  &quot;what_to_bring&quot;: &quot;&quot;,
+  &quot;booking_notes&quot;: &quot;Please arrive 10 minutes prior.\nPlease note, we require a 7 day notice for rebookings (Pricing differences may occur during rebooking).\nIf you&#x27;d like to rebook your reservation within this time frame, please click on \&quot;Change Booking\&quot; link appeared under your current booking dates and time in your confirmation email to do so.&quot;,
+  &quot;about&quot;: &quot;Briefing, House Rules and Q&amp;A:\nAll players must be briefed before entering the Arena to Play Laser Tag.\nDon’t be late otherwise you may miss your first game.\nTiming:\nWe run our days on a 20 minute rotation.\nSo please allow for 30 minutes from your arrival time + 20 minutes for every game/break you book for.\nMore Info:\nBecause you may be playing with other groups there is the potential to have large differences in age groups. If this is a concern, consider making a private booking instead.&quot;
+}</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="card border-success">
+        <div class="card-num">#3</div>
+        <div class="card-header">
+            <div class="product-name">Axe Throwing</div>
+            <div class="badges">
+                <span class="badge">565346</span>
+                <span class="badge">zerolatencygc</span>
+                <span class="badge">Southport, AU</span>
+                <span class="badge">$35.45 AUD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">4/7 filled</span>
+                <span class="badge">68.1s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box filled">Experience the thrill of Axe Throwing GC, where projected targets, multiple games, and automated scoring elevate the excitement! Perfect for first-timers or seasoned pros, it’s ideal for celebrations, corporate events, and team bonding. Suitable for anyone over 14, whether you&#x27;re a visitor or a local looking for fun.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box filled">projected targets, multiple games to play and automated scoring</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box filled">60-minute axe throwing session.
+Digitally projected games to choose from with automated scoring.
+PRIVATE lane for your group (max 5 per lane).
+enjoy a range of refreshments including hot coffee, delicious cold alcohol-free cocktails, soft drinks, snacks, and chips available for purchase.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">Please arrive 10 minutes prior.
+Age Requirement: Strictly ages 14 and above.</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">Take our axe throwing to another level with projected targets, multiple games to play and automated scoring – it brings axe throwing to another level!
+Rates
+$39pp
+17-24 Players - 10% Off
+25-32 Players - 12% Off
+33+ Players - 15% Off
+Duration
+1 Hour
+About
+Experience the thrill of Axe Throwing GC, where projected targets, multiple games, and automated scoring elevate the excitement! Perfect for first-timers or seasoned pros, it’s ideal for celebrations, corporate events, and team bonding. Suitable for anyone over 14, whether you&#x27;re a visitor or a local looking for fun.
+Inclusions and More info
+60-minute axe throwing session.
+Digitally projected games to choose from with automated scoring.
+PRIVATE lane for your group (max 5 per lane).
+Age Requirement: Strictly ages 14 and above.
+Enjoy a range of refreshments including hot coffee, delicious cold alcohol-free cocktails, soft drinks, snacks, and chips available for purchase.
+Licensed bar on the premises to enjoy after the game.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Please arrive 10 minutes prior.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Customers will receive a gift card credit with 24 hours notice of cancellation. No-shows will be charged the full price.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">{
+  &quot;highlights&quot;: &quot;projected targets, multiple games to play and automated scoring&quot;,
+  &quot;what_is_included&quot;: &quot;60-minute axe throwing session.\nDigitally projected games to choose from with automated scoring.\nPRIVATE lane for your group (max 5 per lane).\nenjoy a range of refreshments including hot coffee, delicious cold alcohol-free cocktails, soft drinks, snacks, and chips available for purchase.&quot;,
+  &quot;what_is_not_included&quot;: &quot;&quot;,
+  &quot;itinerary&quot;: &quot;&quot;,
+  &quot;what_to_bring&quot;: &quot;&quot;,
+  &quot;booking_notes&quot;: &quot;Please arrive 10 minutes prior.\nAge Requirement: Strictly ages 14 and above.&quot;,
+  &quot;about&quot;: &quot;Experience the thrill of Axe Throwing GC, where projected targets, multiple games, and automated scoring elevate the excitement! Perfect for first-timers or seasoned pros, it’s ideal for celebrations, corporate events, and team bonding. Suitable for anyone over 14, whether you&#x27;re a visitor or a local looking for fun.&quot;
+}</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="card border-success">
+        <div class="card-num">#4</div>
+        <div class="card-header">
+            <div class="product-name">Women&#x27;s Only Wave</div>
+            <div class="badges">
+                <span class="badge">674727</span>
+                <span class="badge">yourwave</span>
+                <span class="badge">Lake Hawea, NZ</span>
+                <span class="badge">$66.11 NZD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">2/7 filled</span>
+                <span class="badge">34.4s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box filled">women&#x27;s only public session, shred the wave, world&#x27;s most versatile standing wave</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">minimum of 5 people required to run sessions, book in a session with 3 or less spaces available to ensure your time slot</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">Book your spot in a women&#x27;s only public session
+Join a group of 5-8 surfers in a women&#x27;s only public session and shred the wave for only $99 an hour.
+Book now for your chance to ride the world&#x27;s most versatile standing wave.
+Hint: Sessions require a minimum of 5 people to run so book in to a session with 3 or less spaces available to ensure your time slot.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Customers will receive a full refund or credit with 24 hours notice of cancellation. Customers will also receive a full refund or credit in case of operator cancellation due to weather or other unforeseen circumstances. Contact us by phone to cancel or inquire about a cancellation. No-shows will be charged the full price.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">{
+  &quot;highlights&quot;: &quot;women&#x27;s only public session, shred the wave, world&#x27;s most versatile standing wave&quot;,
+  &quot;what_is_included&quot;: &quot;&quot;,
+  &quot;what_is_not_included&quot;: &quot;&quot;,
+  &quot;itinerary&quot;: &quot;&quot;,
+  &quot;what_to_bring&quot;: &quot;&quot;,
+  &quot;booking_notes&quot;: &quot;minimum of 5 people required to run sessions, book in a session with 3 or less spaces available to ensure your time slot&quot;,
+  &quot;about&quot;: &quot;&quot;
+}</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="card border-success">
+        <div class="card-num">#5</div>
+        <div class="card-header">
+            <div class="product-name">Session Pass</div>
+            <div class="badges">
+                <span class="badge">637797</span>
+                <span class="badge">yourwave</span>
+                <span class="badge">Lake Hawea, NZ</span>
+                <span class="badge">$346.96 NZD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">2/7 filled</span>
+                <span class="badge">44.4s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box filled">Great value compared to single session rates
+Redeem online or in person
+No need to lock in dates upfront
+Valid for all standard General Public Wave sessions</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">After purchasing your membership, you can book an activity with your codes on our [website](https://yourwave.surf/)! If you have any questions please contact us.</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">Ride more for less with our Session Pass! This pass gives you access to General public wave sessions, which you can redeem online or in person at your convenience.
+Perfect for surfers looking to catch regular waves without committing to a membership, this pass gives you the flexibility to book when it suits you—whether you&#x27;re planning ahead or just dropping in.
+Why choose the Session Pass?
+Great value compared to single session rates
+Redeem online or in person
+No need to lock in dates upfront
+Valid for all standard General Public Wave sessions</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box orig" style="max-height:200px;">After purchasing your membership, you can book an activity with your codes on our [website](https://yourwave.surf/)! If you have any questions please contact us.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Membership sales are final and non-refundable.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">```json
+{
+  &quot;highlights&quot;: &quot;Great value compared to single session rates\nRedeem online or in person\nNo need to lock in dates upfront\nValid for all standard General Public Wave sessions&quot;,
+  &quot;what_is_included&quot;: &quot;&quot;,
+  &quot;what_is_not_included&quot;: &quot;&quot;,
+  &quot;itinerary&quot;: &quot;&quot;,
+  &quot;what_to_bring&quot;: &quot;&quot;,
+  &quot;booking_notes&quot;: &quot;After purchasing your membership, you can book an activity with your codes on our [website](https://yourwave.surf/)! If you have any questions please contact us.&quot;,
+  &quot;about&quot;: &quot;&quot;
+}
+```</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="card border-success">
+        <div class="card-num">#6</div>
+        <div class="card-header">
+            <div class="product-name">30 Minute Lesson - Wakeboarding Orange Lane (Beginners / Air Tricks)</div>
+            <div class="badges">
+                <span class="badge">217957</span>
+                <span class="badge">offtheloop</span>
+                <span class="badge">Foxton, NZ</span>
+                <span class="badge">$80.00 AUD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">4/7 filled</span>
+                <span class="badge">155.7s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box filled">Perfect for beginner riders!
+The aerial cables tow a carrier and Wake rope which is held by the rider on a board on the surface of the water. A trained ‘driver’ controls the system by way of a hand held controller. The carrier travels the length of the lake at a set speed, slows down and stops at the far end, before gradually speeding up again and returning to the start. Riders learn to ride around the corners and can negotiate a ‘figure 8’ course there and back on the two way system.
+Should a rider fall, the driver will stop the carrier, reverse it back to the waiting rider who simply swims back to the centre of the lane to regain the rope &amp; handle and perform a deep water start to continue their ride.
+The two cable systems run variable speed drives, so you can ride safely and confidently at your own pace, wether it be slow and steady to learn the ropes, or fast and furious to get that explosive pop for the latest manoeuvre you&#x27;ve been working on. All levels of riders are catered for at our purpose built location.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box filled">*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*
+Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.
+Orange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.
+This lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box filled">*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.
+Orange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.
+This lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">Perfect for beginner riders!
+*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*
+Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.
+Orange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.
+This lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.
+How it works
+The aerial cables tow a carrier and Wake rope which is held by the rider on a board on the surface of the water. A trained ‘driver’ controls the system by way of a hand held controller. The carrier travels the length of the lake at a set speed, slows down and stops at the far end, before gradually speeding up again and returning to the start. Riders learn to ride around the corners and can negotiate a ‘figure 8’ course there and back on the two way system.
+Should a rider fall, the driver will stop the carrier, reverse it back to the waiting rider who simply swims back to the centre of the lane to regain the rope &amp; handle and perform a deep water start to continue their ride.
+The two cable systems run variable speed drives, so you can ride safely and confidently at your own pace, wether it be slow and steady to learn the ropes, or fast and furious to get that explosive pop for the latest manoeuvre you&#x27;ve been working on. All levels of riders are catered for at our purpose built location.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Customers will receive credit vouchers for the full amount- not less than 24 hours notice of cancellation. Re-bookings are welcome within 10hours
+Customers will also receive a full credit in case of operator cancellation due to weather or other unforeseen circumstances. Contact us by phone to cancel or inquire about a cancellation. No-shows will be charged the full price with no refund or credit. Discretion of management.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">```json
+{
+  &quot;highlights&quot;: &quot;*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*\nBeginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.\nOrange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.\nThis lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.&quot;,
+  &quot;what_is_included&quot;: &quot;*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*&quot;,
+  &quot;what_is_not_included&quot;: &quot;&quot;,
+  &quot;itinerary&quot;: &quot;&quot;,
+  &quot;what_to_bring&quot;: &quot;&quot;,
+  &quot;booking_notes&quot;: &quot;Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.\nOrange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.\nThis lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.&quot;,
+  &quot;about&quot;: &quot;Perfect for beginner riders!\nThe aerial cables tow a carrier and Wake rope which is held by the rider on a board on the surface of the water. A trained ‘driver’ controls the system by way of a hand held controller. The carrier travels the length of the lake at a set speed, slows down and stops at the far end, before gradually speeding up again and returning to the start. Riders learn to ride around the corners and can negotiate a ‘figure 8’ course there and back on the two way system.\nShould a rider fall, the driver will stop the carrier, reverse it back to the waiting rider who simply swims back to the centre of the lane to regain the rope &amp; handle and perform a deep water start to continue their ride.\nThe two cable systems run variable speed drives, so you can ride safely and confidently at your own pace, wether it be slow and steady to learn the ropes, or fast and furious to get that explosive pop for the latest manoeuvre you&#x27;ve been working on. All levels of riders are catered for at our purpose built location.&quot;
+}
+```</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="card border-success">
+        <div class="card-num">#7</div>
+        <div class="card-header">
+            <div class="product-name">15 Minute Session - Wakeboarding Orange Lane (Beginners / Air Tricks)</div>
+            <div class="badges">
+                <span class="badge">217950</span>
+                <span class="badge">offtheloop</span>
+                <span class="badge">Foxton, NZ</span>
+                <span class="badge">$38.00 AUD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">4/7 filled</span>
+                <span class="badge">131.9s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box filled">Perfect for beginner riders!
+The aerial cables tow a carrier and Wake rope which is held by the rider on a board on the surface of the water. A trained ‘driver’ controls the system by way of a hand held controller. The carrier travels the length of the lake at a set speed, slows down and stops at the far end, before gradually speeding up again and returning to the start. Riders learn to ride around the corners and can negotiate a ‘figure 8’ course there and back on the two way system.
+Should a rider fall, the driver will stop the carrier, reverse it back to the waiting rider who simply swims back to the centre of the lane to regain the rope &amp; handle and perform a deep water start to continue their ride.
+The two cable systems run variable speed drives, so you can ride safely and confidently at your own pace, wether it be slow and steady to learn the ropes, or fast and furious to get that explosive pop for the latest manoeuvre you&#x27;ve been working on. All levels of riders are catered for at our purpose built location.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box filled">*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*
+Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.
+Orange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.
+This lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box filled">*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.
+Orange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.
+This lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">Perfect for beginner riders!
+*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*
+Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.
+Orange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.
+This lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.
+How it works
+The aerial cables tow a carrier and Wake rope which is held by the rider on a board on the surface of the water. A trained ‘driver’ controls the system by way of a hand held controller. The carrier travels the length of the lake at a set speed, slows down and stops at the far end, before gradually speeding up again and returning to the start. Riders learn to ride around the corners and can negotiate a ‘figure 8’ course there and back on the two way system.
+Should a rider fall, the driver will stop the carrier, reverse it back to the waiting rider who simply swims back to the centre of the lane to regain the rope &amp; handle and perform a deep water start to continue their ride.
+The two cable systems run variable speed drives, so you can ride safely and confidently at your own pace, wether it be slow and steady to learn the ropes, or fast and furious to get that explosive pop for the latest manoeuvre you&#x27;ve been working on. All levels of riders are catered for at our purpose built location.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Customers will receive credit vouchers for the full amount- not less than 24 hours notice of cancellation. Re-bookings are welcome within 10hours
+Customers will also receive a full credit in case of operator cancellation due to weather or other unforeseen circumstances. Contact us by phone to cancel or inquire about a cancellation. No-shows will be charged the full price with no refund or credit. Discretion of management.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">```json
+{
+  &quot;highlights&quot;: &quot;*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*\nBeginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.\nOrange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.\nThis lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.&quot;,
+  &quot;what_is_included&quot;: &quot;*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*&quot;,
+  &quot;what_is_not_included&quot;: &quot;&quot;,
+  &quot;itinerary&quot;: &quot;&quot;,
+  &quot;what_to_bring&quot;: &quot;&quot;,
+  &quot;booking_notes&quot;: &quot;Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.\nOrange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.\nThis lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.&quot;,
+  &quot;about&quot;: &quot;Perfect for beginner riders!\nThe aerial cables tow a carrier and Wake rope which is held by the rider on a board on the surface of the water. A trained ‘driver’ controls the system by way of a hand held controller. The carrier travels the length of the lake at a set speed, slows down and stops at the far end, before gradually speeding up again and returning to the start. Riders learn to ride around the corners and can negotiate a ‘figure 8’ course there and back on the two way system.\nShould a rider fall, the driver will stop the carrier, reverse it back to the waiting rider who simply swims back to the centre of the lane to regain the rope &amp; handle and perform a deep water start to continue their ride.\nThe two cable systems run variable speed drives, so you can ride safely and confidently at your own pace, wether it be slow and steady to learn the ropes, or fast and furious to get that explosive pop for the latest manoeuvre you&#x27;ve been working on. All levels of riders are catered for at our purpose built location.&quot;
+}
+```</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="card border-success">
+        <div class="card-num">#8</div>
+        <div class="card-header">
+            <div class="product-name">10 Minute Session - Wakeboarding Orange Lane (Obstacle Free)</div>
+            <div class="badges">
+                <span class="badge">217215</span>
+                <span class="badge">offtheloop</span>
+                <span class="badge">Foxton, NZ</span>
+                <span class="badge">$25.00 AUD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">5/7 filled</span>
+                <span class="badge">112.4s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box filled">We highly recommend if it&#x27;s your first time to book a 15 minute session or a 30 minute lesson. 10 minutes is often not enough time for a beginner.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box filled">key selling points and unique features</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box filled">*All participants must be Ages 6+ years old.
+*All sessions/lessons include board/Vest/Helmet</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box filled">The aerial cables tow a carrier and Wake rope which is held by the rider on a board on the surface of the water. A trained ‘driver’ controls the system by way of a hand held controller. The carrier travels the length of the lake at a set speed, slows down and stops at the far end, before gradually speeding up again and returning to the start. Riders learn to ride around the corners and can negotiate a ‘figure 8’ course there and back on the two way system.
+Should a rider fall, the driver will stop the carrier, reverse it back to the waiting rider who simply swims back to the centre of the lane to regain the rope &amp; handle and perform a deep water start to continue their ride.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.
+Orange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.
+This lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">We highly recommend if it&#x27;s your first time to book a 15 minute session or a 30 minute lesson. 10 minutes is often not enough time for a beginner.
+*All participants must be Ages 6+ years old. All sessions/lessons include board/Vest/Helmet*
+Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.
+Orange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.
+This lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.
+How it works
+The aerial cables tow a carrier and Wake rope which is held by the rider on a board on the surface of the water. A trained ‘driver’ controls the system by way of a hand held controller. The carrier travels the length of the lake at a set speed, slows down and stops at the far end, before gradually speeding up again and returning to the start. Riders learn to ride around the corners and can negotiate a ‘figure 8’ course there and back on the two way system.
+Should a rider fall, the driver will stop the carrier, reverse it back to the waiting rider who simply swims back to the centre of the lane to regain the rope &amp; handle and perform a deep water start to continue their ride.
+The two cable systems run variable speed drives, so you can ride safely and confidently at your own pace, wether it be slow and steady to learn the ropes, or fast and furious to get that explosive pop for the latest manoeuvre you&#x27;ve been working on. All levels of riders are catered for at our purpose built location.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Customers will receive credit vouchers for the full amount- not less than 24 hours notice of cancellation. Re-bookings are welcome within 10hours
+Customers will also receive a full credit in case of operator cancellation due to weather or other unforeseen circumstances. Contact us by phone to cancel or inquire about a cancellation. No-shows will be charged the full price with no refund or credit. Discretion of management.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">```json
+{
+  &quot;highlights&quot;: &quot;key selling points and unique features&quot;,
+  &quot;what_is_included&quot;: &quot;*All participants must be Ages 6+ years old.\n*All sessions/lessons include board/Vest/Helmet&quot;,
+  &quot;what_is_not_included&quot;: &quot;&quot;,
+  &quot;itinerary&quot;: &quot;The aerial cables tow a carrier and Wake rope which is held by the rider on a board on the surface of the water. A trained ‘driver’ controls the system by way of a hand held controller. The carrier travels the length of the lake at a set speed, slows down and stops at the far end, before gradually speeding up again and returning to the start. Riders learn to ride around the corners and can negotiate a ‘figure 8’ course there and back on the two way system.\nShould a rider fall, the driver will stop the carrier, reverse it back to the waiting rider who simply swims back to the centre of the lane to regain the rope &amp; handle and perform a deep water start to continue their ride.&quot;,
+  &quot;what_to_bring&quot;: &quot;&quot;,
+  &quot;booking_notes&quot;: &quot;Beginner riders can enjoy the sensation of Cable Wakeboarding for the first time without getting out of their comfort zone and too far from the starting dock.\nOrange Lane has higher tension than its longer brother and produces incredible Pop for intermediate to advanced riders to practice and showcase their Air Trick repertoire.\nThis lane is the Kite boarders favourite, shorten the rope to mimic the unhooked kiteboarding sensation and practice your tricks when the wind is light before taking it back to the beach on those howling days.&quot;,
+  &quot;about&quot;: &quot;We highly recommend if it&#x27;s your first time to book a 15 minute session or a 30 minute lesson. 10 minutes is often not enough time for a beginner.&quot;
+}
+```</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="card border-success">
+        <div class="card-num">#9</div>
+        <div class="card-header">
+            <div class="product-name">Aqua Park Obstacle Course</div>
+            <div class="badges">
+                <span class="badge">215688</span>
+                <span class="badge">offtheloop</span>
+                <span class="badge">Foxton, NZ</span>
+                <span class="badge">$20.00 AUD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">3/7 filled</span>
+                <span class="badge">83.9s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box filled">Fantastic Fun for Ages 6 and Upwards
+50 Minute Session</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box filled">Confident swimmers only
+No entry for those under the influence of alcohol or drugs
+All jewellery and watches must be removed before entry
+Open cuts, abrasions must be covered with a waterproof bandage
+No diving head first into the water
+Demonstrate common sense and courtesy towards other participants
+Do not swim under any part of the Aqua Park for any reason
+Follow instructions of Off The Loop staff at all times
+Three strike rule applies, violation may result in removal from Waterpark
+Physical demands and potential for injury acknowledged
+Held accountable for any loss due to breaking park rules</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">6–9 yr olds must be accompanied by a paying adult with a ratio of 2 Children to 1 Adult (Ages 18+).</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">Fantastic Fun for Ages 6 and Upwards
+50 Minute Session
+*6–9 yr olds MUST BE ACCOMPANIED IN THE WATER BY A PAYING ADULT with a ratio of 2 Children to 1 Adult (Ages 18+).*
+Off The Loop has again added NEW additions for the 2021/2022 season at the Aqua Park
+Capable of taking 75 people at a time and now filling the entire Aqua Pond , this amazing inflatable Playground is the coolest thing around and boasts an array of challenging obstacles that’ll have you flocking back for more, over and over again.
+It consists of:
+- Trampoline
+- Archway/Bridge
+- Balance Beam
+- Small climbing slide.
+- The Tower, with steep climbing ladder &amp; Super high slide atop its 4m high jumping platform!
+- The Dual Lane Race Track, Line up against your friends and see whose The Man!
+- And NEW for this season, the ALL IN ONE TOWER! , 2 slides, 2 climbing walls, and a jumping platform 3.5m high!!
+Safety Rules &amp; Terms of Entry
+ALL PARTICIPANTS MUST BE CONFIDENT SWIMMERS.
+At our discretion we reserve the right to refuse entry to participants we believe to be at risk or not competent.
+Off The Loop AQUA PARK does not permit entrants under the influence of alcohol or drugs.
+- All jewellery and watches etc must be removed before entry.
+- Any open cuts, abrasions must be covered with a waterproof bandage.
+- **I WILL NOT DIVE HEAD FIRST INTO THE WATER
+- I will demonstrate common sense and courtesy towards other participants.
+- **I WILL NOT SWIM UNDER ANY PART OF THE AQUA PARK FOR ANY REASON.
+- I will follow the instructions of Off The Loop staff at all times.
+- I understand a three strike rule applies and should I break this I will be removed from the Waterpark.
+- The AQUA PARK is designed for walking / running on. **DO NOT jump from module to module.
+- I understand the physical demands and potential for injury before entering.
+- I understand if I break any park rules I will be held accountable for any loss as a result and may be asked to leave without refund.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Customers will receive credit vouchers for the full amount- not less than 24 hours notice of cancellation. Re-bookings are welcome within 10hours
+Customers will also receive a full credit in case of operator cancellation due to weather or other unforeseen circumstances. Contact us by phone to cancel or inquire about a cancellation. No-shows will be charged the full price with no refund or credit. Discretion of management.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">{
+  &quot;highlights&quot;: &quot;&quot;,
+  &quot;what_is_included&quot;: &quot;&quot;,
+  &quot;what_is_not_included&quot;: [
+    &quot;Confident swimmers only&quot;,
+    &quot;No entry for those under the influence of alcohol or drugs&quot;,
+    &quot;All jewellery and watches must be removed before entry&quot;,
+    &quot;Open cuts, abrasions must be covered with a waterproof bandage&quot;,
+    &quot;No diving head first into the water&quot;,
+    &quot;Demonstrate common sense and courtesy towards other participants&quot;,
+    &quot;Do not swim under any part of the Aqua Park for any reason&quot;,
+    &quot;Follow instructions of Off The Loop staff at all times&quot;,
+    &quot;Three strike rule applies, violation may result in removal from Waterpark&quot;,
+    &quot;Physical demands and potential for injury acknowledged&quot;,
+    &quot;Held accountable for any loss due to breaking park rules&quot;
+  ],
+  &quot;itinerary&quot;: &quot;&quot;,
+  &quot;what_to_bring&quot;: &quot;&quot;,
+  &quot;booking_notes&quot;: &quot;6–9 yr olds must be accompanied by a paying adult with a ratio of 2 Children to 1 Adult (Ages 18+).&quot;,
+  &quot;about&quot;: &quot;Fantastic Fun for Ages 6 and Upwards\n50 Minute Session&quot;
+}</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+    <div class="card border-success">
+        <div class="card-num">#10</div>
+        <div class="card-header">
+            <div class="product-name">Omaka Hangar Tour</div>
+            <div class="badges">
+                <span class="badge">722735</span>
+                <span class="badge">omaka</span>
+                <span class="badge">Omaka, AU</span>
+                <span class="badge">$13.04 NZD</span>
+                <span class="badge status-success">success</span>
+                <span class="badge">5/7 filled</span>
+                <span class="badge">81.1s</span>
+            </div>
+        </div>
+        <div class="two-col">
+            <div class="col col-extracted">
+                <div class="col-title">Ollama Extracted</div>
+                
+        <div class="field">
+            <div class="field-label">About <span class="field-col">(ollama_about)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Highlights <span class="field-col">(ollama_highlights)</span></div>
+            <div class="content-box filled">Step behind the scenes at Omaka Aviation Heritage Centre with exclusive access to the Omaka Workshop Hangar, an area not usually open to the public.
+This specialist tour is designed for those with a genuine interest in aviation history and aircraft restoration. You&#x27;ll gain insight into the craftmanship, techniques and stories behind the restoration and recreation process up close and see what happens beyond the exhibition floor.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Included <span class="field-col">(ollama_what_included)</span></div>
+            <div class="content-box filled">- 60-minute guided experience
+- Small group format (max. 20 people)
+- Minimum of 4 participants required for the tour to run</div>
+        </div>
+        <div class="field">
+            <div class="field-label">What&#x27;s Not Included <span class="field-col">(ollama_what_excluded)</span></div>
+            <div class="content-box filled">- Museum entry and cafe purchases are NOT included with this tour.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Itinerary <span class="field-col">(ollama_itinerary)</span></div>
+            <div class="content-box empty"><em>&mdash; empty &mdash;</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">What To Bring <span class="field-col">(ollama_what_to_bring)</span></div>
+            <div class="content-box filled">- Fully enclosed shoes must be worn in order to participate in this tour.
+- We suggest that you dress warmly.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Booking Notes <span class="field-col">(ollama_booking_notes)</span></div>
+            <div class="content-box filled">Please stay with your guide and follow their instructions at all time. Fully enclosed shoes must be worn in order to participate in this tour. We suggest that you dress warmly.</div>
+        </div>
+            </div>
+            <div class="col col-original">
+                <div class="col-title">Original Text</div>
+                
+        <div class="field">
+            <div class="field-label">Original About <span class="field-col">(desc_about)</span></div>
+            <div class="content-box orig" style="max-height:300px;">Behind-the-Scenes Aviation Workshop Tour (Heritage Festival Exclusive)
+60 minutes
+Step behind the scenes at Omaka Aviation Heritage Centre with exclusive access to the Omaka Workshop Hangar, an area not usually open to the public.
+This specialist tour is designed for those with a genuine interest in aviation history and aircraft restoration. You&#x27;ll gain insight into the craftmanship, techniques and stories behind the restoration and recreation process up close and see what happens beyond the exhibition floor.
+- 60-minute guided experience
+- Small group format (max. 20 people)
+- Minimum of 4 participants required for the tour to run
+- Recommended for adults and aviation enthusiasts
+After the tour, you&#x27;re welcome to relax and enjoy refreshments in the on-site cafe.
+Important Information
+- Museum entry and cafe purchases are NOT included with this tour.
+Heritage Festival Offer:
+To celebrate the Marlborough Heritage Festival, enjoy 2-for-1 museum entry from 15-24 May 2026.
+- Available to purchase in person only (not online).
+- Simply mention &quot;Heritage Promo&quot; when purchasing at the front desk.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Original Booking Notes <span class="field-col">(desc_booking_notes)</span></div>
+            <div class="content-box orig" style="max-height:200px;">Please stay with your guide and follow their instructions at all time. Fully enclosed shoes must be worn in order to participate in this tour. We suggest that you dress warmly.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Cancellation <span class="field-col">(desc_cancellation)</span></div>
+            <div class="content-box orig" style="max-height:200px;">For standard exhibition entry (and/or guided tours for individuals), if cancellation is within 24 hours
+of departure the full amount will be charged. Outside of 24 hours full refund applies. For group
+experiences and those tours including catering a full schedule of payment/fees applies.</div>
+        </div>
+                
+        <div class="field">
+            <div class="field-label">Raw Ollama Response <span class="field-col">(ollama_raw_response)</span></div>
+            <details class="raw-details">
+                <summary>Click to expand raw JSON</summary>
+                <div class="code-box">```json
+{
+  &quot;highlights&quot;: &quot;Step behind the scenes at Omaka Aviation Heritage Centre with exclusive access to the Omaka Workshop Hangar, an area not usually open to the public.\nThis specialist tour is designed for those with a genuine interest in aviation history and aircraft restoration. You&#x27;ll gain insight into the craftmanship, techniques and stories behind the restoration and recreation process up close and see what happens beyond the exhibition floor.&quot;,
+  &quot;what_is_included&quot;: &quot;- 60-minute guided experience\n- Small group format (max. 20 people)\n- Minimum of 4 participants required for the tour to run&quot;,
+  &quot;what_is_not_included&quot;: &quot;- Museum entry and cafe purchases are NOT included with this tour.&quot;,
+  &quot;itinerary&quot;: &quot;&quot;,
+  &quot;what_to_bring&quot;: &quot;- Fully enclosed shoes must be worn in order to participate in this tour.\n- We suggest that you dress warmly.&quot;,
+  &quot;booking_notes&quot;: &quot;Please stay with your guide and follow their instructions at all time. Fully enclosed shoes must be worn in order to participate in this tour. We suggest that you dress warmly.&quot;,
+  &quot;about&quot;: &quot;&quot;
+}
+```</div>
+            </details>
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="summary-section">
+        <h2>Summary Table</h2>
+        
+    <table class="summary-table">
+        <tr>
+            <th>#</th><th>Product Name</th><th>Status</th>
+            <th>Highlights</th><th>Included</th><th>Excluded</th><th>Itinerary</th><th>Bring</th><th>Booking</th><th>About</th>
+            <th>Time</th>
+        </tr>
+        
+        <tr>
+            <td>1</td>
+            <td class="name-cell">Super Session</td>
+            <td>✅</td>
+            <td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td>✅</td>
+            <td>91.4s</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td class="name-cell">Public Games</td>
+            <td>✅</td>
+            <td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td>
+            <td>69.5s</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td class="name-cell">Axe Throwing</td>
+            <td>✅</td>
+            <td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td>
+            <td>68.1s</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td class="name-cell">Women&#x27;s Only Wave</td>
+            <td>✅</td>
+            <td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td>
+            <td>34.4s</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td class="name-cell">Session Pass</td>
+            <td>✅</td>
+            <td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td>
+            <td>44.4s</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td class="name-cell">30 Minute Lesson - Wakeboarding Orange Lane (Beginners / Air Tricks)</td>
+            <td>✅</td>
+            <td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td>
+            <td>155.7s</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td class="name-cell">15 Minute Session - Wakeboarding Orange Lane (Beginners / Air Tricks)</td>
+            <td>✅</td>
+            <td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td>
+            <td>131.9s</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td class="name-cell">10 Minute Session - Wakeboarding Orange Lane (Obstacle Free)</td>
+            <td>✅</td>
+            <td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>❌</td><td>✅</td><td>✅</td>
+            <td>112.4s</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td class="name-cell">Aqua Park Obstacle Course</td>
+            <td>✅</td>
+            <td>❌</td><td>❌</td><td>✅</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td>
+            <td>83.9s</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td class="name-cell">Omaka Hangar Tour</td>
+            <td>✅</td>
+            <td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td><td>✅</td><td>❌</td>
+            <td>81.1s</td>
+        </tr>
+    </table>
+    </div>
+</div>
