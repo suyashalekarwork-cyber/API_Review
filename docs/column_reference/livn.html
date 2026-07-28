@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Livn — TDU Column Reference</title>
+<style>
+
+:root {
+  --bg: #f7f8fa;
+  --panel: #ffffff;
+  --border: #dfe3e8;
+  --text: #1d2733;
+  --muted: #6b7684;
+  --accent: #2563eb;
+  --accent3: #0e7490;
+  --code-bg: #f1f3f6;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+header.page-header {
+  padding: 20px 32px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+header.page-header h1 { margin: 0 0 4px; font-size: 22px; }
+header.page-header p { margin: 0; color: var(--muted); font-size: 14px; }
+header.page-header .back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; }
+header.page-header .back-link:hover { text-decoration: underline; }
+
+.app-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+}
+
+nav.side-nav {
+  width: 240px;
+  flex-shrink: 0;
+  background: #111827;
+  min-height: calc(100vh - 70px);
+  position: sticky;
+  top: 0;
+  padding: 18px 0;
+  overflow-y: auto;
+}
+.side-nav-section-title {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  padding: 10px 20px 6px;
+}
+.side-nav a.nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #f3f4f6;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.side-nav a.nav-link:hover { background: #1f2937; }
+.side-nav a.nav-link.active { background: #1f2937; border-left-color: var(--accent); color: #fff; }
+.side-nav .nav-count { color: #9ca3af; font-size: 11px; font-weight: 400; margin-left: 4px; }
+
+main { flex: 1 1 auto; max-width: 900px; margin: 0 auto; padding: 32px 40px 80px; min-width: 0; }
+
+.doc-content h1 { font-size: 26px; margin: 0 0 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.doc-content h2 {
+  font-size: 19px;
+  margin: 36px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.doc-content h3 {
+  font-size: 15.5px;
+  margin: 26px 0 8px;
+  color: var(--accent3);
+  font-family: Consolas, Monaco, monospace;
+  background: var(--code-bg);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+.doc-content p { font-size: 14px; margin: 0 0 12px; }
+.doc-content ul, .doc-content ol { font-size: 14px; margin: 0 0 14px; padding-left: 22px; }
+.doc-content li { margin-bottom: 4px; }
+.doc-content strong { color: var(--text); }
+.doc-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.doc-content code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #92400e;
+}
+.doc-content pre {
+  background: var(--code-bg);
+  padding: 10px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+.doc-content pre code { background: none; padding: 0; color: var(--text); }
+
+.doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 0 0 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.doc-content th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  background: var(--code-bg);
+  padding: 8px 10px;
+}
+.doc-content td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.doc-content tr:last-child td { border-bottom: none; }
+
+.doc-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 0 0 14px;
+  padding: 4px 16px;
+  color: var(--muted);
+  background: var(--code-bg);
+}
+
+@media (max-width: 900px) {
+  .app-layout { flex-direction: column; }
+  nav.side-nav { width: 100%; position: static; min-height: auto; }
+  main { padding: 20px; }
+  .doc-content table { font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>TDU Unified Product API — Column Reference</h1>
+  <p>Field-level reference documentation for each of the 6 supplier sources feeding the unified schema. &middot; <a class="back-link" href="../fareharbor_raw_vs_extracted.html">&larr; Back to main dashboard</a></p>
+</header>
+<div class="app-layout">
+  <nav class="side-nav">
+    <div class="side-nav-section-title">Sources</div>
+    <a href="index.html" class="nav-link">Overview</a>
+    <a href="fareharbor.html" class="nav-link">Fareharbor</a>
+    <a href="rezdy.html" class="nav-link">Rezdy</a>
+    <a href="livn.html" class="nav-link active">Livn</a>
+    <a href="customlinc.html" class="nav-link">CustomLinc</a>
+    <a href="ventus.html" class="nav-link">Ventus</a>
+    <a href="ingresso.html" class="nav-link">Ingresso</a>
+  </nav>
+  <main>
+    <div class="doc-content">
+<h1 id="livn-unified-schema-field-reference">Livn — Unified Schema Field Reference</h1>
+<p><strong>Scope:</strong> Every unified-schema column that Livn actually populates in
+<code>data_pipeline/unified_database/unified_products.csv</code> (<code>source = "Livn"</code>).
+Livn supplies <strong>35 of the 87 unified columns</strong> (167 rows); the rest are
+always blank for this source and are not documented here.</p>
+<p><strong>Audience:</strong> Team members looking up what a field means and where it
+comes from. This is NOT a data-quality report — for null rates, outliers,
+and QA flags see <code>reports/livn_column_analysis.md</code> instead.</p>
+<p><strong>Pipeline stages behind this doc</strong> (oldest → newest):
+1. <code>etl_livn.py</code> — reads <code>data/Livn/*.json</code> (167 files, raw root object, no
+   nesting key like Rezdy/TDU's <code>"product"</code> or Fareharbor's <code>"item"</code>),
+   flattens nested dicts into dot-notation columns and JSON-stringifies
+   lists, writes the 86-column raw base to <code>exports/livn_etl_v1.csv</code>. Zero
+   cleaning/dropping. Product ID parsed from the filename
+   (<code>Livn-{supplierId}-{productId}.json</code>) as the last hyphen segment via
+   <code>parse_product_id_from_filename()</code> — but note the real <code>product_id</code> used
+   downstream is the raw JSON's own <code>id</code> field, not the filename parse (see
+   Identity section below).
+2. <code>scripts/build_livn_stage1.py</code> — writes <code>data_pipeline/stage1/livn_stage1.csv</code>
+   (88 columns — 2 more than the raw ETL, from 2 added <code>_clean</code> companion
+   columns: <code>supplier.tnc_clean</code> and <code>supplier.state_clean</code>). No columns
+   dropped or renamed per Stage 1 rule.
+3. <code>reports/livn_stage2_column_selection.md</code> — SELECTED/PAIRED/NOT
+   SELECTED/UNCERTAIN column report; confirmed with the user before build.
+4. <code>reports/livn_specialnotes_duration_check.md</code> — a follow-up label-frequency
+   analysis of <code>specialNotes</code>'s internal <code>Label:\n</code> structure, and a
+   relevance check on <code>durationRangeMax</code>/<code>timeStartRangeMax</code>, both of which
+   fed directly into the Stage 2 build logic below.
+5. <code>scripts/build_livn_stage2.py</code> — writes <code>data_pipeline/stage2/livn_stage2.csv</code>
+   (33 columns): renames columns to unified names, extracts
+   <code>locationsStart[0]</code> into 6 scalar <code>location_*</code> columns, and runs a
+   regex-based parser over <code>specialNotes</code> to split it across 3 destination
+   fields (see <code>detail_what_to_bring</code> / <code>detail_what_is_not_included</code> /
+   <code>detail_booking_notes</code> below).
+6. <code>scripts/build_unified_database.py</code> — folds Stage 2 into
+   <code>unified_products.csv</code>. Livn is listed in <code>SOURCES</code> with
+   <code>needs_source_col=True</code> (its Stage 2 CSV has no native <code>source</code> column,
+   unlike Rezdy/Fareharbor, so this step adds the literal <code>"Livn"</code> value
+   fresh). This step also derives <code>product_price_numeric</code> (Livn-specific
+   unwrap logic — see <code>product_price</code> below) and normalizes
+   <code>product_category</code> from Livn's <code>{id, name}</code> object-list shape into a
+   plain JSON list of category-name strings via <code>normalize_category()</code>.</p>
+<p><strong>Example product used throughout:</strong> <code>product_id = 72</code> ("Moreton Island Get
+Wrecked 1 Day Tour", supplier <code>Australian Sunset Safaris</code>) — chosen because
+it has real, non-empty values in more populated fields than any other Livn
+row (6 of the sparser/optional fields all present at once). A second
+product, <code>product_id = 62543</code> ("Cairns Boat Hire 8 Man Pontoon"), is used
+for <code>product_duration_range_max</code> / <code>detail_start_time_range_max</code>, which are
+blank on product 72.</p>
+<hr />
+<h2 id="identity">Identity</h2>
+<h3 id="product_id"><code>product_id</code></h3>
+<ul>
+<li><strong>Type:</strong> string (numeric-looking, e.g. <code>"72"</code>)</li>
+<li><strong>Description:</strong> Livn's unique product identifier.</li>
+<li><strong>How built:</strong> Direct from raw JSON field <code>id</code> (Stage 2 <code>COLUMN_RENAME</code>:
+  <code>id</code> → <code>product_id</code>). This is Livn's own internal ID, not derived from the
+  filename — though for Livn the two agree in every file observed (the
+  <code>_filename_product_id</code> companion column exists in Stage 1 for
+  cross-checking but was not selected into the unified schema).</li>
+<li><strong>Example:</strong> <code>72</code></li>
+</ul>
+<h3 id="source"><code>source</code></h3>
+<ul>
+<li><strong>Type:</strong> string (constant)</li>
+<li><strong>Description:</strong> Marks which of the 7 supplier systems this row came from.</li>
+<li><strong>How built:</strong> Not present in <code>livn_stage2.csv</code> — added fresh as the
+  literal <code>"Livn"</code> at the <code>build_unified_database.py</code> merge step (<code>SOURCES</code>
+  entry has <code>needs_source_col=True</code>).</li>
+<li><strong>Example:</strong> <code>Livn</code></li>
+</ul>
+<h3 id="product_name-product_name_original"><code>product_name</code> / <code>product_name_original</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> <code>product_name</code> is the customer-facing display title;
+  <code>product_name_original</code> is the supplier's own internal product
+  name/booking-reference text.</li>
+<li><strong>How built:</strong> Direct rename of raw fields <code>name</code> → <code>product_name</code> and
+  <code>nameOriginal</code> → <code>product_name_original</code>. These are a genuine two-source
+  pair, not a duplicate-and-drop situation — per
+  <code>reports/livn_stage2_column_selection.md</code>, they diverge in <strong>127 of 167
+  rows (76%)</strong>, re-verified directly against <code>unified_products.csv</code>. <code>name</code>
+  was chosen as the primary/customer-facing field; <code>nameOriginal</code> is kept as
+  a companion reference column rather than merged in, since concatenating a
+  curated title with an internal booking name would produce an unusable
+  display string.</li>
+<li><strong>Example:</strong> <code>product_name = "Moreton Island Get Wrecked 1 Day Tour"</code> (identical to <code>product_name_original</code> for this particular product — the divergent case is e.g. product 144, <code>name</code>="Army Duck with Skyrail &amp; Train ex Cairns" vs <code>nameOriginal</code>="Kuranda Army Duck Experience (0850 Train) Army Duck (1515 Skyrail)").</li>
+</ul>
+<hr />
+<h2 id="listing-page-fields">Listing Page Fields</h2>
+<h3 id="product_price-product_price_numeric"><code>product_price</code> / <code>product_price_numeric</code></h3>
+<ul>
+<li><strong>Type:</strong> <code>product_price</code> = JSON-list-as-string of <code>{amount, currency}</code>
+  objects; <code>product_price_numeric</code> = number</li>
+<li><strong>Description:</strong> Starting price for the product. Livn is the only source
+  where <code>product_price</code> is not already a plain scalar.</li>
+<li><strong>How built:</strong> <code>product_price</code> is a direct rename of raw field
+  <code>fromPrices</code> (always exactly 1 item across all 167 rows, but kept as a
+  list for schema consistency with other list-valued fields). At the
+  unified-database merge step, <code>derive_price_numeric()</code> special-cases
+  <code>source_name == "Livn"</code>: it <code>json.loads()</code>s the string, and if it parses
+  to a list of dicts, extracts <code>.get("amount", "")</code> from the first entry.
+  Every other source's <code>product_price</code> is treated as already-scalar and
+  just <code>float()</code>-cast through.</li>
+<li><strong>Example:</strong> <code>product_price = '[{"amount": 189, "currency": "AUD"}]'</code>, <code>product_price_numeric = "189"</code></li>
+</ul>
+<h3 id="product_category"><code>product_category</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-list-as-string of category-name strings</li>
+<li><strong>Description:</strong> Tour type/category tags.</li>
+<li><strong>How built:</strong> Raw field <code>categories</code> (a JSON list of <code>{"id", "name"}</code>
+  objects, 157/167 rows have &gt;1 item) is carried through Stage 2 as-is under
+  the unified name, then reshaped at the unified-database merge step:
+  <code>normalize_category()</code> parses the JSON, and since each element is a dict,
+  extracts just the <code>name</code> value from each, discarding <code>id</code>, so every
+  source's <code>product_category</code> ends up in the same plain
+  <code>["name1", "name2", ...]</code> shape regardless of original structure.</li>
+<li><strong>Example:</strong> <code>["Full Day Trips &amp; Excursions", "National Parks &amp; Natural Attractions", "Activities"]</code></li>
+</ul>
+<h3 id="product_images"><code>product_images</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-list-as-string of <code>{url, width, height, fileSize, mimeType}</code> objects</li>
+<li><strong>Description:</strong> Gallery images.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>images</code>, kept as its full JSON
+  structure (not flattened to bare URLs) — 166/167 rows populated, 1 row has
+  an empty list.</li>
+<li><strong>Example:</strong> <code>[{"url": "https://res.cloudinary.com/livngds/image/upload/v1692227791/V2/CENTRAL/productImages/72/kfop14nhganqhkrcghuq.jpg", "width": 1920, "height": 1440, "fileSize": 286635, "mimeType": "image/jpg"}, ...]</code></li>
+</ul>
+<h3 id="product_duration-product_duration_range_max"><code>product_duration</code> / <code>product_duration_range_max</code></h3>
+<ul>
+<li><strong>Type:</strong> number (minutes)</li>
+<li><strong>Description:</strong> How long the tour runs; <code>_range_max</code> is a companion
+  max-duration for products with a variable/range duration (e.g. flexible
+  self-drive rentals, multi-day packages).</li>
+<li><strong>How built:</strong> Direct renames of raw fields <code>duration</code> (100% filled) and
+  <code>durationRangeMax</code> (only 26/167 rows, 15.6% — kept per the relevance check
+  in <code>reports/livn_specialnotes_duration_check.md</code>, which found the sparse
+  values are real min/max range data, not noise).</li>
+<li><strong>Example (product 72):</strong> <code>product_duration = 1440</code> (24 hours); <code>product_duration_range_max</code> blank.</li>
+<li><strong>Example (product 62543, "Cairns Boat Hire 8 Man Pontoon"):</strong> <code>product_duration = 240</code> (4h), <code>product_duration_range_max = 11520</code> (192h/8 days — self-drive rental, hourly minimum to multi-day maximum).</li>
+</ul>
+<hr />
+<h2 id="location-fields-details-api-only-per-critical-rule-8">Location Fields (Details API only, per Critical Rule #8)</h2>
+<h3 id="location_source-location_end_source"><code>location_source</code> / <code>location_end_source</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-list-as-string</li>
+<li><strong>Description:</strong> Not named unified-schema fields themselves — the full raw
+  location objects (with <code>latitude</code>, <code>longitude</code>, <code>city</code>, <code>district</code>,
+  <code>state</code>, <code>country</code>, <code>postcode</code>, <code>business</code>, <code>address1</code>, etc.) kept as
+  supporting/audit data behind the scalar <code>location_*</code> columns below.
+  <code>location_end_source</code> (from raw <code>locationsEnd</code>) has no dedicated scalar
+  unified field extracted from it — it's carried forward as raw JSON only,
+  useful for itinerary/return-location display.</li>
+<li><strong>How built:</strong> Direct renames of raw fields <code>locationsStart</code> →
+  <code>location_source</code> and <code>locationsEnd</code> → <code>location_end_source</code>.</li>
+<li><strong>Example:</strong> <code>location_source = '[{"latitude": -27.997215421294463, "longitude": 153.429399049735, "tz": "Australia/Brisbane", ..., "city": "Gold Coast", "district": "Surfers Paradise", "state": "QLD", "country": "AU", ..., "business": "Mantra on View Hotel", "address1": "22 View St", "postcode": "4217"}]'</code></li>
+</ul>
+<h3 id="location_street-location_city-location_state-location_country-location_latitude-location_longitude"><code>location_street</code>, <code>location_city</code>, <code>location_state</code>, <code>location_country</code>, <code>location_latitude</code>, <code>location_longitude</code></h3>
+<ul>
+<li><strong>Type:</strong> string / number</li>
+<li><strong>Description:</strong> Structured, scalar address components extracted for
+  display.</li>
+<li><strong>How built:</strong> Stage 2 parses <code>locationsStart</code> as JSON and takes only
+  element <code>[0]</code> (the first location in the list — 3/167 rows have &gt;1
+  location, so multi-stop routes lose everything after the first stop at
+  this step). From that object: <code>address1</code> → <code>location_street</code>, <code>city</code> →
+  <code>location_city</code>, <code>state</code> → <code>location_state</code>, <code>country</code> →
+  <code>location_country</code>, <code>latitude</code>/<code>longitude</code> → the coordinate columns.
+  <code>location_street</code> is the sparsest of these (116/167 rows, 69.5%) since not
+  every <code>locationsStart[0]</code> object carries an <code>address1</code> key.</li>
+<li><strong>Example:</strong> <code>location_street = "22 View St"</code>, <code>location_city = "Gold Coast"</code>, <code>location_state = "QLD"</code>, <code>location_country = "AU"</code>, <code>location_latitude = -27.997215421294463</code>, <code>location_longitude = 153.429399049735</code></li>
+</ul>
+<hr />
+<h2 id="detail-page-fields">Detail Page Fields</h2>
+<h3 id="detail_description"><code>detail_description</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> "About the Experience" section.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>description</code>, 100% filled,
+  passed through unchanged (no HTML in this field per the Stage 1
+  completeness check).</li>
+<li><strong>Example:</strong> <code>"Moreton Island is a unique paradise of golden beaches, rolling surf and beautiful freshwater lakes. Join Sunset Safaris as we explore and snorkel the stunning Tangalooma Shipwrecks..."</code> (contains a stray U+FFFD replacement character in place of an apostrophe in the raw source text — unrecoverable upstream data loss, not a pipeline bug, per CLAUDE.md's mojibake note.)</li>
+</ul>
+<h3 id="detail_highlights"><code>detail_highlights</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-list-as-string of strings</li>
+<li><strong>Description:</strong> "Tour Highlights" section.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>highlights.highlights</code>
+  (already a plain JSON array of highlight sentences, not objects), kept as
+  a JSON string rather than flattened.</li>
+<li><strong>Example:</strong> <code>["Enjoy a beautiful cruise across the magnificent Moreton Bay on the MiCat Ferry with air-conditioned comfort with cafe and bar facilities", "Relax on the beach at the Tangalooma Wrecks and have fun in the sun", ...]</code></li>
+</ul>
+<h3 id="detail_what_is_included"><code>detail_what_is_included</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-list-as-string of <code>{content, [type]}</code> objects</li>
+<li><strong>Description:</strong> "What's Included" section.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>inclusions.items</code>, kept as its
+  full JSON structure (some entries carry an optional <code>type</code>, e.g.
+  <code>"TRANSPORT"</code>/<code>"MEALS"</code>, others don't).</li>
+<li><strong>Example:</strong> <code>[{"content": "Fully Guided Tour"}, {"content": "Activities"}, {"content": "Snorkelling Equipment"}, ..., {"type": "TRANSPORT", "content": "Return Bus Transfers"}, {"type": "MEALS", "content": "Lunch"}]</code></li>
+</ul>
+<h3 id="detail_itinerary"><code>detail_itinerary</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-list-as-string of <code>{dayFrom, dayTo, title, body}</code> objects</li>
+<li><strong>Description:</strong> Cruise Route / Itinerary section.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>itinerary.items</code>. Sparse —
+  157/167 rows are an empty list <code>[]</code>; only 9 rows have real itinerary
+  entries (max 12 items in one row).</li>
+<li><strong>Example (product 72):</strong> <code>[]</code> (empty for this product — its schedule information lives in <code>detail_operating_days</code>/<code>detail_start_time</code> instead).</li>
+</ul>
+<h3 id="detail_what_is_not_included"><code>detail_what_is_not_included</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, may be a <code>" | "</code>-joined concatenation)</li>
+<li><strong>Description:</strong> What's Not Included section.</li>
+<li><strong>How built:</strong> Not a direct API field — Livn has no dedicated
+  "not included" field. Stage 2's <code>parse_special_notes()</code> function splits
+  the free-text <code>specialNotes</code> field on its internal <code>Label:\n</code> structure
+  (regex <code>LABEL_RE</code>); any section whose label matches <code>NOT_INCLUDED_LABELS</code>
+  (<code>"not included"</code>) is routed here, multiple matching sections joined with
+  <code>" | "</code>. Sparse — only 9/167 rows have a detected "Not included" section
+  (matches the label-frequency count in
+  <code>reports/livn_specialnotes_duration_check.md</code>).</li>
+<li><strong>Example:</strong> <code>"POB National Park and Ferry Fees (To be paid in cash upon departure). Per person Adult AUD $80 and Children 13 years and under AUD $60. Pick-up and Drop-off in different regions attract additional fees."</code></li>
+</ul>
+<h3 id="detail_what_to_bring"><code>detail_what_to_bring</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, may be a <code>" | "</code>-joined concatenation)</li>
+<li><strong>Description:</strong> What To Bring section.</li>
+<li><strong>How built:</strong> Same <code>specialNotes</code> label-parser as above — sections
+  labeled <code>"what to bring"</code> or <code>"what to wear"</code> (<code>WHAT_TO_BRING_LABELS</code>) are
+  routed here. 138/167 rows (82.6%) have a detected section (re-verified
+  directly against the live script run, matches the value in
+  <code>reports/livn_specialnotes_duration_check.md</code>'s 141-row estimate closely —
+  the small gap is because a few label variants like "What to Wear" map to
+  the same bucket but the script's exact-match set only counts label text
+  after lowercasing/stripping).</li>
+<li><strong>Example:</strong> <code>"Water bottle, swimwear, sunscreen, beach towel, hat, camera, flip flops/thongs, walking shoes and insect repellant."</code></li>
+</ul>
+<h3 id="detail_booking_notes"><code>detail_booking_notes</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, <code>" | "</code>-joined concatenation of up to 4+ sources)</li>
+<li><strong>Description:</strong> Important Information section.</li>
+<li><strong>How built:</strong> A real multi-source concat, not a single field: raw
+  <code>pickupNotes</code> + raw <code>dropoffNotes</code> + a formatted <code>"ABN: {supplier.businessNumber}"</code>
+  string (only when a business number exists) + every catch-all section from
+  the <code>specialNotes</code> parser (any label that isn't "what to bring"/"what to
+  wear"/"not included" — e.g. <code>Conditions</code>, <code>Optional extras</code>,
+  <code>Fuel Surcharge</code>/<code>Levies</code>, <code>Health and Safety</code>, or unlabeled leading text —
+  falls into this catch-all bucket by design, since enumerating every label
+  variant wasn't necessary once a fallback bucket existed). Every non-empty
+  piece is joined with <code>" | "</code> in that fixed order. The catch-all bucket
+  fires on effectively every row (167/167, since <code>Conditions:</code> is present in
+  100% of <code>specialNotes</code> values per the specialNotes check report).</li>
+<li><strong>Example (truncated):</strong> <code>"Please note that during the month of April and May 2025 pick-up times will vary due to a change to the ferry schedule.\n\nPick-up options:\nGold Coast:  \nDeparts 05:45 from Mantra on View Hotel..."</code> (this is the <code>pickupNotes</code> portion; <code>dropoffNotes</code> and the <code>specialNotes</code> catch-all sections are appended after it with <code>" | "</code> separators.)</li>
+</ul>
+<h3 id="detail_group_size"><code>detail_group_size</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Group Size field.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>groupSizeMax</code>. Very sparse — only
+  7/167 rows (4.2%) populated, but real data when present.</li>
+<li><strong>Example:</strong> <code>24</code></li>
+</ul>
+<h3 id="detail_min_age"><code>detail_min_age</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Minimum Age field.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>ageMin</code>. Sparse — 33/167 rows
+  (19.8%) populated.</li>
+<li><strong>Example:</strong> <code>4</code></li>
+</ul>
+<h3 id="detail_operating_days"><code>detail_operating_days</code></h3>
+<ul>
+<li><strong>Type:</strong> string (comma-separated day abbreviations)</li>
+<li><strong>Description:</strong> Schedule section — which days of the week the tour runs.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>operatingDaysStr</code> (the
+  human-readable form, e.g. <code>"Mon,Tue,Wed,Thu,Fri,Sat,Sun"</code>) — preferred
+  over the numeric <code>operatingDays</code> bitmask column, which was not selected
+  into the unified schema.</li>
+<li><strong>Example:</strong> <code>Mon,Tue,Wed,Thu,Fri,Sat,Sun</code></li>
+</ul>
+<h3 id="detail_start_time-detail_start_time_range_max"><code>detail_start_time</code> / <code>detail_start_time_range_max</code></h3>
+<ul>
+<li><strong>Type:</strong> string (<code>HH:MM:SS</code>)</li>
+<li><strong>Description:</strong> Departure Time; <code>_range_max</code> is a companion "latest
+  possible start" for products with a flexible start window (multi-stop
+  pickups, flexible self-drive rentals, entry tickets valid across a
+  window).</li>
+<li><strong>How built:</strong> Direct renames of raw fields <code>timeStart</code> (163/167 rows,
+  97.6%) and <code>timeStartRangeMax</code> (only 42/167 rows, 25.1% — kept per the
+  same relevance check that kept <code>product_duration_range_max</code>).</li>
+<li><strong>Example (product 72):</strong> <code>detail_start_time = "05:45:00"</code>, <code>detail_start_time_range_max = "07:30:00"</code> (earliest-to-latest pickup window across multiple Gold Coast/Brisbane pickup points).</li>
+</ul>
+<hr />
+<h2 id="meta-fields">Meta Fields</h2>
+<h3 id="meta_supplier_id"><code>meta_supplier_id</code></h3>
+<ul>
+<li><strong>Type:</strong> string (numeric-looking)</li>
+<li><strong>Description:</strong> Supplier account ID.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>supplier.id</code>.</li>
+<li><strong>Example:</strong> <code>2</code></li>
+</ul>
+<h3 id="meta_supplier_name"><code>meta_supplier_name</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Supplier company name.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>supplier.name</code>.</li>
+<li><strong>Example:</strong> <code>Australian Sunset Safaris</code></li>
+</ul>
+<h3 id="meta_supplier_website"><code>meta_supplier_website</code></h3>
+<ul>
+<li><strong>Type:</strong> string (URL)</li>
+<li><strong>Description:</strong> Supplier website — per CLAUDE.md's unified schema table,
+  Livn is the only source with this field.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>supplier.website</code>.</li>
+<li><strong>Example:</strong> <code>https://www.sunsetsafaris.com.au/</code></li>
+</ul>
+<h3 id="meta_supplier_email"><code>meta_supplier_email</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Supplier email — Livn-only field.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>supplier.email</code>. (Note: raw
+  <code>supplier.emailRes</code> is identical to <code>supplier.email</code> in every row observed
+  in Stage 1 and was excluded as redundant — not carried into Stage 2.)</li>
+<li><strong>Example:</strong> <code>info@sunsetsafaris.com.au</code></li>
+</ul>
+<h3 id="meta_supplier_phone"><code>meta_supplier_phone</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Supplier phone — Livn-only field.</li>
+<li><strong>How built:</strong> Direct rename of raw field <code>supplier.phoneRes</code>. 142/167
+  rows (85.0%) populated.</li>
+<li><strong>Example:</strong> <code>+617 3287 1644</code></li>
+</ul>
+<hr />
+<h2 id="fields-livn-does-not-populate">Fields Livn Does NOT Populate</h2>
+<p>Per the unified schema table in CLAUDE.md, Livn is documented as a source
+for <code>location_postcode</code> (Rezdy, FH, Livn, Ingresso) and <code>detail_max_age</code>
+(Fareharbor only — Livn is not actually claimed there, no discrepancy).
+<code>location_postcode</code> <strong>is a real gap</strong>: raw <code>locationsStart[0]</code> objects
+observed in the data do carry a <code>postcode</code> key (visible in the raw
+<code>location_source</code> JSON, e.g. <code>"postcode": "4217"</code> for product 72), and
+<code>supplier.postcode</code> is also available (94.0% filled in Stage 1) — but
+neither was added to Stage 2's <code>LOCATION_SCALAR_COLS</code> extraction list or
+<code>COLUMN_RENAME</code>, so <code>location_postcode</code> is <strong>not present in
+<code>unified_products.csv</code> for Livn</strong> despite the raw source data existing to
+populate it. This is a gap between the schema-design doc and the actual
+Stage 2 build, worth flagging to whoever owns the unified schema — not
+something to silently work around in this reference doc.</p>
+<p>Also worth noting: <code>detail_max_age</code> and <code>detail_tripadvisor_rating</code>/
+<code>detail_google_rating</code>/<code>detail_accessibility</code>/<code>detail_health_safety</code>/
+<code>detail_languages</code>/<code>detail_cancellation_policy</code> are documented in CLAUDE.md's
+Source Field Mapping table as <code>null</code> for Livn already (i.e. Livn genuinely
+has no source field for these) — those are expected absences, not gaps.</p>
+<hr />
+<h2 id="fields-documented-but-not-selected-for-the-unified-schema">Fields Documented But Not Selected for the Unified Schema</h2>
+<p>These raw/Stage-1 columns exist in <code>livn_stage1.csv</code> but were deliberately
+excluded from <code>livn_stage2.csv</code>, so they never reach <code>unified_products.csv</code>.
+Listed here so a reader who finds them in an earlier pipeline stage doesn't
+wonder where they went:</p>
+<ul>
+<li>All TDU-account-level and channel/distributor/catalogue metadata (<code>distributor.*</code>, <code>channel.*</code>, <code>catalogue.*</code>, <code>currencies</code>, <code>usesNetRates</code>, <code>commissionPerc</code>) — 100% constant across all 167 rows, describes TDU's own Livn account, not per-product data.</li>
+<li><code>disabled</code>, <code>supplier.disabled</code>, <code>supplier.demo</code>, <code>demo</code> — 100% <code>False</code> internal flags, no variation.</li>
+<li><code>catalogueProductId</code>, <code>supplier.catalogueSupplierId</code> — internal Livn catalogue IDs, redundant with <code>id</code>/<code>supplier.id</code>.</li>
+<li><code>supplier.nameCompany</code>, <code>supplier.nameTradingAs</code> — largely duplicate <code>supplier.name</code>.</li>
+<li><code>supplier.description</code>, <code>supplier.logo.*</code> (5 columns), <code>supplier.address1</code>, <code>supplier.address2</code> — supplier-level (not per-product) company/branding/office data, no unified schema slot.</li>
+<li><code>supplier.emailRes</code> — identical to <code>supplier.email</code> in every row, redundant.</li>
+<li><code>supplier.v1Cid</code>, <code>supplier.created</code>, <code>supplier.resSystem</code>, <code>supplier.businessNumber</code> (except as folded into <code>detail_booking_notes</code> as <code>"ABN: ..."</code>), <code>v1Cid</code>, <code>created</code>, <code>resSystem</code> — internal tracking/legacy-system fields, not customer-facing.</li>
+<li><code>_filename_product_id</code>, <code>_source_filename</code> — ETL's own bookkeeping columns.</li>
+<li><code>operatingDays</code> — numeric bitmask duplicate of <code>operatingDaysStr</code>, which was selected instead.</li>
+<li><code>supplier.city</code>, <code>supplier.state</code> / <code>supplier.state_clean</code>, <code>supplier.postcode</code>, <code>supplier.country</code> — supplier-level location fallbacks flagged as possibly useful in the Stage 2 selection report, but Stage 2's actual <code>build_livn_stage2.py</code> uses only <code>locationsStart[0]</code> for all <code>location_*</code> scalar fields — these supplier-level columns were not wired in as a fallback.</li>
+<li><code>supplier.tnc</code> / <code>supplier.tnc_clean</code> — supplier terms &amp; conditions text; flagged in the Stage 2 selection report as possibly supporting a cancellation-policy field, but no unified <code>detail_cancellation_policy</code> mapping exists for Livn (confirmed null in CLAUDE.md's Source Field Mapping table) and it was not carried into Stage 2.</li>
+<li><code>operatingSchedule</code> — human-readable schedule description (73.1% empty), left out in favor of the higher-fill-rate <code>operatingDaysStr</code>.</li>
+</ul>
+    </div>
+  </main>
+</div>
+</body>
+</html>

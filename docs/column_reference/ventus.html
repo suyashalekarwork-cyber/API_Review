@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ventus — TDU Column Reference</title>
+<style>
+
+:root {
+  --bg: #f7f8fa;
+  --panel: #ffffff;
+  --border: #dfe3e8;
+  --text: #1d2733;
+  --muted: #6b7684;
+  --accent: #2563eb;
+  --accent3: #0e7490;
+  --code-bg: #f1f3f6;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+header.page-header {
+  padding: 20px 32px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+header.page-header h1 { margin: 0 0 4px; font-size: 22px; }
+header.page-header p { margin: 0; color: var(--muted); font-size: 14px; }
+header.page-header .back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; }
+header.page-header .back-link:hover { text-decoration: underline; }
+
+.app-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+}
+
+nav.side-nav {
+  width: 240px;
+  flex-shrink: 0;
+  background: #111827;
+  min-height: calc(100vh - 70px);
+  position: sticky;
+  top: 0;
+  padding: 18px 0;
+  overflow-y: auto;
+}
+.side-nav-section-title {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  padding: 10px 20px 6px;
+}
+.side-nav a.nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #f3f4f6;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.side-nav a.nav-link:hover { background: #1f2937; }
+.side-nav a.nav-link.active { background: #1f2937; border-left-color: var(--accent); color: #fff; }
+.side-nav .nav-count { color: #9ca3af; font-size: 11px; font-weight: 400; margin-left: 4px; }
+
+main { flex: 1 1 auto; max-width: 900px; margin: 0 auto; padding: 32px 40px 80px; min-width: 0; }
+
+.doc-content h1 { font-size: 26px; margin: 0 0 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.doc-content h2 {
+  font-size: 19px;
+  margin: 36px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.doc-content h3 {
+  font-size: 15.5px;
+  margin: 26px 0 8px;
+  color: var(--accent3);
+  font-family: Consolas, Monaco, monospace;
+  background: var(--code-bg);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+.doc-content p { font-size: 14px; margin: 0 0 12px; }
+.doc-content ul, .doc-content ol { font-size: 14px; margin: 0 0 14px; padding-left: 22px; }
+.doc-content li { margin-bottom: 4px; }
+.doc-content strong { color: var(--text); }
+.doc-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.doc-content code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #92400e;
+}
+.doc-content pre {
+  background: var(--code-bg);
+  padding: 10px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+.doc-content pre code { background: none; padding: 0; color: var(--text); }
+
+.doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 0 0 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.doc-content th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  background: var(--code-bg);
+  padding: 8px 10px;
+}
+.doc-content td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.doc-content tr:last-child td { border-bottom: none; }
+
+.doc-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 0 0 14px;
+  padding: 4px 16px;
+  color: var(--muted);
+  background: var(--code-bg);
+}
+
+@media (max-width: 900px) {
+  .app-layout { flex-direction: column; }
+  nav.side-nav { width: 100%; position: static; min-height: auto; }
+  main { padding: 20px; }
+  .doc-content table { font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>TDU Unified Product API — Column Reference</h1>
+  <p>Field-level reference documentation for each of the 6 supplier sources feeding the unified schema. &middot; <a class="back-link" href="../fareharbor_raw_vs_extracted.html">&larr; Back to main dashboard</a></p>
+</header>
+<div class="app-layout">
+  <nav class="side-nav">
+    <div class="side-nav-section-title">Sources</div>
+    <a href="index.html" class="nav-link">Overview</a>
+    <a href="fareharbor.html" class="nav-link">Fareharbor</a>
+    <a href="rezdy.html" class="nav-link">Rezdy</a>
+    <a href="livn.html" class="nav-link">Livn</a>
+    <a href="customlinc.html" class="nav-link">CustomLinc</a>
+    <a href="ventus.html" class="nav-link active">Ventus</a>
+    <a href="ingresso.html" class="nav-link">Ingresso</a>
+  </nav>
+  <main>
+    <div class="doc-content">
+<h1 id="ventus-unified-schema-field-reference">Ventus — Unified Schema Field Reference</h1>
+<p><strong>Scope:</strong> Every unified-schema column that Ventus actually populates in
+<code>data_pipeline/unified_database/unified_products.csv</code> (<code>source = "Ventus"</code>).
+Ventus supplies <strong>20 of the 87 unified/companion columns</strong> across its <strong>19
+products</strong> (the smallest of all 7 sources); the rest are always blank for
+this source and are not documented here.</p>
+<p><strong>Audience:</strong> Team members looking up what a field means and where it comes
+from. This is NOT a data-quality report — for null rates and QA flags see
+<code>reports/ventus_column_analysis.md</code> instead.</p>
+<p><strong>Pipeline stages behind this doc</strong> (oldest → newest):
+1. <code>etl_ventus.py</code> — reads <code>data/Ventus/*.json</code> (19 files, no root nesting key), flattens every nested key to dot-notation, writes the 21-column raw base to <code>exports/ventus_etl_v1.csv</code>.
+2. <code>scripts/build_ventus_stage1.py</code> — reads <code>exports/ventus_etl_v1.csv</code>, adds 3 HTML-stripped <code>*_clean</code> companion columns (<code>description_clean</code>, <code>terms.booking_terms_clean</code>, <code>terms.fit_to_fly_terms_clean</code>); drops nothing, writes <code>exports/ventus_stage1.csv</code> (24 columns).
+3. <code>scripts/build_ventus_stage2.py</code> — reads the Stage 1 CSV (<code>data_pipeline/stage1/ventus_stage1.csv</code>), renames/selects 16 columns to unified names via a fixed <code>COLUMN_RENAME</code> list, derives <code>product_price</code> from the <code>pricing</code> JSON list, writes <code>data_pipeline/stage2/ventus_stage2.csv</code> (17 columns: 16 renamed + <code>product_price</code>).
+4. <code>scripts/build_unified_database.py</code> — folds Stage 2 into <code>unified_products.csv</code>; for Ventus this adds the <code>source</code> literal (Ventus has no source column of its own — <code>needs_source_col=True</code>), derives <code>product_price_numeric</code> (a straight <code>float()</code> cast since Ventus's <code>product_price</code> is already a scalar), and wraps <code>product_category</code> into a JSON-list string (<code>["General Flight"]</code>) since the raw value is a plain string, not a list.</p>
+<p><strong>Example product used throughout:</strong> <code>product_id = 46</code> ("Yarra Valley
+Balloon Flight with Breakfast &amp; Transfers", filename <code>Ventus-2-46.json</code>) —
+chosen because it's one of only 5/19 rows with real transfer data and one
+of only 7/19 rows with real description/cancellation text populated, so
+every documented field has a real, non-blank value.</p>
+<hr />
+<h2 id="identity">Identity</h2>
+<h3 id="product_id"><code>product_id</code></h3>
+<ul>
+<li><strong>Type:</strong> string (numeric-looking, e.g. <code>"46"</code>)</li>
+<li><strong>Description:</strong> Ventus's product identifier.</li>
+<li><strong>How built:</strong> <strong>Filename only — there is no internal ID field anywhere
+  in Ventus's JSON.</strong> Verified during ETL build: 0/19 raw files contain any
+  scalar value matching the filename's product-ID segment at any nesting
+  depth (the only internal <code>id</code> fields present are unrelated: <code>flight_type.id</code>,
+  <code>location.id</code>, <code>inclusions.non_flight_items[].non_flight_items_id.id</code>).
+  <code>etl_ventus.py::parse_product_id_from_filename()</code> takes everything after
+  the first two hyphen-separated segments of <code>Ventus-{supplierId}-{productId}.json</code>
+  (the same hyphen-safe rule used for CustomLinc) — written into column
+  <code>_filename_product_id</code>, which Stage 2 renames straight to <code>product_id</code>.
+  Because there's no internal ID to cross-check against, this value can
+  never be verified against JSON content the way it can for other sources
+  — the filename is trusted directly. Structural safety was verified
+  instead: all 19 filenames have exactly 3 hyphen segments with no hyphens
+  inside the product-ID segment itself, so this rule and a naive
+  "last-segment" rule agree on every file.</li>
+<li><strong>Example:</strong> <code>46</code> (from <code>Ventus-2-46.json</code>)</li>
+</ul>
+<h3 id="source"><code>source</code></h3>
+<ul>
+<li><strong>Type:</strong> string (constant)</li>
+<li><strong>Description:</strong> Marks which of the 7 supplier systems this row came from.</li>
+<li><strong>How built:</strong> Ventus's Stage 2 CSV has no source column of its own;
+  <code>build_unified_database.py</code> adds the hardcoded literal <code>"Ventus"</code> for
+  every row (<code>needs_source_col=True</code> in the <code>SOURCES</code> list).</li>
+<li><strong>Example:</strong> <code>Ventus</code></li>
+</ul>
+<hr />
+<h2 id="listing-page-fields">Listing Page Fields</h2>
+<h3 id="product_name"><code>product_name</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Full tour/product name.</li>
+<li><strong>How built:</strong> Direct from raw field <code>name</code>.</li>
+<li><strong>Example:</strong> <code>Yarra Valley Balloon Flight with Breakfast &amp; Transfers</code>
+  (trailing space present in the raw source value, not a pipeline artifact)</li>
+</ul>
+<h3 id="product_price"><code>product_price</code></h3>
+<ul>
+<li><strong>Type:</strong> number (decimal, dollars)</li>
+<li><strong>Description:</strong> Starting price for the product.</li>
+<li><strong>How built:</strong> <strong>Not a dedicated API field</strong> — Ventus's raw <code>pricing</code>
+  field is an 8-entry list per product (2 passenger types Adult/Child × 2
+  rate periods anyday/weekday × 2 rate kinds rate/sales_rate). Stage 2's
+  <code>derive_product_price()</code> picks the single entry where
+  <code>attribute_name == "Adult"</code> and <code>rate_type == "anyday_sales_rate"</code> — the
+  discounted/current-offer adult rate, chosen over <code>min()</code> across all 8
+  entries because a bare minimum would surface the Child rate, which can
+  mislead as a "starting price" since children typically must be
+  accompanied by a paying adult. All 19/19 rows had a matching entry (no
+  missing prices).</li>
+<li><strong>Example:</strong> <code>484.5</code></li>
+</ul>
+<h3 id="product_price_numeric"><code>product_price_numeric</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Companion numeric-price column added at the
+  unified-database merge step so every source has one consistent numeric
+  price field.</li>
+<li><strong>How built:</strong> For Ventus, <code>product_price</code> is already a scalar, so this
+  is just <code>float(product_price)</code> cast straight through — no transformation.
+  (<code>build_unified_database.py::derive_price_numeric()</code>)</li>
+<li><strong>Example:</strong> <code>484.5</code></li>
+</ul>
+<h3 id="product_images"><code>product_images</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-list-as-string (always exactly 1 URL for Ventus)</li>
+<li><strong>Description:</strong> Gallery images.</li>
+<li><strong>How built:</strong> Direct from raw <code>images</code> list (already JSON-string at the
+  ETL flatten step), passed through unchanged at Stage 2. Every one of the
+  19 products has exactly 1 image — no product has 0 or more than 1.</li>
+<li><strong>Example:</strong> <code>["https://ventus.globalballooning.com.au/app/assets/photos/YarraValley/YV-Sunrise.jpg"]</code></li>
+</ul>
+<h3 id="product_category"><code>product_category</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-list-as-string (always a single-item list for Ventus)</li>
+<li><strong>Description:</strong> Tour type.</li>
+<li><strong>How built:</strong> Direct from raw <code>flight_type.name</code> — Ventus has only one
+  observed value across all 19 products (<code>"General Flight"</code>), so this
+  field carries no real differentiation for this source today. Renamed at
+  Stage 2 (<code>COLUMN_RENAME</code>); wrapped into a JSON-list string
+  (<code>["General Flight"]</code>) at the unified-database step by
+  <code>normalize_category()</code>, which wraps any plain-string category value into
+  a single-item list for cross-source consistency (Ventus's raw value
+  fails the <code>json.loads()</code> list-parse attempt, so it falls into the
+  plain-string branch).</li>
+<li><strong>Example:</strong> <code>["General Flight"]</code></li>
+</ul>
+<h3 id="flight_type_id"><code>flight_type_id</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Internal reference ID for <code>product_category</code> — not a
+  named unified-schema field, kept as a stable key alongside the category
+  name.</li>
+<li><strong>How built:</strong> Direct from raw <code>flight_type.id</code>. Only 1 unique value
+  (<code>1</code>) across all 19 products, matching <code>product_category</code>'s single
+  observed value.</li>
+<li><strong>Example:</strong> <code>1</code></li>
+</ul>
+<hr />
+<h2 id="location-fields">Location Fields</h2>
+<h3 id="location_city"><code>location_city</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> City/region for the product.</li>
+<li><strong>How built:</strong> Direct from raw <code>location.name</code> (e.g. <code>"Yarra Valley"</code>,
+  <code>"Byron Bay"</code>, <code>"Camden (Sydney)"</code>). <strong>Note — this deviates from the
+  CLAUDE.md Source Field Mapping table</strong>, which documents Ventus's
+  <code>location_name</code> → <code>location_street</code>. The real Stage 2 build script
+  (<code>COLUMN_RENAME</code>) maps <code>location.name</code> → <strong><code>location_city</code></strong>, not
+  <code>location_street</code> — verified directly in code (<code>build_ventus_stage2.py</code>
+  line 29). No <code>location_street</code> column exists anywhere in
+  <code>ventus_stage2.csv</code> or <code>unified_products.csv</code> for Ventus. This is a real
+  discrepancy between the schema-mapping doc and the actual pipeline,
+  worth flagging to whoever owns the unified schema rather than silently
+  treating the doc as correct.</li>
+<li><strong>Example:</strong> <code>Yarra Valley</code></li>
+</ul>
+<h3 id="location_id"><code>location_id</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Internal reference ID for <code>location_city</code> — not a named
+  unified-schema field, kept as a stable key alongside the location name.</li>
+<li><strong>How built:</strong> Direct from raw <code>location.id</code>. 7 unique values across 19
+  products (one per distinct region/venue).</li>
+<li><strong>Example:</strong> <code>3</code></li>
+</ul>
+<hr />
+<h2 id="detail-page-fields">Detail Page Fields</h2>
+<h3 id="detail_description"><code>detail_description</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, HTML-stripped)</li>
+<li><strong>Description:</strong> "About the Experience" section.</li>
+<li><strong>How built:</strong> Raw field <code>description</code> is HTML (block-level <code>&lt;p&gt;</code>/<code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code>
+  tags back-to-back with no separating whitespace). Stage 1
+  (<code>build_ventus_stage1.py::strip_html()</code>) applies the project's standard
+  HTML-cleaning pattern: inserts a space at each <code>&lt;p&gt;</code>/<code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code>
+  boundary via regex <em>before</em> stripping tags (so adjacent
+  paragraphs/list-items don't get mashed together), strips all remaining
+  tags, then decodes entities with stdlib <code>html.unescape()</code>. The cleaned
+  result lands in <code>description_clean</code>, which Stage 2 renames straight to
+  <code>detail_description</code>. Only 7/19 rows are populated — Ventus has no
+  description at all for the other 12 products, not a data-loss artifact
+  of cleaning.
+  <strong>Content quirk worth flagging:</strong> despite the field name, the raw
+  <code>description</code> value for every one of the 7 populated Ventus products is
+  actually cancellation-policy text ("In the event of a flight
+  cancellation, you may: Rebook within 12 months / Request a refund within
+  6 months..."), not a tour description — confirmed both in the unified
+  CSV and by reading the raw source JSON directly for product 46. This
+  looks like upstream mislabeling in Ventus's own API rather than anything
+  introduced by the ETL/Stage pipeline; <code>detail_description</code> for Ventus
+  should not be assumed to describe the experience the way it does for
+  other sources.</li>
+<li><strong>Example:</strong> <code>In the event of a flight cancellation, you may: Rebook
+  within 12 months Request a refund within 6 months of the cancellation
+  date.</code></li>
+</ul>
+<h3 id="detail_cancellation_policy"><code>detail_cancellation_policy</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, HTML-stripped)</li>
+<li><strong>Description:</strong> Cancellation Policy section.</li>
+<li><strong>How built:</strong> Same HTML-cleaning pattern as <code>detail_description</code>, applied
+  to raw field <code>terms.booking_terms</code> → Stage 1's <code>terms.booking_terms_clean</code>
+  → renamed to <code>detail_cancellation_policy</code> at Stage 2. Only 7/19 rows
+  populated — same 37% fill rate as <code>detail_description</code>, since both are
+  sourced from the same sparse <code>terms</code>/<code>description</code> blocks in the raw API
+  (a product with one tends to have the other).</li>
+<li><strong>Example:</strong> <code>Upon purchasing this flight or gift voucher, you are
+  agreeing to the Global Ballooning Terms &amp; Conditions, as stipulated on
+  our website - https://www.globalballooning.com.au/terms-conditions/
+  Important key points: Changes to bookings: Changes made between 7 days
+  and 48 hours before your flight incur a $50 per person fee. Within 48
+  hours: No changes or cancellations are permitted within 48 hours of your
+  scheduled flight...</code></li>
+</ul>
+<h3 id="detail_health_safety"><code>detail_health_safety</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, HTML-stripped)</li>
+<li><strong>Description:</strong> Health &amp; Safety section.</li>
+<li><strong>How built:</strong> Same HTML-cleaning pattern, applied to raw field
+  <code>terms.fit_to_fly_terms</code> → Stage 1's <code>terms.fit_to_fly_terms_clean</code> →
+  renamed to <code>detail_health_safety</code> at Stage 2. 19/19 rows populated
+  (100% fill rate) — every Ventus product has fitness-to-fly terms, unlike
+  <code>detail_description</code>/<code>detail_cancellation_policy</code>.</li>
+<li><strong>Example:</strong> <code>Hot Air Ballooning is an outdoor adventure activity that
+  involves some active participation from passengers and as such a
+  minimum level of fitness and well-being is required. By noting your
+  agreement and completing this booking, you will notify us if members of
+  your booking party have: significant knee, hip, back or neck
+  problems...</code></li>
+</ul>
+<h3 id="has_breakfast_included-breakfast_details"><code>has_breakfast_included</code> / <code>breakfast_details</code></h3>
+<ul>
+<li><strong>Type:</strong> <code>has_breakfast_included</code> = boolean; <code>breakfast_details</code> = string</li>
+<li><strong>Description:</strong> Companions supporting the "What's Included" section —
+  not named unified-schema fields themselves (Ventus has no dedicated
+  <code>detail_what_is_included</code> mapping), but kept as real inclusion content.</li>
+<li><strong>How built:</strong> Direct from raw <code>inclusions.has_pax_breakfast</code> (100%
+  filled boolean) and <code>inclusions.breakfast_name</code> (79%, 15/19 filled —
+  populated whenever <code>has_pax_breakfast</code> is true).</li>
+<li><strong>Example:</strong> <code>has_breakfast_included = True</code>, <code>breakfast_details = "Buffet Breakfast"</code></li>
+</ul>
+<h3 id="has_transfer_included-transfer_id-transfer_name-transfer_pickup_hotels"><code>has_transfer_included</code> / <code>transfer_id</code> / <code>transfer_name</code> / <code>transfer_pickup_hotels</code></h3>
+<ul>
+<li><strong>Type:</strong> <code>has_transfer_included</code> = boolean; <code>transfer_id</code> = number;
+  <code>transfer_name</code> = string; <code>transfer_pickup_hotels</code> = JSON-list-as-string</li>
+<li><strong>Description:</strong> Companions supporting pickup/Meeting Point information —
+  not named unified-schema fields themselves.</li>
+<li><strong>How built:</strong> <code>has_transfer_included</code> direct from raw
+  <code>inclusions.has_pax_transfer</code> (100% filled boolean). <code>transfer_id</code> /
+  <code>transfer_name</code> / <code>transfer_pickup_hotels</code> come from raw
+  <code>inclusions.transfer.id</code> / <code>.name</code> / <code>.attributes</code> — only 5/19 rows
+  populated (whenever a transfer actually exists; <code>has_pax_transfer</code> is
+  the reliable indicator of <em>whether</em> a transfer exists, these three carry
+  the <em>detail</em> when it does). <code>transfer_pickup_hotels</code> is a list of
+  <code>{"attributes_id": {"name","phone","address","id"}}</code> pickup-hotel
+  objects and varies enormously in length across the 5 populated rows (1
+  to 77 items) — kept as a single JSON-string column per the project's
+  list-field pattern rather than exploded into separate rows/columns.
+  Note: the sibling raw column <code>inclusions.transfer</code> (no suffix) is a
+  100%-empty flattening artifact — whenever the underlying <code>transfer</code>
+  object is populated, the flattener expands it into the <code>.id</code>/<code>.name</code>/<code>.attributes</code>
+  columns instead, leaving the bare parent key always blank. It is not
+  selected into Stage 2 for this reason.</li>
+<li><strong>Example:</strong> <code>has_transfer_included = True</code>, <code>transfer_id = 24</code>,
+  <code>transfer_name = "Return Transfer � pick up from Pullman East Melbourne
+  (192 Wellington Parade, Melbourne)"</code> (the <code>�</code> is U+FFFD, present in the
+  raw source JSON itself — verified by reading <code>data/Ventus/Ventus-2-46.json</code>
+  directly; an unrecoverable upstream encoding loss, not a pipeline bug —
+  see CLAUDE.md's mojibake note), <code>transfer_pickup_hotels = [{"attributes_id":
+  {"phone": "(03) 9419 2000", "address": "192 Wellington Parade, East
+  Melbourne VIC 3002", "id": 235, "name": "Pullman East Melbourne - 192
+  Wellington Parade, East Melbourne (Drop off: Pullman East Melbourne)"}}]</code></li>
+</ul>
+<h3 id="non_flight_inclusions"><code>non_flight_inclusions</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-list-as-string</li>
+<li><strong>Description:</strong> Extra inclusions beyond the flight itself (e.g.
+  souvenirs, photos) — not a named unified-schema field, supports the
+  "What's Included" section alongside the breakfast/transfer companions
+  above.</li>
+<li><strong>How built:</strong> Direct from raw <code>inclusions.non_flight_items</code>, a list of
+  <code>{"non_flight_items_id": {"id","name"}, "pax": bool}</code> objects. 100%
+  filled (19/19); 7/19 rows have more than one item.</li>
+<li><strong>Example:</strong> <code>[{"pax": true, "non_flight_items_id": {"name":
+  "Complimentary In-Flight GoPro Photos ", "id": 25}}, {"pax": true,
+  "non_flight_items_id": {"name": "Digital Flight Certificates", "id":
+  26}}, {"pax": false, "non_flight_items_id": {"name": "Luxe Balloon
+  Magnet", "id": 39}}]</code></li>
+</ul>
+<hr />
+<h2 id="fields-ventus-does-not-populate">Fields Ventus Does NOT Populate</h2>
+<p>Per the unified schema table and Source Field Mapping table in CLAUDE.md,
+Ventus is documented as a source for:
+- <code>detail_what_is_included</code> (from <code>inclusions_non_flight_items</code>) — the raw
+  content exists (<code>non_flight_inclusions</code>, <code>has_breakfast_included</code>,
+  <code>breakfast_details</code>) but was <strong>not renamed to the unified field name</strong>
+  <code>detail_what_is_included</code> in Stage 2's <code>COLUMN_RENAME</code> list; these
+  columns are carried into <code>unified_products.csv</code> only under their
+  Ventus-specific names, not the shared unified name. A cross-source
+  aggregator looking specifically for <code>detail_what_is_included</code> will find
+  Ventus rows blank despite Ventus having real inclusion data.
+- <code>location_street</code> (documented as <code>location_name</code> → <code>location_street</code>) —
+  the real code maps <code>location.name</code> to <strong><code>location_city</code></strong>, not
+  <code>location_street</code> (see that field's note above). No <code>location_street</code>
+  column exists for Ventus at all.
+- <code>product_duration</code>, <code>product_currency</code>, <code>detail_languages</code> — CLAUDE.md's
+  unified-schema summary tables imply broader per-source coverage in
+  places, but Ventus's raw JSON has no duration field, no explicit
+  currency field, and no language field; these were correctly never
+  selected because the source data doesn't exist, not a Stage 2 omission.</p>
+<hr />
+<h2 id="fields-documented-but-not-selected-for-the-unified-schema">Fields Documented But Not Selected for the Unified Schema</h2>
+<p>These raw/Stage 1 columns exist in <code>ventus_stage1.csv</code> but were
+deliberately excluded from <code>ventus_stage2.csv</code>, so they never reach
+<code>unified_products.csv</code>:</p>
+<ul>
+<li><code>valid</code> — an internal product-active/validity boolean, not customer-facing content.</li>
+<li><code>inclusions.transfer</code> — 100% empty flattening artifact (see <code>has_transfer_included</code>/<code>transfer_id</code> note above); the real data lives in the sibling <code>.id</code>/<code>.name</code>/<code>.attributes</code> columns instead.</li>
+<li><code>_source_filename</code> — ETL bookkeeping (original JSON filename), not product data.</li>
+<li><code>description</code> (raw) / <code>terms.booking_terms</code> (raw) / <code>terms.fit_to_fly_terms</code> (raw) — superseded by their <code>_clean</code> HTML-stripped companions, which are what Stage 2 actually selects (<code>description_clean</code> → <code>detail_description</code>, <code>terms.booking_terms_clean</code> → <code>detail_cancellation_policy</code>, <code>terms.fit_to_fly_terms_clean</code> → <code>detail_health_safety</code>).</li>
+<li><code>pricing</code> (raw 8-entry rate list) — not carried into Stage 2 as its own column; only the derived single-value <code>product_price</code> (Adult anyday_sales_rate) survives. The full rate table (Adult/Child × anyday/weekday × rate/sales_rate) is available in <code>ventus_stage1.csv</code> if a future portal feature needs more than one price point.</li>
+</ul>
+    </div>
+  </main>
+</div>
+</body>
+</html>

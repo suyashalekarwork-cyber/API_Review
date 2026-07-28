@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ingresso — TDU Column Reference</title>
+<style>
+
+:root {
+  --bg: #f7f8fa;
+  --panel: #ffffff;
+  --border: #dfe3e8;
+  --text: #1d2733;
+  --muted: #6b7684;
+  --accent: #2563eb;
+  --accent3: #0e7490;
+  --code-bg: #f1f3f6;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+header.page-header {
+  padding: 20px 32px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+header.page-header h1 { margin: 0 0 4px; font-size: 22px; }
+header.page-header p { margin: 0; color: var(--muted); font-size: 14px; }
+header.page-header .back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; }
+header.page-header .back-link:hover { text-decoration: underline; }
+
+.app-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+}
+
+nav.side-nav {
+  width: 240px;
+  flex-shrink: 0;
+  background: #111827;
+  min-height: calc(100vh - 70px);
+  position: sticky;
+  top: 0;
+  padding: 18px 0;
+  overflow-y: auto;
+}
+.side-nav-section-title {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  padding: 10px 20px 6px;
+}
+.side-nav a.nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #f3f4f6;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.side-nav a.nav-link:hover { background: #1f2937; }
+.side-nav a.nav-link.active { background: #1f2937; border-left-color: var(--accent); color: #fff; }
+.side-nav .nav-count { color: #9ca3af; font-size: 11px; font-weight: 400; margin-left: 4px; }
+
+main { flex: 1 1 auto; max-width: 900px; margin: 0 auto; padding: 32px 40px 80px; min-width: 0; }
+
+.doc-content h1 { font-size: 26px; margin: 0 0 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.doc-content h2 {
+  font-size: 19px;
+  margin: 36px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.doc-content h3 {
+  font-size: 15.5px;
+  margin: 26px 0 8px;
+  color: var(--accent3);
+  font-family: Consolas, Monaco, monospace;
+  background: var(--code-bg);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+.doc-content p { font-size: 14px; margin: 0 0 12px; }
+.doc-content ul, .doc-content ol { font-size: 14px; margin: 0 0 14px; padding-left: 22px; }
+.doc-content li { margin-bottom: 4px; }
+.doc-content strong { color: var(--text); }
+.doc-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.doc-content code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #92400e;
+}
+.doc-content pre {
+  background: var(--code-bg);
+  padding: 10px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+.doc-content pre code { background: none; padding: 0; color: var(--text); }
+
+.doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 0 0 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.doc-content th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  background: var(--code-bg);
+  padding: 8px 10px;
+}
+.doc-content td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.doc-content tr:last-child td { border-bottom: none; }
+
+.doc-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 0 0 14px;
+  padding: 4px 16px;
+  color: var(--muted);
+  background: var(--code-bg);
+}
+
+@media (max-width: 900px) {
+  .app-layout { flex-direction: column; }
+  nav.side-nav { width: 100%; position: static; min-height: auto; }
+  main { padding: 20px; }
+  .doc-content table { font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>TDU Unified Product API — Column Reference</h1>
+  <p>Field-level reference documentation for each of the 6 supplier sources feeding the unified schema. &middot; <a class="back-link" href="../fareharbor_raw_vs_extracted.html">&larr; Back to main dashboard</a></p>
+</header>
+<div class="app-layout">
+  <nav class="side-nav">
+    <div class="side-nav-section-title">Sources</div>
+    <a href="index.html" class="nav-link">Overview</a>
+    <a href="fareharbor.html" class="nav-link">Fareharbor</a>
+    <a href="rezdy.html" class="nav-link">Rezdy</a>
+    <a href="livn.html" class="nav-link">Livn</a>
+    <a href="customlinc.html" class="nav-link">CustomLinc</a>
+    <a href="ventus.html" class="nav-link">Ventus</a>
+    <a href="ingresso.html" class="nav-link active">Ingresso</a>
+  </nav>
+  <main>
+    <div class="doc-content">
+<h1 id="ingresso-unified-schema-field-reference">Ingresso — Unified Schema Field Reference</h1>
+<p><strong>Scope:</strong> Every unified-schema column that Ingresso actually populates in
+<code>data_pipeline/unified_database/unified_products.csv</code> (<code>source = "Ingresso"</code>).
+Ingresso supplies <strong>21 of the 87 unified columns</strong> (22 counting <code>source</code>
+itself); the rest are always blank for this source and are not documented
+here.</p>
+<p><strong>Audience:</strong> Team members looking up what a field means and where it comes
+from. This is NOT a data-quality report — for null rates, outliers, and QA
+flags see <code>reports/ingresso_column_analysis.md</code> instead.</p>
+<p><strong>Ingresso is small and structurally different from the other 6 sources:</strong>
+only 16 products total (<code>data/Ingresso/*.json</code>), and its raw API is
+fundamentally a pricing/availability feed (deep <code>cost_range</code>/<code>avail_details</code>
+nesting) rather than a content feed — most of its 104 raw columns are
+booking-engine internals (tax components, availability bitmasks, add-on
+flags) with no unified-schema home. CLAUDE.md's summary table calls Ingresso
+"Poor — no description or images," which is correct for images (confirmed:
+zero image fields anywhere in the raw data) but only partially true for
+description — see <code>detail_description</code> below.</p>
+<p><strong>Pipeline stages behind this doc</strong> (oldest → newest):
+1. <code>etl_ingresso.py</code> — reads <code>data/Ingresso/*.json</code> (16 files), normalizes
+   the two dynamic-key structures (see below), flattens everything into
+   dot-notation columns, writes <code>exports/ingresso_etl_v1.csv</code> (99 columns).
+   Zero cleaning/dropping.
+2. <code>scripts/build_ingresso_stage1.py</code> — reads the ETL output, adds 5
+   HTML-stripped <code>*_clean</code> companion columns plus one type-guard companion
+   (<code>event_code_clean</code>); every original column is kept untouched. Writes
+   <code>exports/ingresso_stage1.csv</code>, mirrored at
+   <code>data_pipeline/stage1/ingresso_stage1.csv</code> (104 columns) — the Stage 2
+   script reads from the <code>data_pipeline/stage1/</code> copy.
+3. <code>scripts/build_ingresso_stage2.py</code> — selects/renames 19 columns to
+   unified names via a fixed <code>COLUMN_RENAME</code> list, plus derives
+   <code>product_category</code> from 4 boolean class flags. Writes
+   <code>data_pipeline/stage2/ingresso_stage2.csv</code> (20 columns, 16 rows).
+4. <code>scripts/build_unified_database.py</code> — folds Stage 2 into
+   <code>unified_products.csv</code>. Ingresso is in <code>SOURCES</code> with
+   <code>needs_source_col=True</code> (it carries no native <code>source</code> field, unlike
+   Rezdy/Fareharbor), so the literal string <code>"Ingresso"</code> is added. Also
+   applies the shared <code>normalize_currency()</code> (uppercase),
+   <code>normalize_country()</code> (2-letter codes pass through, full names mapped via
+   a small lookup table), <code>normalize_category()</code> (JSON-string list of
+   category names, uniform shape across all 7 sources), and
+   <code>derive_price_numeric()</code> (Ingresso's <code>product_price</code> is already a scalar,
+   so this is just <code>float(product_price)</code> passed straight through).</p>
+<p><strong>Example product used throughout:</strong> <code>product_id = 1D9A0</code> ("Sea Life
+Melbourne General Admission", supplier <code>merlin_apac_sealife_melbourne</code>) —
+chosen because, unusually for this source, it has real non-blank values in
+<code>detail_description</code> AND <code>detail_booking_notes</code> simultaneously (most of the
+16 products have at most one of the two populated). A second product,
+<code>product_id = 1DJRR</code> ("Sea Life Kelly Tarlton's Auckland General
+Admission"), is used for <code>location_street</code>, since that field is populated on
+only 1 of the 16 rows and 1D9A0 isn't the one.</p>
+<hr />
+<h2 id="the-dynamic-key-normalization-read-this-before-the-field-list">The Dynamic-Key Normalization (read this before the field list)</h2>
+<p>Ingresso's raw JSON has <strong>two</strong> structures keyed by a value that varies per
+product, not by a fixed field name:</p>
+<ul>
+<li><code>events_by_id</code> — keyed by the event code (e.g. <code>"1DJRR"</code>, <code>"1D9A0"</code>)</li>
+<li><code>currency_details</code> — keyed by the currency code (e.g. <code>"aud"</code>, <code>"nzd"</code>)</li>
+</ul>
+<pre><code class="language-json">{&quot;events_by_id&quot;: {&quot;1DJRR&quot;: {&quot;event&quot;: {...}}}}
+{&quot;currency_details&quot;: {&quot;aud&quot;: {&quot;currency_code&quot;: &quot;aud&quot;, ...}}}
+</code></pre>
+<p>Flattening either of these naively would bake the per-product dynamic key
+into the column NAME itself (e.g. a column literally called
+<code>events_by_id.1DJRR.event.event_desc</code>), so every product would end up with
+its own unique set of columns instead of aligning on shared fields across
+the dataset — which would make the CSV unusable for anything but
+single-row lookups.</p>
+<p><code>etl_ingresso.py::normalize_dynamic_key_dict()</code> fixes this by replacing each
+dynamic key with a fixed <strong>positional</strong> key (<code>event_1</code>, <code>currency_1</code> —
+1-indexed, in source-file order) before flattening, and preserving the
+original dynamic key in a companion <code>.raw_key</code> field:</p>
+<pre><code class="language-json">{&quot;events_by_id&quot;: {&quot;event_1&quot;: {&quot;event&quot;: {...}, &quot;raw_key&quot;: &quot;1DJRR&quot;}}}
+{&quot;currency_details&quot;: {&quot;currency_1&quot;: {&quot;currency_code&quot;: &quot;aud&quot;, &quot;raw_key&quot;: &quot;aud&quot;}}}
+</code></pre>
+<p>That's why every raw Ingresso column in the pipeline is named
+<code>events_by_id.event_1.event.*</code> or <code>currency_details.currency_1.*</code> — the
+<code>event_1</code>/<code>currency_1</code> segment is NOT a real API field, it's this
+normalization's fixed placeholder. All 16 files were verified to have
+exactly one entry under each of <code>events_by_id</code>/<code>currency_details</code>, so the
+positional scheme currently produces only <code>event_1</code>/<code>currency_1</code>, but it's
+written to handle a future product with multiple entries under either key
+correctly (it would produce <code>event_2</code>, <code>event_3</code>, etc.). This is also why
+the CLAUDE.md schema-mapping table's raw-field notation
+(<code>events_by_id.*.event.venue_addr</code> → <code>location_street</code>, <code>.city_desc</code> →
+<code>location_city</code>, <code>.country_desc</code> → <code>location_country</code>, <code>.postcode</code> →
+<code>location_postcode</code>, <code>.geo_data.latitude</code>/<code>.longitude</code> →
+<code>location_latitude</code>/<code>location_longitude</code>, <code>.source_code</code> →
+<code>meta_supplier_id</code>, <code>.source_desc</code> → <code>meta_supplier_name</code>) uses a wildcard
+<code>*</code> in place of the dynamic key — in the actual pipeline that <code>*</code> is always
+<code>event_1</code>.</p>
+<hr />
+<h2 id="identity">Identity</h2>
+<h3 id="product_id"><code>product_id</code></h3>
+<ul>
+<li><strong>Type:</strong> string (5-char alphanumeric event code)</li>
+<li><strong>Description:</strong> Ingresso's unique product identifier.</li>
+<li><strong>How built:</strong> Parsed from the source filename
+  (<code>Ingresso-{venueCode}-{productId}.json</code>) via
+  <code>parse_product_id_from_filename()</code>, which joins everything after the first
+  two hyphen segments. Cross-checked against the event's own internal ID
+  (<code>events_by_id.event_1.event.event_id</code>, and the dynamic key itself,
+  <code>events_by_id.event_1.raw_key</code>) — all three agree on all 16 files, unlike
+  CustomLinc where the filename rule broke on 12/24 files.</li>
+<li><strong>Example:</strong> <code>1D9A0</code></li>
+</ul>
+<h3 id="source"><code>source</code></h3>
+<ul>
+<li><strong>Type:</strong> string (constant)</li>
+<li><strong>Description:</strong> Marks which of the 7 supplier systems this row came from.</li>
+<li><strong>How built:</strong> Hardcoded literal <code>"Ingresso"</code>, added at the
+  <code>build_unified_database.py</code> merge step — Ingresso's raw API carries no
+  native source/supplier-system field of its own (<code>needs_source_col=True</code>
+  in <code>SOURCES</code>).</li>
+<li><strong>Example:</strong> <code>Ingresso</code></li>
+</ul>
+<h3 id="event_code"><code>event_code</code></h3>
+<ul>
+<li><strong>Type:</strong> string (not a formally documented unified field, but selected
+  and carried through — see note below)</li>
+<li><strong>Description:</strong> Ingresso's own internal ticket/event code, distinct from
+  <code>product_id</code>.</li>
+<li><strong>How built:</strong> Raw <code>events_by_id.event_1.event.event_code</code>, via its Stage
+  1 <code>_clean</code> companion (<code>event_code_clean</code>) — a type-guard fix, not a
+  content change: one value in the 16-row sample (<code>"66"</code>) looks numeric, and
+  the <code>_clean</code> companion forces it to stay a string so a downstream loader
+  (e.g. pandas dtype inference) doesn't silently cast it to <code>int</code>.</li>
+<li><strong>Example:</strong> <code>n/10522</code></li>
+</ul>
+<hr />
+<h2 id="listing-page-fields">Listing Page Fields</h2>
+<h3 id="product_name"><code>product_name</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Full product/ticket name.</li>
+<li><strong>How built:</strong> Direct from raw <code>events_by_id.event_1.event.event_desc</code>
+  (100% filled across all 16 products).</li>
+<li><strong>Example:</strong> <code>Sea Life Melbourne General Admission</code></li>
+</ul>
+<h3 id="product_price-product_price_numeric"><code>product_price</code> / <code>product_price_numeric</code></h3>
+<ul>
+<li><strong>Type:</strong> number (decimal, in the currency given by <code>product_currency</code>)</li>
+<li><strong>Description:</strong> Starting price for the product.</li>
+<li><strong>How built:</strong> <code>product_price</code> comes from
+  <code>events_by_id.event_1.event.cost_range.min_seatprice</code>. This was a
+  judgment call documented in <code>reports/ingresso_stage2_column_selection.md</code>:
+  in this 16-row sample, <code>min_seatprice</code>, <code>max_seatprice</code>, <code>min_combined</code>,
+  and <code>max_combined</code> are numerically identical on every row (every product
+  here is a fixed-single-price ticket with zero surcharge), so the specific
+  choice among the four is currently moot — <code>min_seatprice</code> was picked as
+  the "starting price" convention to match how price is derived for
+  Rezdy/Fareharbor/CustomLinc/Ventus. <code>product_price_numeric</code> is the
+  unified-database companion column added for every source
+  (<code>derive_price_numeric()</code>); for Ingresso this is just <code>float(product_price)</code>
+  passed straight through, since the value is already a scalar (unlike
+  Livn's <code>{amount, currency}</code> object).</li>
+<li><strong>Example:</strong> <code>33.0</code></li>
+</ul>
+<h3 id="product_currency"><code>product_currency</code></h3>
+<ul>
+<li><strong>Type:</strong> string (ISO code)</li>
+<li><strong>Description:</strong> Currency the price is quoted in.</li>
+<li><strong>How built:</strong> Raw <code>events_by_id.event_1.event.cost_range.range_currency_code</code>,
+  uppercased at the <code>build_unified_database.py</code> merge step
+  (<code>normalize_currency()</code>). A separate, unselected field —
+  <code>currency_details.currency_1.currency_code</code> — carries the same value and
+  was kept only as a supporting/cross-check column in Stage 2 discussions,
+  not selected into the unified schema itself.</li>
+<li><strong>Example:</strong> <code>aud</code> (raw) → <code>AUD</code> (unified)</li>
+</ul>
+<h3 id="product_category"><code>product_category</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-string list of category-name strings</li>
+<li><strong>Description:</strong> Tour/ticket type classification.</li>
+<li><strong>How built:</strong> This is the field CLAUDE.md's <code>build_unified_database.py</code>
+  docstring calls out as "Ingresso's already-list-of-strings" shape — <strong>verified
+  true</strong>, but only because Stage 2 constructs it that way, not because
+  Ingresso's raw API has a native list field. <code>build_ingresso_stage2.py</code>'s
+  <code>derive_product_category()</code> builds the list itself from 4 independent
+  boolean flags (<code>events_by_id.event_1.event.classes.attractions</code>, <code>.passes</code>,
+  <code>.family</code>, <code>.themeparks</code> — confirmed non-exclusive, e.g. a product can be
+  both <code>Attractions</code> and <code>Family</code>), appending the flag's label wherever the
+  raw value is non-blank, and writes the result as <code>json.dumps(tags)</code>. So by
+  the time <code>normalize_category()</code> in <code>build_unified_database.py</code> sees it,
+  it's already a JSON list of plain strings and passes straight through the
+  <code>isinstance(item, str)</code> branch unchanged — no dict-unwrapping or
+  single-string-wrapping logic actually fires for Ingresso, even though the
+  function is written to handle those cases for other sources (Livn's
+  <code>{id,name}</code> objects, CustomLinc/Ventus's plain strings).</li>
+<li><strong>Example:</strong> <code>["Attractions", "Passes"]</code></li>
+</ul>
+<hr />
+<h2 id="location-fields-details-api-only-per-critical-rule-8">Location Fields (Details API only, per Critical Rule #8)</h2>
+<h3 id="location_city"><code>location_city</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> City.</li>
+<li><strong>How built:</strong> Direct from raw <code>events_by_id.event_1.event.city_desc</code>, per
+  CLAUDE.md's Source Field Mapping table. Populated on 12 of 16 rows (the 4
+  Sydney-attraction-pass products have no <code>city_desc</code> in the raw payload).</li>
+<li><strong>Example:</strong> <code>Melbourne</code></li>
+</ul>
+<h3 id="location_country"><code>location_country</code></h3>
+<ul>
+<li><strong>Type:</strong> string (2-letter ISO code after normalization)</li>
+<li><strong>Description:</strong> Country.</li>
+<li><strong>How built:</strong> Direct from raw <code>events_by_id.event_1.event.country_desc</code>
+  (100% filled, raw values are full names: <code>"Australia"</code>, <code>"New Zealand"</code>,
+  <code>"United States of America"</code>), mapped to ISO-2 at the
+  <code>build_unified_database.py</code> merge step via <code>normalize_country()</code>'s
+  <code>COUNTRY_NAME_TO_ISO</code> lookup table.</li>
+<li><strong>Example:</strong> <code>Australia</code> (raw) → <code>AU</code> (unified)</li>
+</ul>
+<h3 id="location_postcode"><code>location_postcode</code></h3>
+<ul>
+<li><strong>Type:</strong> string (includes a state/region prefix, not a bare postcode)</li>
+<li><strong>Description:</strong> Postcode.</li>
+<li><strong>How built:</strong> Direct from raw <code>events_by_id.event_1.event.postcode</code>
+  (100% filled). Note the raw value is not a bare numeric postcode — it's a
+  combined <code>"{state/region} {code}"</code> string (e.g. <code>"VIC 3000"</code>,
+  <code>"NZ 1071"</code>), passed through unchanged; no unified-schema field currently
+  separates the state/region portion out for Ingresso.</li>
+<li><strong>Example:</strong> <code>VIC 3000</code></li>
+</ul>
+<h3 id="location_latitude-location_longitude"><code>location_latitude</code> / <code>location_longitude</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> GPS coordinates.</li>
+<li><strong>How built:</strong> Direct from raw
+  <code>events_by_id.event_1.event.geo_data.latitude</code> / <code>.longitude</code> (100%
+  filled).</li>
+<li><strong>Example:</strong> <code>-37.81824</code>, <code>144.96489</code></li>
+</ul>
+<h3 id="location_street"><code>location_street</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Street address.</li>
+<li><strong>How built:</strong> Raw <code>events_by_id.event_1.event.venue_addr_html</code>, via its
+  Stage 1 <code>_clean</code> companion (<code>venue_addr_html_clean</code>, HTML-stripped per
+  CLAUDE.md's block-tag-boundary pattern). Populated on only <strong>1 of 16</strong>
+  rows — confirmed during Stage 2 review that a second raw field,
+  <code>structured_info.address.value_html</code>, carries byte-for-byte identical text
+  on the one row where both are populated, so it's a duplicate of the same
+  underlying value, not an independent second source; <code>venue_addr_html_clean</code>
+  was kept as the single primary field and <code>structured_info.address.*</code> was
+  dropped. Kept despite the low fill rate on the reasoning that a
+  sparse-but-real field is more useful to the unified schema than an
+  artificially absent one.</li>
+<li><strong>Example (product <code>1DJRR</code>, not the running example above — this is the
+  one row where the field is populated):</strong> <code>23 Tamaki Drive, Orakei,
+  Auckland NZ 1071</code></li>
+</ul>
+<hr />
+<h2 id="detail-page-fields">Detail Page Fields</h2>
+<h3 id="detail_description"><code>detail_description</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> "About the Experience" section.</li>
+<li><strong>How built:</strong> Raw <code>events_by_id.event_1.event.event_info_html</code>, via its
+  Stage 1 <code>_clean</code> companion (<code>event_info_html_clean</code>, HTML-stripped).
+  Populated on only 3 of 16 rows. A second raw field,
+  <code>structured_info.overview.value_html</code>, was confirmed to carry
+  byte-for-byte identical text wherever both are populated, so it's the same
+  underlying content duplicated, not an independent source, and was dropped
+  in favor of <code>event_info_html_clean</code> (which has the slightly better fill
+  rate — 3/16 vs. 2/16, because product <code>1DJRR</code>'s address text only appears
+  under <code>event_info</code>, not under <code>structured_info.overview</code>). This is the
+  field that makes CLAUDE.md's "no description" characterization only
+  partially accurate — real prose description content exists for a minority
+  of products, it's just sparse, not literally absent.</li>
+<li><strong>Example:</strong> <code>"SEA LIFE Melbourne gives you up-close encounters with some
+  of the world's most incredible animals, including adorable penguins, huge
+  sharks, massive crocodiles, mysterious stingrays and thousands of tropical
+  fish. Booking online is the best way to guarantee entry (spots are very
+  limited)."</code></li>
+</ul>
+<h3 id="detail_booking_notes"><code>detail_booking_notes</code></h3>
+<ul>
+<li><strong>Type:</strong> JSON-string list of objects (not plain text, unlike this field
+  for other sources)</li>
+<li><strong>Description:</strong> Important Information / ticket-redemption instructions.</li>
+<li><strong>How built:</strong> Raw <code>events_by_id.event_1.event.custom_field</code> — kept as the
+  raw JSON-list string per the project's list-field pattern (each entry is a
+  <code>{custom_field_data, custom_field_data_html, custom_field_name}</code> object;
+  the <code>"self_print_ticket_text"</code> custom field is the one that actually
+  carries content). Populated on 7 of 16 rows, all real
+  ticket-redemption/entry instructions (e.g. "please go straight to the main
+  entrance..."), confirmed genuinely distinct content from
+  <code>detail_description</code>/<code>event_info</code> rather than a duplicate. On the other 9
+  rows the raw value is a literal empty list <code>"[]"</code>, which is present but
+  carries no content — worth checking for that literal <code>[]</code> rather than
+  treating it as populated when computing fill rates.</li>
+<li><strong>Example:</strong> <code>[{"custom_field_data": "", "custom_field_data_html":
+  "&lt;p&gt;With your e-ticket or mobile ticket, please go straight to the main
+  entrance to start your experience&lt;/p&gt;", "custom_field_name":
+  "self_print_ticket_text"}]</code></li>
+</ul>
+<hr />
+<h2 id="meta-fields-internal-not-shown-to-customers">Meta Fields (internal, not shown to customers)</h2>
+<h3 id="meta_supplier_id"><code>meta_supplier_id</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Supplier account ID.</li>
+<li><strong>How built:</strong> Direct from raw <code>events_by_id.event_1.event.source_code</code>
+  (100% filled), per CLAUDE.md's Source Field Mapping table.</li>
+<li><strong>Example:</strong> <code>merlin_apac_sealife_melbourne</code></li>
+</ul>
+<h3 id="meta_supplier_name"><code>meta_supplier_name</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Supplier company name.</li>
+<li><strong>How built:</strong> Direct from raw <code>events_by_id.event_1.event.source_desc</code>
+  (100% filled), per CLAUDE.md's Source Field Mapping table.</li>
+<li><strong>Example:</strong> <code>Merlin Sea Life Merlbourne</code> (raw supplier-provided text,
+  including its typo — passed through unchanged, not corrected by the
+  pipeline).</li>
+</ul>
+<hr />
+<h2 id="fields-selected-but-not-part-of-the-documented-43-field-unified-schema">Fields Selected But Not Part of the Documented 43-Field Unified Schema</h2>
+<p>These columns made it into <code>unified_products.csv</code> for Ingresso — they're
+real, populated data, not pipeline artifacts — but they don't correspond to
+one of the 43 named unified fields in CLAUDE.md's schema tables. They exist
+because <code>build_ingresso_stage2.py</code>'s <code>COLUMN_RENAME</code> list carried them
+through as useful supporting context for a source with very little else to
+offer:</p>
+<ul>
+<li><code>venue_name</code> — the venue's display name (e.g. "SEA LIFE Melbourne"), 100%
+  filled and Ingresso's most reliable location-identifying text, but
+  distinct from any of <code>location_street</code>/<code>location_city</code>.</li>
+<li><code>ticket_type_details</code> — the full nested <code>avail_details.ticket_type</code>
+  JSON-list structure (pricing tiers, availability windows, tax
+  components), kept as supporting detail for the Pricing section even
+  though there's no single unified field for it.</li>
+<li><code>is_seated</code> — boolean flag on whether the ticket is for a seated event
+  (always <code>False</code> across this 16-row sample).</li>
+<li><code>valid_quantities</code> — JSON list of bookable quantities per order (always
+  <code>[1..20]</code> across this sample).</li>
+</ul>
+<hr />
+<h2 id="fields-ingresso-does-not-populate">Fields Ingresso Does NOT Populate</h2>
+<p>Per the unified schema table in CLAUDE.md, Ingresso is documented as a
+source for the following fields, but none of them are present in
+<code>ingresso_stage2.csv</code>'s <code>COLUMN_RENAME</code> list, so none of them appear in
+<code>unified_products.csv</code> for this source. This is the expected, documented
+shape of the weakest of the 7 sources — Ingresso only supplies 21 of 87
+unified columns, by far the fewest of any source:</p>
+<p><strong>Listing Page fields:</strong> <code>product_headline</code>, <code>product_duration</code>,
+<code>product_images</code>, <code>product_main_image</code>, <code>product_tags</code></p>
+<p><strong>Location fields:</strong> <code>location_state</code> (Rezdy-only per the schema anyway)</p>
+<p><strong>Detail Page fields (all of them):</strong> <code>detail_highlights</code>,
+<code>detail_what_is_included</code>, <code>detail_what_is_not_included</code>,
+<code>detail_itinerary</code>, <code>detail_accessibility</code>, <code>detail_cancellation_policy</code>,
+<code>detail_operating_days</code>, <code>detail_start_time</code>, <code>detail_return_time</code>,
+<code>detail_languages</code>, <code>detail_health_safety</code>, <code>detail_min_age</code>,
+<code>detail_max_age</code>, <code>detail_group_size</code>, <code>detail_tax_percentage</code>,
+<code>detail_tripadvisor_rating</code>, <code>detail_google_rating</code>, <code>detail_what_to_bring</code></p>
+<p><strong>Meta fields:</strong> <code>meta_supplier_website</code>, <code>meta_supplier_email</code>,
+<code>meta_supplier_phone</code> (all three are Livn-only per the schema anyway)</p>
+<p>Of particular note: <code>product_images</code> is genuinely absent from the raw
+API — confirmed no <code>image</code>/<code>images</code>/<code>photo</code> field exists anywhere in the 16
+raw JSON files, at any nesting depth. This part of CLAUDE.md's "no
+description or images" characterization holds up completely; only the
+"no description" half needed the correction documented under
+<code>detail_description</code> above.</p>
+<hr />
+<h2 id="fields-documented-but-not-selected-for-the-unified-schema">Fields Documented But Not Selected for the Unified Schema</h2>
+<p>These raw/Stage 1 columns exist in <code>data_pipeline/stage1/ingresso_stage1.csv</code>
+(104 columns total) but were deliberately excluded from
+<code>ingresso_stage2.csv</code>'s 20-column <code>COLUMN_RENAME</code>/derivation list, so they
+never reach <code>unified_products.csv</code>. Listed here so a reader who finds them
+in an earlier pipeline stage doesn't wonder where they went. Full detail and
+reasoning for every one of these lives in
+<code>reports/ingresso_stage2_column_selection.md</code>; summarized by group:</p>
+<ul>
+<li><strong>Raw pre-<code>_clean</code> counterparts</strong> — <code>event_info</code>, <code>event_info_html</code>,
+  <code>venue_addr</code>, <code>venue_addr_html</code>, <code>event_code</code> (raw) — superseded by their
+  Stage 1 <code>_clean</code> companions, which ARE selected (<code>event_info_html_clean</code> →
+  <code>detail_description</code>, <code>venue_addr_html_clean</code> → <code>location_street</code>,
+  <code>event_code_clean</code> → <code>event_code</code>).</li>
+<li><strong><code>structured_info.overview.*</code> and <code>structured_info.address.*</code></strong> (6
+  columns) — confirmed byte-for-byte duplicate content of
+  <code>event_info_html_clean</code>/<code>venue_addr_html_clean</code> respectively wherever both
+  are populated; dropped as fully redundant, not because the content itself
+  is unwanted.</li>
+<li><strong>The <code>no_singles_cost_range.*</code> group</strong> (14 columns) — confirmed
+  numerically identical to the parent <code>cost_range.*</code> fields on every row in
+  this 16-row sample; excluded to avoid ~14 duplicate columns, though this
+  could diverge for a future product with different pricing rules.</li>
+<li><strong><code>cost_range.max_seatprice</code> / <code>.min_combined</code> / <code>.max_combined</code></strong> —
+  confirmed identical to <code>min_seatprice</code> (which IS selected as
+  <code>product_price</code>) across this sample; not carried forward separately.</li>
+<li><strong>Internal pricing-engine metadata</strong> — <code>cost_range.alternate_discounts</code>,
+  <code>.approx_last_seen_iso8601_date_and_time</code>, <code>.discount_semantic_type</code>,
+  <code>.max_combined_combined_tax_component</code>,
+  <code>.max_combined_surcharge_tax_sub_component</code>, <code>.max_surcharge</code>,
+  <code>.min_combined_combined_tax_component</code>,
+  <code>.min_combined_surcharge_tax_sub_component</code>, <code>.min_surcharge</code>,
+  <code>.valid_quantities</code> (cost_range-level duplicate of the already-selected
+  <code>events_by_id.event_1.valid_quantities</code>), <code>cost_range_details.ticket_type</code>
+  (duplicate of the selected <code>avail_details.ticket_type</code>) — supports pricing
+  math internally but not customer-facing content.</li>
+<li><strong>Internal booking-flow/configuration flags</strong> (all 100% filled booleans,
+  always constant across the 16-row sample) — <code>add_ons</code>, <code>upsells</code>,
+  <code>custom_filter</code>, <code>early_horizon</code>, <code>late_horizon</code>, <code>has_no_perfs</code>,
+  <code>is_add_on</code>, <code>is_auto_quantity_add_on</code>, <code>is_date_matched_add_on</code>,
+  <code>is_time_matched_add_on</code>, <code>need_departure_date</code>, <code>need_duration</code>,
+  <code>need_performance</code>, <code>venue_is_enforced</code>, <code>show_perf_time</code>,
+  <code>event_lingo_settings.event_lingo</code>.</li>
+<li><strong>Internal reference/routing metadata</strong> — <code>event_id</code> (redundant with
+  <code>product_id</code>), <code>event_path</code>, <code>event_uri_desc</code>, <code>venue_uri_desc</code>,
+  <code>event_subdata</code>, <code>event_status</code>, <code>main_class_key</code> (redundant with the
+  <code>classes.*</code> flags that feed <code>product_category</code>), <code>perf_offsale_delay_seconds</code>
+  (only 1/16 rows populated).</li>
+<li><strong>Sparse/low-value classification flags</strong> — <code>classes.family</code>,
+  <code>classes.themeparks</code> (both only 1/16 rows populated — folded into
+  <code>product_category</code>'s derivation logic alongside <code>classes.attractions</code>/
+  <code>classes.passes</code> rather than surfaced as standalone columns).</li>
+<li><strong>Currency supporting/internal fields</strong> — <code>currency_details.currency_1.
+  currency_code</code> (duplicate of the selected <code>cost_range.range_currency_code</code>),
+  <code>.currency_factor</code>, <code>.currency_number</code>, <code>.currency_places</code> (conversion/
+  formatting metadata), <code>.currency_post_symbol</code> (100% empty — Ingresso only
+  uses pre-symbols like <code>"$"</code>, never post-symbols), <code>.raw_key</code>.</li>
+<li><strong>ETL/normalization bookkeeping</strong> — <code>events_by_id.event_1.raw_key</code>,
+  <code>currency_details.currency_1.raw_key</code> (the dynamic-key-preservation
+  columns described above — internal to the pipeline, not product content),
+  <code>_source_filename</code> (original JSON filename).</li>
+<li><strong>The trailing-dot vestigial field</strong> — <code>event_lingo_settings.
+  event_lingo_options.</code> (note the literal trailing dot in the column name:
+  the raw JSON key under <code>event_lingo_options</code> is itself an empty string,
+  <code>{"event_lingo_options": {"": true}}</code>, which the flattener faithfully
+  reproduced as a malformed column name; always <code>True</code> across all 16 rows,
+  carries no distinguishing information — likely vestigial in Ingresso's own
+  API, not something this pipeline should propagate further).</li>
+<li><strong><code>event_type</code></strong> (<code>simple_ticket</code>/<code>misc_item</code>) — a real, 100%-filled
+  booking-mechanics classification, but per <code>build_ingresso_stage2.py</code>'s own
+  docstring it was deliberately kept separate from and excluded in favor of
+  the <code>classes.*</code>-derived <code>product_category</code>, since it describes booking
+  mechanics rather than product category.</li>
+</ul>
+    </div>
+  </main>
+</div>
+</body>
+</html>

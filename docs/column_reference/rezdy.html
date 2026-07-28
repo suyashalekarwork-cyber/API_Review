@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rezdy — TDU Column Reference</title>
+<style>
+
+:root {
+  --bg: #f7f8fa;
+  --panel: #ffffff;
+  --border: #dfe3e8;
+  --text: #1d2733;
+  --muted: #6b7684;
+  --accent: #2563eb;
+  --accent3: #0e7490;
+  --code-bg: #f1f3f6;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+header.page-header {
+  padding: 20px 32px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+header.page-header h1 { margin: 0 0 4px; font-size: 22px; }
+header.page-header p { margin: 0; color: var(--muted); font-size: 14px; }
+header.page-header .back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; }
+header.page-header .back-link:hover { text-decoration: underline; }
+
+.app-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+}
+
+nav.side-nav {
+  width: 240px;
+  flex-shrink: 0;
+  background: #111827;
+  min-height: calc(100vh - 70px);
+  position: sticky;
+  top: 0;
+  padding: 18px 0;
+  overflow-y: auto;
+}
+.side-nav-section-title {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  padding: 10px 20px 6px;
+}
+.side-nav a.nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #f3f4f6;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.side-nav a.nav-link:hover { background: #1f2937; }
+.side-nav a.nav-link.active { background: #1f2937; border-left-color: var(--accent); color: #fff; }
+.side-nav .nav-count { color: #9ca3af; font-size: 11px; font-weight: 400; margin-left: 4px; }
+
+main { flex: 1 1 auto; max-width: 900px; margin: 0 auto; padding: 32px 40px 80px; min-width: 0; }
+
+.doc-content h1 { font-size: 26px; margin: 0 0 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.doc-content h2 {
+  font-size: 19px;
+  margin: 36px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.doc-content h3 {
+  font-size: 15.5px;
+  margin: 26px 0 8px;
+  color: var(--accent3);
+  font-family: Consolas, Monaco, monospace;
+  background: var(--code-bg);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+.doc-content p { font-size: 14px; margin: 0 0 12px; }
+.doc-content ul, .doc-content ol { font-size: 14px; margin: 0 0 14px; padding-left: 22px; }
+.doc-content li { margin-bottom: 4px; }
+.doc-content strong { color: var(--text); }
+.doc-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.doc-content code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #92400e;
+}
+.doc-content pre {
+  background: var(--code-bg);
+  padding: 10px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+.doc-content pre code { background: none; padding: 0; color: var(--text); }
+
+.doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 0 0 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.doc-content th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  background: var(--code-bg);
+  padding: 8px 10px;
+}
+.doc-content td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.doc-content tr:last-child td { border-bottom: none; }
+
+.doc-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 0 0 14px;
+  padding: 4px 16px;
+  color: var(--muted);
+  background: var(--code-bg);
+}
+
+@media (max-width: 900px) {
+  .app-layout { flex-direction: column; }
+  nav.side-nav { width: 100%; position: static; min-height: auto; }
+  main { padding: 20px; }
+  .doc-content table { font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>TDU Unified Product API — Column Reference</h1>
+  <p>Field-level reference documentation for each of the 6 supplier sources feeding the unified schema. &middot; <a class="back-link" href="../fareharbor_raw_vs_extracted.html">&larr; Back to main dashboard</a></p>
+</header>
+<div class="app-layout">
+  <nav class="side-nav">
+    <div class="side-nav-section-title">Sources</div>
+    <a href="index.html" class="nav-link">Overview</a>
+    <a href="fareharbor.html" class="nav-link">Fareharbor</a>
+    <a href="rezdy.html" class="nav-link active">Rezdy</a>
+    <a href="livn.html" class="nav-link">Livn</a>
+    <a href="customlinc.html" class="nav-link">CustomLinc</a>
+    <a href="ventus.html" class="nav-link">Ventus</a>
+    <a href="ingresso.html" class="nav-link">Ingresso</a>
+  </nav>
+  <main>
+    <div class="doc-content">
+<h1 id="rezdy-unified-schema-field-reference">Rezdy — Unified Schema Field Reference</h1>
+<p><strong>Scope:</strong> Every unified-schema column that Rezdy actually populates in
+<code>data_pipeline/unified_database/unified_products.csv</code> (<code>source = "Rezdy"</code>).
+Rezdy supplies <strong>33 of the 87 unified columns</strong>; the rest are always blank
+for this source and are not documented here.</p>
+<p><strong>Audience:</strong> Team members looking up what a field means and where it comes
+from. This is NOT a data-quality report — for null rates, outliers, and QA
+flags see <code>reports/column_reference/rezdy_master_column_reference.md</code>
+(Stage 1 profile) instead.</p>
+<p><strong>Pipeline stages behind this doc</strong> (oldest → newest):
+1. <code>scripts/build_rezdy_master.py</code> — combines raw JSON from <code>data/Rezdy/*.json</code>
+   (root key <code>product</code>, 9,373 files) with 6 OpenAI Batch API <code>.jsonl</code> output
+   files (LLM extraction over each product's raw description text), writing
+   the 47-column <code>data_pipeline/stage1/rezdy_master.csv</code> (9,363 rows).
+2. <code>scripts/build_rezdy_stage2.py</code> — selects/renames 31 Stage 1 columns to
+   unified names and performs 1 real field merge (<code>detail_cancellation_policy</code>),
+   writing <code>data_pipeline/stage2/rezdy_stage2.csv</code> (32 columns).
+3. <code>scripts/build_unified_database.py</code> — folds Stage 2 into
+   <code>unified_products.csv</code>; for Rezdy this uppercases <code>product_currency</code>,
+   normalizes <code>location_country</code> to a 2-letter code where recognized, and
+   derives <code>product_price_numeric</code> (for Rezdy this is just <code>float(product_price)</code>
+   passed straight through — no unwrapping needed, unlike Livn). Rezdy already
+   carries its own literal <code>source</code> column from Stage 1, so
+   <code>build_unified_database.py</code>'s <code>needs_source_col=False</code> flag means this step
+   does not overwrite or add one for Rezdy.</p>
+<p><strong>Note on the AI-extraction pipeline:</strong> every <code>detail_*</code> field below (plus
+<code>detail_cancellation_policy</code>'s fallback half) is populated by an LLM
+extraction pass over each product's raw <code>product.description</code> text — the
+same 6-batch OpenAI Batch API pipeline documented in
+<code>reports/rezdy_manager_report.md</code>. It is <strong>not</strong> read directly off a
+structured Rezdy API field the way, say, <code>location_city</code> is. Where a field
+also has a genuine dedicated raw-API counterpart (only <code>detail_cancellation_policy</code>
+qualifies here, via <code>direct_terms</code> = raw <code>product.terms</code>), that's called out
+explicitly below per CLAUDE.md Critical Rule #10.</p>
+<p><strong>Example product used throughout:</strong> <code>product_id = PZDTWJ</code> ("Kakadu National
+Park - Sunset / Evening Tour ... Departing Darwin", supplier alias
+<code>sacredowltours</code>) — chosen because it has real, non-empty values in every
+rich detail/location field, so the merge and extraction behavior is visible.</p>
+<hr />
+<h2 id="identity">Identity</h2>
+<h3 id="product_id"><code>product_id</code></h3>
+<ul>
+<li><strong>Type:</strong> string (Rezdy product code, e.g. <code>"PZDTWJ"</code>)</li>
+<li><strong>Description:</strong> Rezdy's unique product identifier.</li>
+<li><strong>How built:</strong> From the batch LLM output's <code>custom_id</code> prefix (split on <code>"|"</code>), cross-checked against raw JSON <code>product.productCode</code>/<code>productId</code> during the Stage 1 join. NOT the filename — though for the ~10 dead API-error stub files with no payload, <code>build_rezdy_master.py</code> falls back to the filename's last hyphen-segment (<code>data/Rezdy/Rezdy-{supplierAlias}-{productId}.json</code>).</li>
+<li><strong>Example:</strong> <code>PZDTWJ</code></li>
+</ul>
+<h3 id="source"><code>source</code></h3>
+<ul>
+<li><strong>Type:</strong> string (constant)</li>
+<li><strong>Description:</strong> Marks which of the 7 supplier systems this row came from.</li>
+<li><strong>How built:</strong> Hardcoded literal <code>"Rezdy"</code>, assigned in <code>build_rezdy_master.py</code>'s row-building loop and carried through unchanged at every later stage (Rezdy is one of only two sources — with Fareharbor — that already has its own <code>source</code> column before the unified-database merge step, so <code>build_unified_database.py</code> does not add or overwrite it here).</li>
+<li><strong>Example:</strong> <code>Rezdy</code></li>
+</ul>
+<h3 id="supplier_alias"><code>supplier_alias</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> URL/filename-safe slug for the supplier — the same value that appears in <code>data/Rezdy/Rezdy-{supplierAlias}-{productId}.json</code> filenames (which can themselves contain hyphens).</li>
+<li><strong>How built:</strong> Direct from raw JSON <code>product.supplierAlias</code>.</li>
+<li><strong>Example:</strong> <code>sacredowltours</code></li>
+</ul>
+<hr />
+<h2 id="listing-page-fields">Listing Page Fields</h2>
+<h3 id="product_name"><code>product_name</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Full tour/product name.</li>
+<li><strong>How built:</strong> Direct from raw field <code>product.name</code>.</li>
+<li><strong>Example:</strong> <code>Kakadu National Park - Sunset / Evening Tour - Featuring the Multi- Award Winning Yellow Water River Cruise at Sunset - 1 Day Tour - Departing Darwin</code></li>
+</ul>
+<h3 id="product_headline"><code>product_headline</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Short tagline shown under the product name (though at ~169 chars average across Rezdy overall, it reads more like a marketing blurb than a true one-liner).</li>
+<li><strong>How built:</strong> Direct from raw field <code>product.shortDescription</code>.</li>
+<li><strong>Example:</strong> <code>Experience the breathtaking beauty of Kakadu with a Sunset Cruise on Yellow Water River, followed by a delicious dinner, a visit the Warradjan Cultural Centre and Njourlangie Rock Art for a deeper und...</code></li>
+</ul>
+<h3 id="product_price"><code>product_price</code></h3>
+<ul>
+<li><strong>Type:</strong> number (string-formatted decimal, dollars)</li>
+<li><strong>Description:</strong> Starting/advertised price for the product.</li>
+<li><strong>How built:</strong> Direct from raw field <code>product.advertisedPrice</code>.</li>
+<li><strong>Example:</strong> <code>599.0</code></li>
+</ul>
+<h3 id="product_price_numeric"><code>product_price_numeric</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Companion numeric-price column added at the unified-database merge step so every source has one consistent numeric price field (needed because Livn's <code>product_price</code> is a JSON object, not a scalar).</li>
+<li><strong>How built:</strong> For Rezdy, <code>product_price</code> is already a scalar, so <code>derive_price_numeric()</code> in <code>build_unified_database.py</code> just does <code>float(product_price)</code> and passes the value straight through — no transformation, unlike the Livn <code>{amount: ...}</code> unwrap.</li>
+<li><strong>Example:</strong> <code>599.0</code></li>
+</ul>
+<h3 id="product_currency"><code>product_currency</code></h3>
+<ul>
+<li><strong>Type:</strong> string (ISO code)</li>
+<li><strong>Description:</strong> Currency the price is quoted in.</li>
+<li><strong>How built:</strong> Direct from raw field <code>product.currency</code> (Rezdy has a genuine dedicated currency field, unlike Fareharbor which has to infer it from tax rate), defaulting to <code>"AUD"</code> when absent. Uppercased at the unified-database merge step (<code>normalize_currency()</code>), though Rezdy's raw values are already consistently uppercase in practice.</li>
+<li><strong>Example:</strong> <code>AUD</code></li>
+</ul>
+<h3 id="price_options"><code>price_options</code></h3>
+<ul>
+<li><strong>Type:</strong> string (pipe-joined list)</li>
+<li><strong>Description:</strong> Human-readable breakdown of fare tiers and their prices, supporting <code>product_price</code> — no dedicated unified field name exists for this yet, but it was selected into Stage 2/the unified DB as useful supporting pricing data.</li>
+<li><strong>How built:</strong> Computed by <code>build_price_options()</code> in <code>build_rezdy_master.py</code> from raw <code>product.priceOptions</code> — takes the first 5 options, joins each <code>"{label}: ${price}"</code> pair with <code>" | "</code>.</li>
+<li><strong>Example:</strong> <code>Adult: $599.0 | Child: $550.0</code></li>
+</ul>
+<h3 id="product_duration-duration_display"><code>product_duration</code> / <code>duration_display</code></h3>
+<ul>
+<li><strong>Type:</strong> <code>product_duration</code> = number (minutes); <code>duration_display</code> = string (human-readable)</li>
+<li><strong>Description:</strong> How long the tour runs.</li>
+<li><strong>How built:</strong> <code>product_duration</code> direct from raw <code>product.durationMinutes</code>. <code>duration_display</code> is computed from that same value via <code>build_duration()</code>: <code>&gt;=1440</code> min → <code>"N days"</code>, <code>&gt;=60</code> min → <code>"N hrs"</code> (one decimal if not whole), else <code>"N mins"</code>; returns <code>""</code> for <code>mins &lt;= 0</code>, which is why <code>duration_display</code> has slightly more nulls than <code>product_duration</code> across the dataset.</li>
+<li><strong>Example:</strong> <code>product_duration = 720</code>, <code>duration_display = "12 hrs"</code></li>
+</ul>
+<h3 id="product_main_image-product_images-image_count"><code>product_main_image</code> / <code>product_images</code> / <code>image_count</code></h3>
+<ul>
+<li><strong>Type:</strong> <code>product_main_image</code> = single URL string; <code>product_images</code> = pipe-joined list of URL strings (capped at 10); <code>image_count</code> = integer</li>
+<li><strong>Description:</strong> Cover image and gallery images. Note: the unified schema table in CLAUDE.md documents <code>product_main_image</code> as "Fareharbor only" — this is stale; Rezdy clearly populates a real single-cover-image field too.</li>
+<li><strong>How built:</strong> <code>product_main_image</code> computed via <code>get_main_image()</code> — takes <code>product.images[0]</code> and resolves <code>largeSizeUrl</code> (falling back to <code>thumbnailUrl</code>, then <code>itemUrl</code>). <code>product_images</code> computed via <code>get_all_images()</code> — same per-image resolution, but across the full <code>product.images</code> list, capped at 10 URLs, joined with <code>" | "</code>. <code>image_count</code> is <code>len(product.images)</code> — this counts <strong>all</strong> images from the API, so it can legitimately exceed the 10 URLs actually listed in <code>product_images</code> (e.g. a product with <code>image_count: 267</code> still only shows 10 URLs in the gallery string).</li>
+<li><strong>Example:</strong> <code>product_main_image = "https://img.rezdy.com/PRODUCT_IMAGE/256901/e0026d_15e2d3ac34e04a4fa07dd7c3496ee717_mv2_lg.jpg"</code>, <code>image_count = 22</code></li>
+</ul>
+<hr />
+<h2 id="location-fields-details-api-only-per-critical-rule-8">Location Fields (Details API only, per Critical Rule #8)</h2>
+<h3 id="location_street-location_city-location_state-location_country-location_postcode"><code>location_street</code>, <code>location_city</code>, <code>location_state</code>, <code>location_country</code>, <code>location_postcode</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Structured street address components. <code>location_state</code> is documented in the unified schema as "Rezdy only."</li>
+<li><strong>How built:</strong> Direct from raw <code>product.locationAddress.{addressLine,city,state,countryCode,postCode}</code> via <code>get_nested()</code>. <code>location_country</code> is normalized at the unified-database merge step (<code>normalize_country()</code>): already-2-letter values are uppercased as-is; recognized full names (e.g. <code>"Australia"</code>) map to their ISO-2 code via a small lookup table; anything else (values like <code>"NF"</code>, or unrecognized spellings) passes through unchanged. <code>location_state</code> is <strong>not</strong> normalized anywhere in the pipeline — Rezdy Stage 1 profiling found 177 distinct values against ~8 expected AU/NZ states, including at least one city name entered as a state (<code>"Rotorua"</code>), and that noise reaches the unified CSV as-is.</li>
+<li><strong>Example:</strong> <code>location_street = "6 Bennett Street"</code>, <code>location_city = "Darwin"</code>, <code>location_state = "nt"</code> (lowercase, unnormalized), <code>location_country = "AU"</code>, <code>location_postcode = "0800"</code></li>
+</ul>
+<h3 id="location_latitude-location_longitude"><code>location_latitude</code> / <code>location_longitude</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> GPS coordinates.</li>
+<li><strong>How built:</strong> Direct from raw <code>product.locationAddress.latitude</code> / <code>.longitude</code> via <code>get_nested()</code>.</li>
+<li><strong>Example:</strong> <code>-12.4652392</code>, <code>130.8432756</code></li>
+</ul>
+<hr />
+<h2 id="detail-page-fields">Detail Page Fields</h2>
+<p>All fields in this section except <code>detail_cancellation_policy</code>'s primary
+half are LLM-extracted — see the pipeline-stages note above. The extraction
+pulls from 9 named JSON keys (<code>about</code>, <code>highlights</code>, <code>what_is_included</code>,
+<code>what_is_not_included</code>, <code>itinerary</code>, <code>booking_notes</code>, <code>what_to_bring</code>,
+<code>cancellation_policy</code>, <code>other</code>) in each batch response, parsed per-product
+by <code>parse_batch_output()</code>/<code>parse_response()</code> in <code>build_rezdy_master.py</code>.</p>
+<h3 id="detail_description"><code>detail_description</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> "About the Experience" section.</li>
+<li><strong>How built:</strong> LLM-extracted <code>about</code> key from the batch output (Stage 1 column <code>desc_about</code>), renamed straight through at Stage 2 — no merge with a raw description field.</li>
+<li><strong>Example:</strong> <code>"Tour 3C: Kakadu National Park Night Tour - 'Yellow Water River Cruise': Nature, Culture, and Wildlife An unforgettable journey from Darwin to Kakadu National Park, where nature's wonders unfold before..."</code></li>
+</ul>
+<h3 id="detail_highlights"><code>detail_highlights</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> "Tour Highlights" section. Unified schema table in CLAUDE.md currently lists this as "Fareharbor, Livn" only — stale; Rezdy should be added.</li>
+<li><strong>How built:</strong> LLM-extracted <code>highlights</code> key (Stage 1 <code>desc_highlights</code>), passed straight through at Stage 2.</li>
+<li><strong>Example:</strong> <code>"Yellow Water River Cruise : A spectacular 2-hour sunset cruise where you'll witness breathtaking views, birds in flight, and crocodiles gliding across the water. Aboriginal Rock Art Site : Explore anc..."</code></li>
+</ul>
+<h3 id="detail_what_is_included"><code>detail_what_is_included</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> "What's Included" section.</li>
+<li><strong>How built:</strong> LLM-extracted <code>what_is_included</code> key (Stage 1 <code>desc_what_included</code>), passed straight through at Stage 2.</li>
+<li><strong>Example:</strong> <code>"Return Door-to-Door Transfers from Darwin, Experienced Tour Guide, Yellow Water River Cruise - 2 Hour Sunset Cruise, Aboriginal Rock Art Site, Wetlands Bird Hide, Cultural Centre Visit, Lunch at the T..."</code></li>
+</ul>
+<h3 id="detail_what_is_not_included"><code>detail_what_is_not_included</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> "What's Not Included" section. Unified schema table currently lists this as "Fareharbor only" — stale; Rezdy should be added.</li>
+<li><strong>How built:</strong> LLM-extracted <code>what_is_not_included</code> key (Stage 1 <code>desc_what_excluded</code>), passed straight through at Stage 2.</li>
+<li><strong>Example:</strong> <code>"Travel insurance is highly recommended."</code></li>
+</ul>
+<h3 id="detail_itinerary"><code>detail_itinerary</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> Cruise Route / Itinerary section — the sparsest detail field for Rezdy (populated for only 11.5% of rows dataset-wide), since most single-activity products have nothing to itemize.</li>
+<li><strong>How built:</strong> LLM-extracted <code>itinerary</code> key (Stage 1 <code>desc_itinerary</code>), passed straight through at Stage 2.</li>
+<li><strong>Example:</strong> <code>"Our adventure begins at 10:30am, its a 3 hour drive through the lush landscapes of Kakadu National Park, your expert guide will offer fascinating insights into the natural and cultural wonders you're ..."</code></li>
+</ul>
+<h3 id="detail_booking_notes"><code>detail_booking_notes</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> Important Information section.</li>
+<li><strong>How built:</strong> LLM-extracted <code>booking_notes</code> key (Stage 1 <code>desc_booking_notes</code>), passed straight through at Stage 2. Note: Rezdy also has a dedicated raw field for similar content (<code>product.additionalInformation</code>), but that field was <strong>never captured as its own Stage 1 column</strong> — only this LLM-parsed rendition exists in the pipeline, so unlike <code>detail_cancellation_policy</code> there is no raw/parsed merge here despite CLAUDE.md's source-mapping table listing <code>product.additionalInformation</code> as the source.</li>
+<li><strong>Example:</strong> <code>"Low levels of fitness required 1 km walk on tour (*optional walks on tour call for a medium level of fitness, there are optional)."</code></li>
+</ul>
+<h3 id="detail_what_to_bring"><code>detail_what_to_bring</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> What To Bring section. Unified schema table currently lists this as "Fareharbor only" — stale; Rezdy should be added.</li>
+<li><strong>How built:</strong> LLM-extracted <code>what_to_bring</code> key (Stage 1 <code>desc_what_to_bring</code>), passed straight through at Stage 2.</li>
+<li><strong>Example:</strong> <code>"- 1 to 1.5L re-fillable water bottle - Camera, Hat, Sunglasses - Insect Repellent &amp; Sunscreen - Travel pillow to rest on the way to and from Kakadu. - Guests are required to bring their own medication..."</code></li>
+</ul>
+<h3 id="detail_accessibility"><code>detail_accessibility</code></h3>
+<ul>
+<li><strong>Type:</strong> string (pipe-joined list)</li>
+<li><strong>Description:</strong> Accessibility-related suitability tags. Unified schema table currently lists this as "Fareharbor only" — Rezdy has real data here too, though it's a rougher fit: this is not free-text like Fareharbor's <code>structured_description.accessibility</code>, it's a set of controlled tag values.</li>
+<li><strong>How built:</strong> <strong>Not</strong> LLM-extracted — this is the one detail field sourced from Rezdy's <code>product.tags</code> array instead of the batch pipeline. Rezdy's <code>tags</code> are flat <code>"PREFIX:value"</code> strings, not <code>{name: ...}</code> dicts (a documented CLAUDE.md quirk — calling <code>.get('name')</code> on them would silently fail). <code>get_tag(p, "ACCESSIBILITY")</code> in <code>build_rezdy_master.py</code> filters for entries starting <code>"ACCESSIBILITY:"</code>, strips the prefix, and joins matches with <code>" | "</code> (Stage 1 column <code>tag_accessibility</code>), renamed straight through at Stage 2. The unified schema's <code>product_tags</code> field is separate and is <strong>not</strong> populated for Rezdy (see "Fields Rezdy Does NOT Populate" below) — only this one filtered tag category made it into the unified schema.</li>
+<li><strong>Example:</strong> <code>"Vision Impaired | Hearing Impaired | Paraplegic | Asthmatic | Quadriplegic | Epileptic"</code></li>
+</ul>
+<h3 id="detail_cancellation_policy"><code>detail_cancellation_policy</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, pipe-joined when both sources have content)</li>
+<li><strong>Description:</strong> Cancellation Policy section.</li>
+<li><strong>How built:</strong> The one genuine 2-source merge in the Rezdy pipeline, per CLAUDE.md Critical Rule #10 (dedicated field wins, parsed fallback second): <code>build_cancellation_policy()</code> in <code>build_rezdy_stage2.py</code> takes <code>direct_terms</code> (raw <code>product.terms</code>, HTML-cleaned — the dedicated API field) as primary and <code>desc_cancellation</code> (LLM-extracted <code>cancellation_policy</code> key — the fallback) as secondary. If both are non-empty, they're joined with <code>" | "</code>; if only one is present, that one is used alone; if neither, the field is blank. <strong>Caveat:</strong> unlike Fareharbor's merged fields, there is <strong>no <code>*_source</code> provenance column</strong> tracking which source won for a given row (flagged as an open item in <code>reports/rezdy_stage2_column_selection.md</code>) — this is a gap against Critical Rule #10's "track which one won in a <code>*_source</code> column" requirement.</li>
+<li><strong>Example:</strong> <code>"72 Hours notice is required for cancellations or amendments. | A strict cancellation policy applies, we require at least 72 hours' notice for a 100% refund. All cancellations under 72 hours will be a..."</code> — this example shows <strong>both</strong> sources populated (the <code>|</code> join is visible mid-string).</li>
+<li><strong>Merge stats (9,363 rows total, from the real <code>build_rezdy_stage2.py</code> run):</strong> both sources populated → 386 rows (joined with <code>|</code>); <code>direct_terms</code> only → 2,991; <code>desc_cancellation</code> only → 585; neither → 5,401.</li>
+</ul>
+<h3 id="cancellation_days"><code>cancellation_days</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Structured numeric companion to <code>detail_cancellation_policy</code> — the number of days before departure the policy's cutoff applies. Not a named unified-schema field itself, kept for portal logic that needs a cutoff without parsing free text. <strong>Caveat:</strong> a sentinel value of <code>9999</code> appears in the raw data (Rezdy Stage 1 profiling) as a placeholder, not a real day count — filter it out before any numeric use.</li>
+<li><strong>How built:</strong> Direct from raw field <code>product.cancellationPolicyDays</code> — despite the generic-sounding name, this is a genuine dedicated API field, not pipeline metadata.</li>
+<li><strong>Example:</strong> <code>7</code></li>
+</ul>
+<hr />
+<h2 id="meta-fields-internal-not-shown-to-customers">Meta Fields (internal, not shown to customers)</h2>
+<h3 id="meta_supplier_id"><code>meta_supplier_id</code></h3>
+<ul>
+<li><strong>Type:</strong> integer</li>
+<li><strong>Description:</strong> Supplier's numeric account ID within Rezdy.</li>
+<li><strong>How built:</strong> Direct from raw <code>product.supplierId</code>.</li>
+<li><strong>Example:</strong> <code>256901</code></li>
+</ul>
+<h3 id="meta_supplier_name"><code>meta_supplier_name</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Tour operator/supplier company name.</li>
+<li><strong>How built:</strong> Direct from raw <code>product.supplierName</code>.</li>
+<li><strong>Example:</strong> <code>Sacred Owl Tours</code></li>
+</ul>
+<hr />
+<h2 id="fields-rezdy-does-not-populate">Fields Rezdy Does NOT Populate</h2>
+<p>Per the unified schema table in CLAUDE.md, Rezdy is documented as a source
+for several fields that are <strong>not actually present in <code>rezdy_stage2.csv</code></strong>,
+so they never reach <code>unified_products.csv</code> for this source:</p>
+<ul>
+<li><strong><code>product_tags</code></strong> — CLAUDE.md's LISTING PAGE table lists <code>product_tags</code> as available from "Rezdy, FH, TDU, Ingresso." Rezdy's raw <code>product.tags</code> array is real and populated, but it was only ever partially mined — <code>build_rezdy_master.py</code> splits it into 6 category-filtered columns (<code>tag_accessibility</code>, <code>tag_age</code>, <code>tag_intensity</code>, <code>tag_interest</code>, <code>tag_skill</code>, <code>tag_suitability</code>), and only <code>tag_accessibility</code> (as <code>detail_accessibility</code>) made it to Stage 2. There is no unfiltered <code>product_tags</code> equivalent for Rezdy in the unified schema at all — a genuine gap.</li>
+<li><strong><code>detail_health_safety</code>, <code>detail_min_age</code>, <code>detail_max_age</code>, <code>detail_group_size</code>, <code>detail_operating_days</code>, <code>detail_start_time</code>, <code>detail_languages</code></strong> — documented in CLAUDE.md's Source Field Mapping table as <code>product.languages</code> (for <code>detail_languages</code>) or simply absent for Rezdy on the others; none of these were ever captured as Stage 1 columns, so there's nothing to select at Stage 2.</li>
+<li><strong><code>detail_tax_percentage</code>, <code>is_pickup_available</code></strong> — Fareharbor-sourced concepts (<code>item.tax_percentage</code>, <code>item.is_pickup_ever_available</code>) with no Rezdy equivalent captured in the pipeline.</li>
+</ul>
+<p>This is a gap between the schema-design doc and the actual Stage 1/2 build —
+worth flagging to whoever owns the unified schema, not something to silently
+work around in this reference doc.</p>
+<hr />
+<h2 id="fields-documented-but-not-selected-for-the-unified-schema">Fields Documented But Not Selected for the Unified Schema</h2>
+<p>These raw/Stage-1 columns exist in <code>rezdy_master.csv</code> but were deliberately
+excluded from <code>rezdy_stage2.csv</code>, so they never reach <code>unified_products.csv</code>.
+Listed here so a reader who finds them in an earlier pipeline stage doesn't
+wonder where they went (see <code>reports/rezdy_stage2_column_selection.md</code> for
+the full selection rationale):</p>
+<ul>
+<li><strong><code>compound_key</code></strong> — regenerable (<code>product_id|source</code>), not carried into Stage 2.</li>
+<li><strong><code>batch_number</code>, <code>sections_filled</code>, <code>parse_success</code>, <code>truncated</code>, <code>word_coverage_pct</code>, <code>needs_retry</code></strong> — internal LLM-batch-pipeline QA metadata (which of the 6 batches processed the row, extraction success/truncation flags, word-coverage ratio, retry flag), not customer-facing.</li>
+<li><strong><code>product_type</code></strong> — Rezdy's own classification (<code>ACTIVITY</code>/<code>DAYTOUR</code>/<code>MULTIDAYTOUR</code>/<code>TRANSFER</code>/<code>RENTAL</code>/<code>CUSTOM</code>/etc., 13 values). CLAUDE.md explicitly notes "Rezdy uses <code>product_type</code> NOT <code>category</code>" — the unified schema's <code>product_category</code> field is documented as available from FH/CustomLinc/Ventus/Ingresso only, so <code>product_type</code> has no home in the 87-column unified schema and was left out of Stage 2 (confirmed: <code>product_category</code> is blank for every Rezdy row in <code>unified_products.csv</code>).</li>
+<li><strong><code>tag_age</code>, <code>tag_intensity</code>, <code>tag_interest</code>, <code>tag_skill</code>, <code>tag_suitability</code></strong> — the other 5 category-filtered slices of <code>product.tags</code> (only <code>tag_accessibility</code> was selected, as <code>detail_accessibility</code>). Real, populated data (roughly 3,900–4,100 of 9,363 rows each) left as UNCERTAIN in the Stage 2 selection report — no dedicated unified field name exists for age/intensity/interest/skill/suitability filtering yet.</li>
+<li><strong><code>desc_other</code></strong> — LLM-extracted catch-all bucket (<code>other</code> key) for content that didn't fit any of the other 8 named sections. Left as UNCERTAIN rather than excluded outright — flagged as possibly containing real usable content (accessibility notes, extra terms) worth a manual read before a future schema decision.</li>
+</ul>
+    </div>
+  </main>
+</div>
+</body>
+</html>

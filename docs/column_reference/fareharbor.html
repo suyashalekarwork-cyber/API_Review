@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fareharbor — TDU Column Reference</title>
+<style>
+
+:root {
+  --bg: #f7f8fa;
+  --panel: #ffffff;
+  --border: #dfe3e8;
+  --text: #1d2733;
+  --muted: #6b7684;
+  --accent: #2563eb;
+  --accent3: #0e7490;
+  --code-bg: #f1f3f6;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+header.page-header {
+  padding: 20px 32px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+header.page-header h1 { margin: 0 0 4px; font-size: 22px; }
+header.page-header p { margin: 0; color: var(--muted); font-size: 14px; }
+header.page-header .back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; }
+header.page-header .back-link:hover { text-decoration: underline; }
+
+.app-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+}
+
+nav.side-nav {
+  width: 240px;
+  flex-shrink: 0;
+  background: #111827;
+  min-height: calc(100vh - 70px);
+  position: sticky;
+  top: 0;
+  padding: 18px 0;
+  overflow-y: auto;
+}
+.side-nav-section-title {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  padding: 10px 20px 6px;
+}
+.side-nav a.nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #f3f4f6;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.side-nav a.nav-link:hover { background: #1f2937; }
+.side-nav a.nav-link.active { background: #1f2937; border-left-color: var(--accent); color: #fff; }
+.side-nav .nav-count { color: #9ca3af; font-size: 11px; font-weight: 400; margin-left: 4px; }
+
+main { flex: 1 1 auto; max-width: 900px; margin: 0 auto; padding: 32px 40px 80px; min-width: 0; }
+
+.doc-content h1 { font-size: 26px; margin: 0 0 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.doc-content h2 {
+  font-size: 19px;
+  margin: 36px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.doc-content h3 {
+  font-size: 15.5px;
+  margin: 26px 0 8px;
+  color: var(--accent3);
+  font-family: Consolas, Monaco, monospace;
+  background: var(--code-bg);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+.doc-content p { font-size: 14px; margin: 0 0 12px; }
+.doc-content ul, .doc-content ol { font-size: 14px; margin: 0 0 14px; padding-left: 22px; }
+.doc-content li { margin-bottom: 4px; }
+.doc-content strong { color: var(--text); }
+.doc-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.doc-content code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #92400e;
+}
+.doc-content pre {
+  background: var(--code-bg);
+  padding: 10px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+.doc-content pre code { background: none; padding: 0; color: var(--text); }
+
+.doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 0 0 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.doc-content th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  background: var(--code-bg);
+  padding: 8px 10px;
+}
+.doc-content td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.doc-content tr:last-child td { border-bottom: none; }
+
+.doc-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 0 0 14px;
+  padding: 4px 16px;
+  color: var(--muted);
+  background: var(--code-bg);
+}
+
+@media (max-width: 900px) {
+  .app-layout { flex-direction: column; }
+  nav.side-nav { width: 100%; position: static; min-height: auto; }
+  main { padding: 20px; }
+  .doc-content table { font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>TDU Unified Product API — Column Reference</h1>
+  <p>Field-level reference documentation for each of the 6 supplier sources feeding the unified schema. &middot; <a class="back-link" href="../fareharbor_raw_vs_extracted.html">&larr; Back to main dashboard</a></p>
+</header>
+<div class="app-layout">
+  <nav class="side-nav">
+    <div class="side-nav-section-title">Sources</div>
+    <a href="index.html" class="nav-link">Overview</a>
+    <a href="fareharbor.html" class="nav-link active">Fareharbor</a>
+    <a href="rezdy.html" class="nav-link">Rezdy</a>
+    <a href="livn.html" class="nav-link">Livn</a>
+    <a href="customlinc.html" class="nav-link">CustomLinc</a>
+    <a href="ventus.html" class="nav-link">Ventus</a>
+    <a href="ingresso.html" class="nav-link">Ingresso</a>
+  </nav>
+  <main>
+    <div class="doc-content">
+<h1 id="fareharbor-unified-schema-field-reference">Fareharbor — Unified Schema Field Reference</h1>
+<p><strong>Scope:</strong> Every unified-schema column that Fareharbor actually populates in
+<code>data_pipeline/unified_database/unified_products.csv</code> (<code>source = "Fareharbor"</code>).
+Fareharbor supplies <strong>37 of the 87 unified columns</strong>; the rest are always
+blank for this source and are not documented here.</p>
+<p><strong>Audience:</strong> Team members looking up what a field means and where it comes
+from. This is NOT a data-quality report — for null rates, outliers, and QA
+flags see the HTML data-quality dashboard instead.</p>
+<p><strong>Pipeline stages behind this doc</strong> (oldest → newest):
+1. <code>parsers/fareharbor_etl.py</code> — reads <code>data/Fareharbor/*.json</code> (root key <code>item</code>), writes the 41-column V1 ETL base.
+2. <code>scripts/build_fareharbor_etl_v2.py</code> — adds regex/HTML heading-extraction columns (not selected into the unified schema — see Note below).
+3. <code>scripts/step21_build_final_merge.py</code> — merges in AI-extracted <code>desc_about_*</code>/<code>booking_notes_*</code> "sandwich" columns from 11 OpenAI Batch API output files, writing <code>exports/fareharbor_final.csv</code>.
+4. <code>scripts/build_fareharbor_stage2.py</code> — renames/selects columns to unified names and performs 3 real field merges, writing <code>data_pipeline/stage2/fareharbor_stage2.csv</code>.
+5. <code>scripts/build_unified_database.py</code> — folds Stage 2 into <code>unified_products.csv</code>; for Fareharbor this only normalizes <code>product_currency</code> (uppercase) and derives <code>product_price_numeric</code> — no renaming, no further merging.</p>
+<p><strong>Note on the AI-extraction pipeline:</strong> several <code>detail_*</code> fields below are
+populated by an LLM extraction pass (the "V2 sandwich" pipeline, see
+<code>config/fareharbor_prompts.txt</code> and the changelog at
+<code>reports/fareharbor_pipeline_changelog.html</code>), not read directly off the raw
+Fareharbor API. Where that's the case, it's called out explicitly.</p>
+<p><strong>Example product used throughout:</strong> <code>product_id = 328397</code> ("Trail Blazer
+Safari", supplier alias <code>4trackadventure</code>) — chosen because it has real,
+non-empty values in every merged field, so the merge behavior is visible.</p>
+<hr />
+<h2 id="identity">Identity</h2>
+<h3 id="product_id"><code>product_id</code></h3>
+<ul>
+<li><strong>Type:</strong> string (numeric-looking, e.g. <code>"328397"</code>)</li>
+<li><strong>Description:</strong> Fareharbor's unique product identifier.</li>
+<li><strong>How built:</strong> Direct from raw JSON <code>item["pk"]</code> — NOT the filename. (<code>parsers/fareharbor_etl.py</code>)</li>
+<li><strong>Example:</strong> <code>328397</code></li>
+</ul>
+<h3 id="source"><code>source</code></h3>
+<ul>
+<li><strong>Type:</strong> string (constant)</li>
+<li><strong>Description:</strong> Marks which of the 6 supplier systems this row came from.</li>
+<li><strong>How built:</strong> Hardcoded literal <code>"Fareharbor"</code> (normalized from the raw API's <code>"FareHarbor"</code> capitalization per CLAUDE.md Critical Rule #1).</li>
+<li><strong>Example:</strong> <code>Fareharbor</code></li>
+</ul>
+<h3 id="supplier_alias"><code>supplier_alias</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Human-readable operator/company slug.</li>
+<li><strong>How built:</strong> Parsed from the source filename (<code>Fareharbor-{supplierAlias}-{productId}.json</code>) via <code>get_supplier_alias()</code>, which joins all middle hyphen-segments back together — this correctly handles aliases that themselves contain hyphens (e.g. <code>42southsurfschool-surfgroms</code>).</li>
+<li><strong>Example:</strong> <code>4trackadventure</code></li>
+</ul>
+<hr />
+<h2 id="listing-page-fields">Listing Page Fields</h2>
+<h3 id="product_name"><code>product_name</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Full tour/product name.</li>
+<li><strong>How built:</strong> Direct from raw field <code>item.name</code>.</li>
+<li><strong>Example:</strong> <code>Trail Blazer Safari</code></li>
+</ul>
+<h3 id="product_headline"><code>product_headline</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Short tagline shown under the product name.</li>
+<li><strong>How built:</strong> Direct from raw field <code>item.headline</code>.</li>
+<li><strong>Example:</strong> <code>Ages 14+ – 1 Hour – Awesome Scenery – Highly Recommended</code> (raw source text uses <code>•</code>/en-dash-style separators; some values contain mojibake from upstream encoding issues — see CLAUDE.md's <code>ftfy</code> note.)</li>
+</ul>
+<h3 id="product_price"><code>product_price</code></h3>
+<ul>
+<li><strong>Type:</strong> number (string-formatted decimal, dollars)</li>
+<li><strong>Description:</strong> Starting price for the product.</li>
+<li><strong>How built:</strong> Raw field <code>customer_prototypes[0].total</code>, stored in cents in the source API, divided by 100 in <code>get_price_info()</code>.</li>
+<li><strong>Example:</strong> <code>173.04</code></li>
+</ul>
+<h3 id="product_price_numeric"><code>product_price_numeric</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Companion numeric-price column added at the unified-database merge step so every source has one consistent numeric price field (needed because Livn's <code>product_price</code> is a JSON object, not a scalar).</li>
+<li><strong>How built:</strong> For Fareharbor, <code>product_price</code> is already a scalar, so this is just <code>float(product_price)</code> cast straight through — no transformation. (<code>build_unified_database.py::derive_price_numeric()</code>)</li>
+<li><strong>Example:</strong> <code>173.04</code></li>
+</ul>
+<h3 id="price_including_tax"><code>price_including_tax</code></h3>
+<ul>
+<li><strong>Type:</strong> number (decimal, dollars)</li>
+<li><strong>Description:</strong> Tax-inclusive version of the starting price — not a named unified schema field itself, but kept as a useful companion to <code>product_price</code> for the pricing display.</li>
+<li><strong>How built:</strong> Raw field <code>customer_prototypes[0].total_including_tax</code>, divided by 100.</li>
+<li><strong>Example:</strong> <code>199.0</code></li>
+</ul>
+<h3 id="product_currency"><code>product_currency</code></h3>
+<ul>
+<li><strong>Type:</strong> string (ISO code)</li>
+<li><strong>Description:</strong> Currency the price is quoted in.</li>
+<li><strong>How built:</strong> Not a real API field — Fareharbor's raw API has no explicit currency field. Inferred purely from <code>tax_percentage</code>: 10% → <code>AUD</code>, 15% → <code>NZD</code>, anything else defaults to <code>AUD</code>. Uppercased at the unified-database merge step.</li>
+<li><strong>Example:</strong> <code>NZD</code></li>
+</ul>
+<h3 id="price_options_summary"><code>price_options_summary</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Human-readable breakdown of all fare tiers and their prices — supports <code>product_price</code>.</li>
+<li><strong>How built:</strong> Computed by joining every entry in raw <code>customer_prototypes</code> as <code>"{display_name}: ${price}"</code>.</li>
+<li><strong>Example:</strong> <code>Person: $173.04</code></li>
+</ul>
+<h3 id="prototype_count"><code>prototype_count</code></h3>
+<ul>
+<li><strong>Type:</strong> integer</li>
+<li><strong>Description:</strong> Number of distinct fare tiers/pricing options for the product — supports <code>price_options_summary</code>.</li>
+<li><strong>How built:</strong> Computed as <code>len(item.customer_prototypes)</code>.</li>
+<li><strong>Example:</strong> <code>1</code></li>
+</ul>
+<h3 id="product_duration-duration_text"><code>product_duration</code> / <code>duration_text</code></h3>
+<ul>
+<li><strong>Type:</strong> <code>product_duration</code> = number (minutes); <code>duration_text</code> = string (human-readable)</li>
+<li><strong>Description:</strong> How long the tour runs.</li>
+<li><strong>How built:</strong> Both come from raw field <code>item.structured_description.duration</code>. <code>duration_text</code> is the raw string as written by the supplier; <code>product_duration</code> is a numeric-minutes parse of that same string via <code>parse_duration_minutes()</code> — it will legitimately be blank even when <code>duration_text</code> isn't, if the text couldn't be parsed into a number (e.g. free-text like "Full day").</li>
+<li><strong>Example (this product):</strong> both blank — <code>structured_description.duration</code> was empty for this listing; itinerary text ("Allow 1 Hour") carries the real duration instead. A populated example elsewhere in the dataset: <code>duration_text = "2 Hours"</code>, <code>product_duration = 120</code>.</li>
+</ul>
+<h3 id="product_images-product_main_image-image_count"><code>product_images</code> / <code>product_main_image</code> / <code>image_count</code></h3>
+<ul>
+<li><strong>Type:</strong> <code>product_images</code> = JSON-list of URL strings; <code>product_main_image</code> = single URL string; <code>image_count</code> = integer</li>
+<li><strong>Description:</strong> Gallery images and the single cover image (Fareharbor is the only source with a distinct main-image field — per the unified schema table).</li>
+<li><strong>How built:</strong> <code>product_images</code> from raw <code>item.images[].image_cdn_url</code>, collected into a JSON array. <code>product_main_image</code> direct from raw <code>item.image_cdn_url</code>. <code>image_count</code> computed as <code>len(image_urls)</code>.</li>
+<li><strong>Example:</strong> <code>product_main_image = "https://cdn.filestackcontent.com/qaakaAZQFGw8I1AfO5QY"</code>, <code>image_count = 7</code></li>
+</ul>
+<h3 id="product_tags"><code>product_tags</code></h3>
+<ul>
+<li><strong>Type:</strong> string (pipe-joined list)</li>
+<li><strong>Description:</strong> Keyword tags for the product.</li>
+<li><strong>How built:</strong> Raw <code>item.tags[].name</code>, joined with <code>" | "</code>.</li>
+<li><strong>Example:</strong> <code>Guided Tour</code></li>
+</ul>
+<hr />
+<h2 id="location-fields-details-api-only-per-critical-rule-8">Location Fields (Details API only, per Critical Rule #8)</h2>
+<h3 id="location_street-location_city-location_state-location_country-location_postcode"><code>location_street</code>, <code>location_city</code>, <code>location_state</code>, <code>location_country</code>, <code>location_postcode</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Structured street address components.</li>
+<li><strong>How built:</strong> Direct from raw <code>item.locations[0].address.{street,city,province,country,postal_code}</code> (falls back to <code>item.primary_location</code> where <code>locations</code> is absent). <code>location_country</code> is uppercased at the unified-database merge step, and mapped from a small set of known full-country-names to ISO-2 codes (e.g. <code>"Australia"</code> → <code>AU</code>) — anything already 2 letters, or not in that mapping, passes through unchanged.</li>
+<li><strong>Example:</strong> <code>location_street = "320 Wilson Road, South Head"</code>, <code>location_city = "Auckland"</code>, <code>location_state = "Auckland"</code>, <code>location_country = "NZ"</code>, <code>location_postcode = "0874"</code></li>
+</ul>
+<h3 id="location_latitude-location_longitude"><code>location_latitude</code> / <code>location_longitude</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> GPS coordinates.</li>
+<li><strong>How built:</strong> Direct from raw <code>item.locations[0].latitude</code> / <code>.longitude</code>.</li>
+<li><strong>Example:</strong> <code>-36.584088</code>, <code>174.293667</code></li>
+</ul>
+<hr />
+<h2 id="detail-page-fields">Detail Page Fields</h2>
+<h3 id="detail_description"><code>detail_description</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> "About the Experience" section.</li>
+<li><strong>How built:</strong> Already a merged field at the V1 ETL stage: prefers <code>item.structured_description.description</code>, falls back to raw <code>item.description</code> only when the structured field is empty. Passed straight through to the unified name at Stage 2 (no further merge).</li>
+<li><strong>Example:</strong> <code>"For the Most fun you will ever have on 4 Wheels, Ride through beautiful Forest Tracks while looking at amazing Coastal scenery\n1 Hour\nNo experience needed..."</code></li>
+</ul>
+<h3 id="detail_highlights"><code>detail_highlights</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> "Tour Highlights" section.</li>
+<li><strong>How built:</strong> <strong>Not</strong> what the field name might suggest (structured field with AI fallback) — the Stage 2 build script uses <strong>only</strong> the AI-extracted value: raw column <code>desc_about_highlights</code>, produced by the LLM "sandwich" extraction pass over <code>detail_description</code>/booking notes (<code>step21_build_final_merge.py</code> → <code>scripts/build_fareharbor_stage2.py</code> <code>COLUMN_RENAME</code>). The separately-available structured field (<code>item.structured_description.highlights</code>, ETL column <code>desc_highlights</code>) exists in Stage 1 but was <strong>not selected</strong> for this unified column.</li>
+<li><strong>Example:</strong> <code>"Ride through beautiful Forest Tracks while looking at amazing Coastal scenery.\nThis tour Rides through Manuka and Kanuka forrest tracks..."</code></li>
+</ul>
+<h3 id="detail_itinerary"><code>detail_itinerary</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> Cruise Route / Itinerary section.</li>
+<li><strong>How built:</strong> Same pattern as <code>detail_highlights</code> — Stage 2 uses only the AI-extracted <code>desc_about_itinerary</code> column. The structured <code>item.structured_description.itinerary</code> field is not used here.</li>
+<li><strong>Example:</strong> <code>"Tour starts at 8.30 am or 3.30 pm.\nAllow 1 Hour."</code></li>
+</ul>
+<h3 id="detail_what_is_not_included"><code>detail_what_is_not_included</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> What's Not Included section (Fareharbor-only field per the unified schema).</li>
+<li><strong>How built:</strong> Same pattern — Stage 2 uses only the AI-extracted <code>desc_about_what_excluded</code> column, not the structured <code>structured_description.what_is_not_included</code> field.</li>
+<li><strong>Example:</strong> <code>"No drinking of alcohol before going on a safari will be tolerated and you will be banned if you are considered unfit to ride, without a refund of your money."</code></li>
+</ul>
+<h3 id="detail_what_to_bring"><code>detail_what_to_bring</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, pipe-joined when two sources both have content)</li>
+<li><strong>Description:</strong> What To Bring section.</li>
+<li><strong>How built:</strong> A genuine 2-source merge (<code>build_fareharbor_stage2.py</code> <code>MERGE1_SRC</code>): <code>desc_about_what_to_bring</code> (AI-extracted from the description/highlights text) and <code>booking_notes_what_to_bring</code> (AI-extracted from booking-notes text — a separate extraction pass over different source text). If both are non-empty, they're joined with <code>" | "</code>; if only one is present, that one is used as-is.</li>
+<li><strong>Example:</strong> <code>"Bring sturdy shoes, long pants and your camera.\nBring your camera and a secure bum bag or small backpack..."</code> (single source populated in this example.)</li>
+<li><strong>Merge stats (11,231 rows total):</strong> both sources populated → 1,842 rows (joined with <code>|</code>); <code>desc_about_what_to_bring</code> only → 991; <code>booking_notes_what_to_bring</code> only → 2,960; neither → 5,438.</li>
+</ul>
+<h3 id="detail_what_is_included"><code>detail_what_is_included</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, pipe-joined when two sources both have content)</li>
+<li><strong>Description:</strong> What's Included section.</li>
+<li><strong>How built:</strong> A genuine 2-source merge, same join rule as <code>detail_what_to_bring</code>: <code>desc_about_what_included</code> (AI-extracted) + <code>booking_notes_inclusions</code>. Note: <code>booking_notes_inclusions</code> is misleadingly named — despite the <code>booking_notes_*</code> prefix, its actual extracted content is "items/services included at no extra cost" (verified against <code>config/fareharbor_prompts.txt</code>'s field definition and real samples), which is why it was routed into <code>detail_what_is_included</code> rather than <code>detail_booking_notes</code>.</li>
+<li><strong>Example:</strong> <code>"We supply, helmets, goggles and wet weather gear.\nWe provide a lock up container that you can leave personal items in.\nWe provide FREE photos on the tour. | We supply all safety gear I.e. helmets and..."</code> — this example shows <strong>both</strong> sources populated (the <code>|</code> join is visible mid-string).</li>
+<li><strong>Merge stats (11,231 rows total):</strong> both sources populated → 1,654 rows; <code>desc_about_what_included</code> only → 4,836; <code>booking_notes_inclusions</code> only → 787; neither → 3,954.</li>
+</ul>
+<h3 id="detail_booking_notes"><code>detail_booking_notes</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text, pipe-joined concatenation of up to 6 sources)</li>
+<li><strong>Description:</strong> Important Information section.</li>
+<li><strong>How built:</strong> A 6-way concat (<code>build_fareharbor_stage2.py</code> <code>MERGE2_SRC</code>), not a 2-way primary/fallback pair: <code>desc_booking_notes</code> (itself already a merge of <code>structured_description.check_in_details</code> falling back to raw <code>item.booking_notes</code>) + AI-extracted <code>booking_notes_location</code>, <code>booking_notes_check_in</code>, <code>booking_notes_important_info</code>, <code>booking_notes_cancellation</code>, <code>booking_notes_itinerary</code>. Every non-empty source is joined with <code>" | "</code> in that fixed order; empty ones are simply skipped (not represented by an empty segment). Two AI-extracted columns from the same sandwich pass, <code>booking_notes_departure_info</code> and <code>booking_notes_other</code>, are deliberately excluded from this merge (kept out at both the original <code>fareharbor_final.csv</code> stage and Stage 2).</li>
+<li><strong>Example:</strong> <code>"DIRECTIONS TO OUR BASE: We have no signage currently, so please follow Instructions. Head down Wilson Road (Gravel Road) there are 2 White fridges on the right hand side of the road. Go to the second..."</code></li>
+<li><strong>Merge stats (11,231 rows total, count of the 6 sources populated per row):</strong> 0 of 6 → 2,189 rows; 1 of 6 → 3,741; 2 of 6 → 1,973; 3 of 6 → 1,635; 4 of 6 → 1,182; 5 of 6 → 460; 6 of 6 → 51. Average combined length 656.8 characters, max 11,328 characters.</li>
+</ul>
+<h3 id="detail_cancellation_policy"><code>detail_cancellation_policy</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> Cancellation Policy section.</li>
+<li><strong>How built:</strong> Raw field <code>item.cancellation_policy</code>, HTML-stripped. Despite the naming (<code>cancellation_policy</code> vs. ETL column <code>desc_cancellation</code>) looking like a raw/parsed pair, it is <strong>not</strong> — <code>desc_cancellation = strip_html(cancellation_policy)</code> in <code>parsers/fareharbor_etl.py</code> line 235, i.e. the exact same source value, just cleaned. Confirmed by identical fill rates (98.3%/98.3%, same 11,044 rows) in <code>reports/fareharbor_stage2_column_selection.md</code>. Stage 2 selects the cleaned (<code>desc_cancellation</code>) version under the unified name.</li>
+<li><strong>Example:</strong> <code>"CANCELLATIONS: Any deposits are non refundable\nIf you cancel or alter your booking:\n- Within 14 days of the booked date - loss of full payment..."</code></li>
+</ul>
+<h3 id="cancellation_type-cancellation_hours"><code>cancellation_type</code> / <code>cancellation_hours</code></h3>
+<ul>
+<li><strong>Type:</strong> <code>cancellation_type</code> = string; <code>cancellation_hours</code> = number</li>
+<li><strong>Description:</strong> Structured, machine-readable companions to <code>detail_cancellation_policy</code> — not named unified-schema fields themselves, but kept for portal logic that needs a cutoff without parsing free text.</li>
+<li><strong>How built:</strong> Direct from raw <code>item.effective_cancellation_policy.type</code> and <code>.cutoff_hours_before</code>.</li>
+<li><strong>Example:</strong> <code>cancellation_type = "hours-before-start"</code>, <code>cancellation_hours = 24.0</code></li>
+</ul>
+<h3 id="detail_tax_percentage"><code>detail_tax_percentage</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Tax percentage applied (Fareharbor-only field per the unified schema).</li>
+<li><strong>How built:</strong> Direct from raw <code>item.tax_percentage</code>. (Also the field this source's <code>product_currency</code> inference is derived from — see above.)</li>
+<li><strong>Example:</strong> <code>15</code></li>
+</ul>
+<h3 id="detail_health_safety"><code>detail_health_safety</code></h3>
+<ul>
+<li><strong>Type:</strong> string (long text)</li>
+<li><strong>Description:</strong> Health &amp; Safety section.</li>
+<li><strong>How built:</strong> Direct from raw <code>item.health_and_safety_policy</code>.</li>
+<li><strong>Example:</strong> blank for this product (92.6% null rate for this field across Fareharbor overall).</li>
+</ul>
+<h3 id="is_pickup_available"><code>is_pickup_available</code></h3>
+<ul>
+<li><strong>Type:</strong> boolean</li>
+<li><strong>Description:</strong> Whether pickup is ever offered for this product — not a named unified field, kept as useful real metadata for booking-flow/location display.</li>
+<li><strong>How built:</strong> Direct from raw <code>item.is_pickup_ever_available</code>.</li>
+<li><strong>Example:</strong> <code>False</code></li>
+</ul>
+<hr />
+<h2 id="fields-fareharbor-does-not-populate">Fields Fareharbor Does NOT Populate</h2>
+<p>Per the unified schema table in CLAUDE.md, Fareharbor is documented as the
+source for <code>detail_accessibility</code>, <code>detail_min_age</code>, <code>detail_max_age</code>,
+<code>detail_group_size</code>, <code>detail_tripadvisor_rating</code>, <code>detail_google_rating</code> —
+these came from <code>item.structured_description.{accessibility,min_age,max_age,
+group_size}</code> and rating fields at the raw-API level, but <strong>none of them made
+it into <code>fareharbor_stage2.csv</code>'s <code>COLUMN_RENAME</code> list</strong>, so they are <strong>not
+present in <code>unified_products.csv</code> for this source</strong> despite being documented
+as available. This is a gap between the schema-design doc and the actual
+Stage 2 build — worth flagging to whoever owns the unified schema, not
+something to silently work around in this reference doc.</p>
+<hr />
+<h2 id="fields-documented-but-not-selected-for-the-unified-schema">Fields Documented But Not Selected for the Unified Schema</h2>
+<p>These raw/Stage-1 columns exist in <code>fareharbor_final.csv</code> but were
+deliberately excluded from <code>fareharbor_stage2.csv</code>, so they never reach
+<code>unified_products.csv</code>. Listed here so a reader who finds them in an earlier
+pipeline stage doesn't wonder where they went:</p>
+<ul>
+<li>All <code>parsed_txt_*</code> / <code>parsed_html_*</code> columns (22 columns) — an independent, lower-coverage regex/heading-extraction attempt from <code>build_fareharbor_etl_v2.py</code>, superseded by the AI extraction pass.</li>
+<li><code>desc_extraction_method</code>, <code>has_structured_desc</code>, <code>txt_sections_found</code>, <code>html_sections_found</code>, <code>txt_sections_count</code>, <code>html_sections_count</code>, <code>needs_chatgpt</code>, <code>empty_sections_count</code>, <code>empty_sections_list</code> — internal pipeline/QA metadata, not customer-facing.</li>
+<li><code>desc_about_duration_text</code>, <code>desc_about_other</code>, <code>booking_notes_departure_info</code>, <code>booking_notes_other</code> — AI-extracted sandwich columns with no corresponding unified field or Figma section.</li>
+<li><code>desc_highlights</code>, <code>desc_what_included</code>, <code>desc_itinerary</code>, <code>desc_what_excluded</code> — the <em>structured</em> (non-AI) counterparts that lost out to the AI-extracted versions for <code>detail_highlights</code>/<code>detail_what_is_included</code>/<code>detail_itinerary</code>/<code>detail_what_is_not_included</code> (see those fields' "How built" notes above).</li>
+<li><code>booking_notes</code> (raw, unmerged) and <code>desc_booking_notes</code> (the earlier ETL-stage partial merge) — superseded by the full 6-way <code>detail_booking_notes</code> merge at Stage 2.</li>
+<li><code>desc_cancellation</code> — same underlying value as <code>cancellation_policy</code>/<code>detail_cancellation_policy</code>, not a second source (see that field's note above).</li>
+<li><code>compound_key</code> — regenerable (<code>product_id|source</code>), not carried into Stage 2.</li>
+</ul>
+    </div>
+  </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview — TDU Column Reference</title>
+<style>
+
+:root {
+  --bg: #f7f8fa;
+  --panel: #ffffff;
+  --border: #dfe3e8;
+  --text: #1d2733;
+  --muted: #6b7684;
+  --accent: #2563eb;
+  --accent3: #0e7490;
+  --code-bg: #f1f3f6;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+header.page-header {
+  padding: 20px 32px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+header.page-header h1 { margin: 0 0 4px; font-size: 22px; }
+header.page-header p { margin: 0; color: var(--muted); font-size: 14px; }
+header.page-header .back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; }
+header.page-header .back-link:hover { text-decoration: underline; }
+
+.app-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+}
+
+nav.side-nav {
+  width: 240px;
+  flex-shrink: 0;
+  background: #111827;
+  min-height: calc(100vh - 70px);
+  position: sticky;
+  top: 0;
+  padding: 18px 0;
+  overflow-y: auto;
+}
+.side-nav-section-title {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  padding: 10px 20px 6px;
+}
+.side-nav a.nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #f3f4f6;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.side-nav a.nav-link:hover { background: #1f2937; }
+.side-nav a.nav-link.active { background: #1f2937; border-left-color: var(--accent); color: #fff; }
+.side-nav .nav-count { color: #9ca3af; font-size: 11px; font-weight: 400; margin-left: 4px; }
+
+main { flex: 1 1 auto; max-width: 900px; margin: 0 auto; padding: 32px 40px 80px; min-width: 0; }
+
+.doc-content h1 { font-size: 26px; margin: 0 0 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.doc-content h2 {
+  font-size: 19px;
+  margin: 36px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.doc-content h3 {
+  font-size: 15.5px;
+  margin: 26px 0 8px;
+  color: var(--accent3);
+  font-family: Consolas, Monaco, monospace;
+  background: var(--code-bg);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+.doc-content p { font-size: 14px; margin: 0 0 12px; }
+.doc-content ul, .doc-content ol { font-size: 14px; margin: 0 0 14px; padding-left: 22px; }
+.doc-content li { margin-bottom: 4px; }
+.doc-content strong { color: var(--text); }
+.doc-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.doc-content code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #92400e;
+}
+.doc-content pre {
+  background: var(--code-bg);
+  padding: 10px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+.doc-content pre code { background: none; padding: 0; color: var(--text); }
+
+.doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 0 0 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.doc-content th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  background: var(--code-bg);
+  padding: 8px 10px;
+}
+.doc-content td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.doc-content tr:last-child td { border-bottom: none; }
+
+.doc-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 0 0 14px;
+  padding: 4px 16px;
+  color: var(--muted);
+  background: var(--code-bg);
+}
+
+@media (max-width: 900px) {
+  .app-layout { flex-direction: column; }
+  nav.side-nav { width: 100%; position: static; min-height: auto; }
+  main { padding: 20px; }
+  .doc-content table { font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>TDU Unified Product API — Column Reference</h1>
+  <p>Field-level reference documentation for each of the 6 supplier sources feeding the unified schema. &middot; <a class="back-link" href="../fareharbor_raw_vs_extracted.html">&larr; Back to main dashboard</a></p>
+</header>
+<div class="app-layout">
+  <nav class="side-nav">
+    <div class="side-nav-section-title">Sources</div>
+    <a href="index.html" class="nav-link active">Overview</a>
+    <a href="fareharbor.html" class="nav-link">Fareharbor</a>
+    <a href="rezdy.html" class="nav-link">Rezdy</a>
+    <a href="livn.html" class="nav-link">Livn</a>
+    <a href="customlinc.html" class="nav-link">CustomLinc</a>
+    <a href="ventus.html" class="nav-link">Ventus</a>
+    <a href="ingresso.html" class="nav-link">Ingresso</a>
+  </nav>
+  <main>
+    <div class="doc-content">
+<h1 id="column-reference-documentation">Column Reference Documentation</h1>
+<p>This folder contains <strong>unified-schema field reference documentation</strong> for
+each supplier source in the TDU B2B Travel Portal data pipeline.</p>
+<p>Each file documents every unified-schema column that source actually
+populates in <code>data_pipeline/unified_database/unified_products.csv</code> /
+<code>.db</code>:
+- What the field means (plain English)
+- Data type
+- How it was built — traced back to the real raw API field, ETL/Stage 1/
+  Stage 2 build script, and any merge/fallback logic actually used in code
+- One real example value (with <code>product_id</code>) pulled from live data</p>
+<p>This is reference documentation, not a data-quality audit — for null
+rates, outliers, and QA flags, see the HTML data-quality dashboard and the
+per-source <code>reports/{source}_column_analysis.md</code> files instead.</p>
+<hr />
+<h2 id="files-in-this-folder">Files in This Folder</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Supplier</th>
+<th>Unified Columns Populated</th>
+<th>Rows</th>
+<th>Generated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="fareharbor.html"><code>fareharbor_reference.md</code></a></td>
+<td>Fareharbor</td>
+<td>37 / 87</td>
+<td>11,231</td>
+<td>2026-07-28</td>
+</tr>
+<tr>
+<td><a href="rezdy.html"><code>rezdy_reference.md</code></a></td>
+<td>Rezdy</td>
+<td>33 / 87</td>
+<td>9,363</td>
+<td>2026-07-28</td>
+</tr>
+<tr>
+<td><a href="livn.html"><code>livn_reference.md</code></a></td>
+<td>Livn</td>
+<td>35 / 87</td>
+<td>167</td>
+<td>2026-07-28</td>
+</tr>
+<tr>
+<td><a href="customlinc.html"><code>customlinc_reference.md</code></a></td>
+<td>CustomLinc</td>
+<td>30 / 87</td>
+<td>24</td>
+<td>2026-07-28</td>
+</tr>
+<tr>
+<td><a href="ventus.html"><code>ventus_reference.md</code></a></td>
+<td>Ventus</td>
+<td>20 / 87</td>
+<td>19</td>
+<td>2026-07-28</td>
+</tr>
+<tr>
+<td><a href="ingresso.html"><code>ingresso_reference.md</code></a></td>
+<td>Ingresso</td>
+<td>22 / 87</td>
+<td>16</td>
+<td>2026-07-28</td>
+</tr>
+</tbody>
+</table>
+<p>All 6 above are scoped to the <strong>final unified schema</strong> (the 87 columns in
+<code>unified_products.csv</code>/<code>.db</code>), not raw ETL/Stage 1 column names.</p>
+<hr />
+<h2 id="tdu-not-yet-documented-pipeline-gap-not-just-a-docs-gap">TDU — Not Yet Documented (Pipeline Gap, Not Just a Docs Gap)</h2>
+<p>TDU (2,367 products) has <strong>no ETL/Stage 1/Stage 2 build script</strong> and is
+<strong>not present in <code>unified_products.csv</code>/<code>.db</code> at all</strong> — the unified
+database currently merges only the 6 sources listed above. A reference doc
+can't meaningfully describe unified-schema fields for data that was never
+merged in, so none was written.</p>
+<p>Building <code>etl_tdu.py</code> → Stage 1 → Stage 2 (mirroring the other 6 sources)
+is real pipeline work, not documentation, and needs its own scoping before
+a TDU reference doc can follow the same format as the rest of this folder.</p>
+<hr />
+<h2 id="superseded-documentation">Superseded Documentation</h2>
+<p>Two earlier docs in this folder covered <strong>Stage 1 raw/ETL column names</strong>
+only (not the unified schema) and have been <strong>replaced in scope</strong> by the
+unified-schema docs above:</p>
+<table>
+<thead>
+<tr>
+<th>Old File</th>
+<th>Covered</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rezdy_master_column_reference.md</code></td>
+<td>All 47 Stage 1 columns of <code>data_pipeline/stage1/rezdy_master.csv</code></td>
+<td>Kept for reference (per-column null%/uniques/stats not repeated in the new doc) — see <a href="rezdy.html"><code>rezdy_reference.md</code></a> for the current unified-schema doc.</td>
+</tr>
+<tr>
+<td><code>fareharbor_etl_v2_column_reference.md</code></td>
+<td>All 69 Stage 1 columns of <code>exports/fareharbor_etl_v2.csv</code></td>
+<td>Kept for reference, same reason — see <a href="fareharbor.html"><code>fareharbor_reference.md</code></a> for the current unified-schema doc.</td>
+</tr>
+</tbody>
+</table>
+<p>These are not deleted — they remain useful for anyone tracing a specific
+Stage 1 column's null rate or raw-API provenance in detail — but they are
+no longer the primary reference for "what does this unified field mean."</p>
+<hr />
+<h2 id="naming-convention">Naming Convention</h2>
+<p>Unified-schema docs follow the pattern: <code>{source}_reference.md</code>
+(lowercase source name, e.g. <a href="rezdy.html"><code>rezdy_reference.md</code></a>).</p>
+<p>The superseded Stage 1 docs follow the older pattern:
+<code>{stage1_master_filename}_column_reference.md</code>.</p>
+<hr />
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Every unified-schema doc traces each field's "how built" note back to the
+  actual Stage 1/Stage 2 build script in <code>scripts/</code>, not to the earlier
+  <code>reports/{source}_stage2_column_selection.md</code> proposal reports — several
+  real discrepancies between the proposed and actual merge logic were found
+  and corrected in the process (e.g. Fareharbor's <code>detail_highlights</code> uses
+  only the AI-extracted value in the real build, not a structured-preferred/
+  AI-fallback merge as an earlier report proposed).</li>
+<li>Each doc also documents fields the unified schema table in CLAUDE.md
+  claims a source provides but that are actually absent from
+  <code>unified_products.csv</code> for that source (e.g. Fareharbor is missing
+  <code>detail_accessibility</code>/<code>detail_min_age</code>/<code>detail_max_age</code>/
+  <code>detail_group_size</code>/ratings; Ventus's <code>location_name</code> maps to
+  <code>location_city</code> in real code, not <code>location_street</code> as CLAUDE.md's
+  mapping table states) — these are genuine schema-vs-build mismatches
+  worth fixing at the source, not documentation errors to silently paper
+  over.</li>
+</ul>
+    </div>
+  </main>
+</div>
+</body>
+</html>

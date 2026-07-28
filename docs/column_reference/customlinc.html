@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CustomLinc — TDU Column Reference</title>
+<style>
+
+:root {
+  --bg: #f7f8fa;
+  --panel: #ffffff;
+  --border: #dfe3e8;
+  --text: #1d2733;
+  --muted: #6b7684;
+  --accent: #2563eb;
+  --accent3: #0e7490;
+  --code-bg: #f1f3f6;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+header.page-header {
+  padding: 20px 32px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+header.page-header h1 { margin: 0 0 4px; font-size: 22px; }
+header.page-header p { margin: 0; color: var(--muted); font-size: 14px; }
+header.page-header .back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; }
+header.page-header .back-link:hover { text-decoration: underline; }
+
+.app-layout {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 70px);
+}
+
+nav.side-nav {
+  width: 240px;
+  flex-shrink: 0;
+  background: #111827;
+  min-height: calc(100vh - 70px);
+  position: sticky;
+  top: 0;
+  padding: 18px 0;
+  overflow-y: auto;
+}
+.side-nav-section-title {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  padding: 10px 20px 6px;
+}
+.side-nav a.nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #f3f4f6;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.side-nav a.nav-link:hover { background: #1f2937; }
+.side-nav a.nav-link.active { background: #1f2937; border-left-color: var(--accent); color: #fff; }
+.side-nav .nav-count { color: #9ca3af; font-size: 11px; font-weight: 400; margin-left: 4px; }
+
+main { flex: 1 1 auto; max-width: 900px; margin: 0 auto; padding: 32px 40px 80px; min-width: 0; }
+
+.doc-content h1 { font-size: 26px; margin: 0 0 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
+.doc-content h2 {
+  font-size: 19px;
+  margin: 36px 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.doc-content h3 {
+  font-size: 15.5px;
+  margin: 26px 0 8px;
+  color: var(--accent3);
+  font-family: Consolas, Monaco, monospace;
+  background: var(--code-bg);
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+.doc-content p { font-size: 14px; margin: 0 0 12px; }
+.doc-content ul, .doc-content ol { font-size: 14px; margin: 0 0 14px; padding-left: 22px; }
+.doc-content li { margin-bottom: 4px; }
+.doc-content strong { color: var(--text); }
+.doc-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.doc-content code {
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12.5px;
+  background: var(--code-bg);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #92400e;
+}
+.doc-content pre {
+  background: var(--code-bg);
+  padding: 10px 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+.doc-content pre code { background: none; padding: 0; color: var(--text); }
+
+.doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 0 0 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+.doc-content th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--border);
+  background: var(--code-bg);
+  padding: 8px 10px;
+}
+.doc-content td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.doc-content tr:last-child td { border-bottom: none; }
+
+.doc-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 0 0 14px;
+  padding: 4px 16px;
+  color: var(--muted);
+  background: var(--code-bg);
+}
+
+@media (max-width: 900px) {
+  .app-layout { flex-direction: column; }
+  nav.side-nav { width: 100%; position: static; min-height: auto; }
+  main { padding: 20px; }
+  .doc-content table { font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>TDU Unified Product API — Column Reference</h1>
+  <p>Field-level reference documentation for each of the 6 supplier sources feeding the unified schema. &middot; <a class="back-link" href="../fareharbor_raw_vs_extracted.html">&larr; Back to main dashboard</a></p>
+</header>
+<div class="app-layout">
+  <nav class="side-nav">
+    <div class="side-nav-section-title">Sources</div>
+    <a href="index.html" class="nav-link">Overview</a>
+    <a href="fareharbor.html" class="nav-link">Fareharbor</a>
+    <a href="rezdy.html" class="nav-link">Rezdy</a>
+    <a href="livn.html" class="nav-link">Livn</a>
+    <a href="customlinc.html" class="nav-link active">CustomLinc</a>
+    <a href="ventus.html" class="nav-link">Ventus</a>
+    <a href="ingresso.html" class="nav-link">Ingresso</a>
+  </nav>
+  <main>
+    <div class="doc-content">
+<h1 id="customlinc-unified-schema-field-reference">CustomLinc — Unified Schema Field Reference</h1>
+<p><strong>Scope:</strong> Every unified-schema column that CustomLinc actually populates in
+<code>data_pipeline/unified_database/unified_products.csv</code> (<code>source = "CustomLinc"</code>).
+CustomLinc supplies <strong>29 of the 87 unified columns</strong> (30 including the
+<code>source</code> column itself); the rest are always blank for this source and are
+not documented here. CustomLinc is the smallest source by far — <strong>24
+products total</strong> — and has no description field of any kind in its Details
+API, making it the weakest source per CLAUDE.md's source quality table.</p>
+<p><strong>Audience:</strong> Team members looking up what a field means and where it comes
+from. This is NOT a data-quality report — for null rates, outliers, and QA
+flags see <code>reports/customlinc_column_analysis.md</code> instead.</p>
+<p><strong>Pipeline stages behind this doc</strong> (oldest → newest):
+1. <code>etl_customlinc.py</code> — reads <code>data/CustomLinc/*.json</code> (24 files, flat root
+   object, no nesting key like Rezdy/TDU's <code>product</code> or Fareharbor's <code>item</code>),
+   writes the 62-column raw ETL base to <code>exports/customlinc_etl_v1.csv</code>. Zero
+   cleaning/dropping. Also derives <code>_filename_product_id</code> and
+   <code>_source_filename</code>.
+2. <code>scripts/build_customlinc_stage1.py</code> — reads <code>exports/customlinc_etl_v1.csv</code>,
+   keeps every original column untouched, adds 8 <code>_clean</code>/derived companion
+   columns (never overwrites an original), writes
+   <code>exports/customlinc_stage1.csv</code> (70 columns, 24 rows). <strong>Note:</strong> a second,
+   identically-named copy also exists at
+   <code>data_pipeline/stage1/customlinc_stage1.csv</code> — Stage 2 (below) reads from
+   the <code>data_pipeline/stage1/</code> path, not the <code>exports/</code> one the script's own
+   header comment describes; both were verified to have the same 70 columns
+   for this reference.
+3. <code>scripts/build_customlinc_stage2.py</code> — renames/selects 27 columns to
+   unified/output names, derives 2 new ones (<code>product_price</code>,
+   <code>departure_date</code>), writes <code>data_pipeline/stage2/customlinc_stage2.csv</code>
+   (29 columns, 24 rows).
+4. <code>scripts/build_unified_database.py</code> — folds Stage 2 into
+   <code>unified_products.csv</code>. For CustomLinc this adds the literal <code>source</code>
+   column (CustomLinc doesn't carry one itself, per <code>SOURCES</code> list entry
+   <code>("CustomLinc", ..., True)</code>), normalizes <code>product_currency</code> (uppercase),
+   and normalizes <code>product_category</code> into a JSON string list — CustomLinc's
+   raw <code>productTypeCode</code> is a plain string (e.g. <code>"TOUR"</code>), so
+   <code>normalize_category()</code> wraps it as <code>["TOUR"]</code> since it isn't valid JSON to
+   begin with. Also derives <code>product_price_numeric</code> (a straight <code>float()</code>
+   cast — CustomLinc's <code>product_price</code> is already a scalar, no unwrapping
+   needed, unlike Livn).</p>
+<p><strong>Example product used throughout:</strong> <code>product_id = SK1130QR4PUC</code> ("Skyrail
+Train with hotel pick up Cairns", source file
+<code>CustomLinc-skyrail-SK1130QR4PUC.json</code>) — chosen because it's one of only 2
+of the 24 CustomLinc products with <code>location_street</code> populated, and also has
+<code>package_groups</code>/<code>pickup_locations_general</code> populated, so it shows the most
+fields with real, non-empty values.</p>
+<hr />
+<h2 id="identity">Identity</h2>
+<h3 id="product_id"><code>product_id</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> CustomLinc's unique product identifier.</li>
+<li><strong>How built:</strong> From Stage 1's <code>_filename_product_id</code>, itself derived in
+  <code>etl_customlinc.py::parse_product_id_from_filename()</code> as everything
+  <strong>after the first two hyphen-separated segments</strong> of the filename
+  (<code>CustomLinc-{supplierAlias}-{productId}.json</code>), joined back with <code>-</code>. This
+  is the correct-by-construction fix for the fact that CustomLinc's own
+  internal ID field (<code>code</code>) itself frequently contains hyphens (e.g.
+  <code>RFF-DR-GIT</code>) — a naive "last hyphen segment" rule would truncate it to
+  just <code>GIT</code>. Verified against the actual Stage 1 CSV: <code>_filename_product_id</code>
+  agrees with raw <code>code</code> on all 24/24 rows, including <code>RFF-DR-GIT</code>.</li>
+<li><strong>Example:</strong> <code>SK1130QR4PUC</code></li>
+</ul>
+<h3 id="source"><code>source</code></h3>
+<ul>
+<li><strong>Type:</strong> string (constant)</li>
+<li><strong>Description:</strong> Marks which of the 7 supplier systems this row came from.</li>
+<li><strong>How built:</strong> CustomLinc's Stage 2 CSV has no source column of its own;
+  <code>build_unified_database.py</code> adds the hardcoded literal <code>"CustomLinc"</code> at
+  merge time (<code>SOURCES</code> list, <code>needs_source_col=True</code>).</li>
+<li><strong>Example:</strong> <code>CustomLinc</code></li>
+</ul>
+<hr />
+<h2 id="listing-page-fields">Listing Page Fields</h2>
+<h3 id="product_name"><code>product_name</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Full tour/product name.</li>
+<li><strong>How built:</strong> From Stage 1's <code>name_clean</code>, not raw <code>name</code> — the Stage 1
+  cleaning step (<code>collapse_whitespace()</code>) collapses repeated internal
+  whitespace (a double-space bug present in some product names) but does not
+  strip/trim.</li>
+<li><strong>Example:</strong> <code>Skyrail Train with hotel pick up Cairns</code></li>
+</ul>
+<h3 id="product_category"><code>product_category</code></h3>
+<ul>
+<li><strong>Type:</strong> string (JSON-encoded list, one element)</li>
+<li><strong>Description:</strong> Tour type/category.</li>
+<li><strong>How built:</strong> Direct from raw <code>productTypeCode</code> (controlled vocabulary:
+  <code>ENTRY</code> or <code>TOUR</code> across all 24 rows), renamed straight through at Stage 2.
+  At the unified-database merge step, <code>normalize_category()</code> wraps it in a
+  JSON list — CustomLinc's raw value is a plain string, not valid JSON, so it
+  falls into the <code>except</code> branch and becomes <code>json.dumps([raw])</code>.</li>
+<li><strong>Example:</strong> <code>["TOUR"]</code></li>
+</ul>
+<h3 id="product_type_flag"><code>product_type_flag</code></h3>
+<ul>
+<li><strong>Type:</strong> string (short code)</li>
+<li><strong>Description:</strong> Not a named unified-schema field — a supporting
+  classifier kept alongside <code>product_category</code>.</li>
+<li><strong>How built:</strong> Direct from raw <code>isA</code> (observed values: <code>CT</code>, <code>PK</code>, <code>PR</code>,
+  <code>PS</code>).</li>
+<li><strong>Example:</strong> <code>PS</code></li>
+</ul>
+<h3 id="product_currency"><code>product_currency</code></h3>
+<ul>
+<li><strong>Type:</strong> string (ISO code)</li>
+<li><strong>Description:</strong> Currency the price is quoted in.</li>
+<li><strong>How built:</strong> Direct from raw <code>currency</code> (100% <code>AUD</code> across all 24 rows),
+  uppercased at the unified-database merge step (no-op here since it's
+  already uppercase).</li>
+<li><strong>Example:</strong> <code>AUD</code></li>
+</ul>
+<h3 id="product_price"><code>product_price</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Starting price for the product.</li>
+<li><strong>How built:</strong> <strong>Not</strong> the raw <code>lowestPrice</code> column, despite the name
+  suggesting it — <code>lowestPrice</code> is <code>0</code> for all 24 rows in both the Stage 1
+  CSV and the raw source JSON (confirmed dead/unused field, per the Stage 2
+  script's own header comment). Instead, <code>derive_product_price()</code> in
+  <code>build_customlinc_stage2.py</code> computes the <strong>minimum <code>priceGross</code> across
+  all fare-tier entries in the raw <code>fareTypes</code> list, excluding entries where
+  <code>priceGross == 0</code></strong> (this excludes genuinely-free/inapplicable tiers like
+  Infant, which would otherwise always win the minimum). If no fare tier has
+  a positive <code>priceGross</code>, the field is left blank.</li>
+<li><strong>Example:</strong> <code>66</code> — for <code>SK1130QR4PUC</code>, <code>fareTypes</code> has 4 tiers (Adult
+  $132, Child $66, Infant $0, Family $330); Infant's <code>$0</code> is excluded, so the
+  minimum of the remaining three (<code>66</code>) wins.</li>
+</ul>
+<h3 id="product_price_numeric"><code>product_price_numeric</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Companion numeric-price column added at the
+  unified-database merge step so every source has one consistent numeric
+  price field (needed because Livn's <code>product_price</code> is a JSON object, not a
+  scalar).</li>
+<li><strong>How built:</strong> For CustomLinc, <code>product_price</code> is already a scalar number,
+  so <code>derive_price_numeric()</code> just does <code>float(product_price)</code> straight
+  through — no unwrapping.</li>
+<li><strong>Example:</strong> <code>66</code></li>
+</ul>
+<h3 id="product_duration"><code>product_duration</code></h3>
+<ul>
+<li><strong>Type:</strong> number (minutes)</li>
+<li><strong>Description:</strong> How long the tour runs.</li>
+<li><strong>How built:</strong> From Stage 1's <code>duration_minutes</code>, not raw <code>duration</code> —
+  <code>parse_duration()</code> in <code>build_customlinc_stage1.py</code> standardizes two
+  observed raw formats into total minutes: plain day-counts (raw <code>duration</code>
+  like <code>"1"</code>, interpreted per <code>durationLong</code>'s "N Day(s)" wording as
+  <code>days * 24 * 60</code>) and <code>HH:MM</code> clock durations (raw <code>duration</code> like
+  <code>"02:00"</code>, interpreted as <code>hours*60 + minutes</code>).</li>
+<li><strong>Example:</strong> <code>1440</code> (i.e. <code>"1"</code> raw day-count → 1 × 24 × 60)</li>
+</ul>
+<h3 id="duration_unit_source"><code>duration_unit_source</code></h3>
+<ul>
+<li><strong>Type:</strong> string (<code>"days"</code> / <code>"HH:MM"</code> / <code>"unrecognized"</code>)</li>
+<li><strong>Description:</strong> Not a named unified-schema field — tracks which of the
+  two raw duration formats <code>product_duration</code> was actually parsed from, per
+  CLAUDE.md Critical Rule #10's "track which source won" pattern.</li>
+<li><strong>How built:</strong> Set alongside <code>duration_minutes</code> in the same
+  <code>parse_duration()</code> function.</li>
+<li><strong>Example:</strong> <code>days</code></li>
+</ul>
+<h3 id="duration_display"><code>duration_display</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Human-readable duration string — display companion to
+  <code>product_duration</code>.</li>
+<li><strong>How built:</strong> Direct from raw <code>durationLong</code> (e.g. <code>"1 Day"</code>,
+  <code>"02:00 Hrs"</code>).</li>
+<li><strong>Example:</strong> <code>1 Day</code></li>
+</ul>
+<hr />
+<h2 id="location-fields-details-api-only-per-critical-rule-8">Location Fields (Details API only, per Critical Rule #8)</h2>
+<h3 id="location_street"><code>location_street</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Street address / meeting point — the only location field
+  CustomLinc populates (per CLAUDE.md's Source Field Mapping table,
+  <code>startLocation</code> → <code>location_street</code> is CustomLinc's sole documented
+  location mapping; no city/state/country/postcode/lat/long fields exist for
+  this source at all).</li>
+<li><strong>How built:</strong> Direct from raw <code>startLocation</code>, renamed straight through.
+  Extremely sparse: only 2 of 24 rows populated (both are the two Skyrail
+  products, both = <code>"Skyrail Smithfield Terminal"</code>). A duplicate raw column,
+  <code>endLocation</code>, carries the identical value on the same 2 rows wherever
+  either is populated — it was not selected into the unified schema since
+  it's not a distinct data point, just a repeat of <code>startLocation</code>.</li>
+<li><strong>Example:</strong> <code>Skyrail Smithfield Terminal</code></li>
+</ul>
+<hr />
+<h2 id="detail-page-fields">Detail Page Fields</h2>
+<h3 id="detail_operating_days"><code>detail_operating_days</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Schedule section (CustomLinc/Livn per the unified schema
+  table).</li>
+<li><strong>How built:</strong> Direct from raw <code>operatingDays</code>, renamed straight through.
+  Only 4 of 24 rows populated (<code>BIT1115</code>, <code>BIT1345</code>, <code>GIT1130</code>,
+  <code>RFF-DR-GIT</code>), all with the single observed value <code>"Daily"</code>.</li>
+<li><strong>Example (product <code>GIT1130</code>):</strong> <code>Daily</code> — blank on the example product
+  <code>SK1130QR4PUC</code> used elsewhere in this doc.</li>
+</ul>
+<h3 id="detail_start_time"><code>detail_start_time</code></h3>
+<ul>
+<li><strong>Type:</strong> string — <strong>currently always blank for CustomLinc</strong></li>
+<li><strong>Description:</strong> Departure Time section (documented CustomLinc/Livn source
+  per the unified schema table).</li>
+<li><strong>How built:</strong> Mapped from Stage 1's <code>departureTime_clean</code>, which is
+  itself Stage 1's null-out fix for raw <code>departureTime</code> — every one of the
+  24 raw <code>departureTime</code> values is a pre-1900 <code>.NET</code> placeholder epoch
+  (<code>/Date(-62135...)/</code>, year ≈ 0001), which
+  <code>build_customlinc_stage1.py::clean_epoch_date()</code> treats as "no real date
+  set" and blanks out. So the unified column exists and the mapping is real,
+  but there is currently <strong>zero populated data</strong> for this field across all
+  24 CustomLinc rows in <code>unified_products.csv</code> — confirmed 0/24. A separate
+  raw field, <code>departing</code> (mapped to <code>departure_time_display</code> below), does
+  carry a real (if generic) time value and may be a better field to surface
+  in a UI needing <em>something</em> for departure time.</li>
+<li><strong>Example:</strong> <em>(no populated example exists in the current 24-row dataset)</em></li>
+</ul>
+<hr />
+<h2 id="fields-with-no-unified-schema-name-kept-as-useful-supporting-data">Fields With No Unified-Schema Name (kept as useful supporting data)</h2>
+<p>CustomLinc's Stage 2 output includes 16 columns that don't map to one of the
+43 named unified fields but were kept because they carry real, non-trivial
+data useful to the portal or to booking-flow logic. Listed here since they
+do appear in <code>unified_products.csv</code> for this source (the query in step 4
+above counted these as "populated columns").</p>
+<h3 id="meeting_point_notes"><code>meeting_point_notes</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Free-text pickup/meeting-point instructions — supports
+  <code>detail_booking_notes</code>-style display, though not merged into that named
+  field for this source.</li>
+<li><strong>How built:</strong> From Stage 1's <code>defaultPickupLocationWeb_clean</code>, which
+  strips leading/trailing whitespace off raw <code>defaultPickupLocationWeb</code>
+  (13/24 rows populated).</li>
+<li><strong>Example:</strong> <code>Hotel and pick up time to be confirmed</code></li>
+</ul>
+<h3 id="booking_lead_time"><code>booking_lead_time</code></h3>
+<ul>
+<li><strong>Type:</strong> number (hours, decimal)</li>
+<li><strong>Description:</strong> How much advance notice booking requires.</li>
+<li><strong>How built:</strong> From Stage 1's <code>webLeadTime_clean</code>, which nulls out
+  negative sentinel values (<code>-1</code>, <code>-8</code>) found in the raw <code>webLeadTime</code>
+  column; 15/24 rows populated once cleaned.</li>
+<li><strong>Example:</strong> <code>0.00</code></li>
+</ul>
+<h3 id="validity_start-validity_end"><code>validity_start</code> / <code>validity_end</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Labels describing the product's validity window (not
+  actual dates — these are the <em>labels</em> used for the window's start/end,
+  e.g. what "Day 1" and "Day N" are called for this product).</li>
+<li><strong>How built:</strong> Direct from raw <code>termFirstDay</code> / <code>termLastDay</code> (100%
+  filled; observed values <code>"Departing"</code>/<code>"Visit Date"</code> and
+  <code>"Returning"</code>/<code>"End Date"</code>).</li>
+<li><strong>Example:</strong> <code>validity_start = "Departing"</code>, <code>validity_end = "Returning"</code></li>
+</ul>
+<h3 id="availability"><code>availability</code></h3>
+<ul>
+<li><strong>Type:</strong> number</li>
+<li><strong>Description:</strong> Real availability/scheduling capacity figure.</li>
+<li><strong>How built:</strong> Direct from raw <code>availability</code>, renamed straight through
+  (19/24 rows populated; values range from <code>0</code> to <code>99999</code>).</li>
+<li><strong>Example:</strong> <code>1</code></li>
+</ul>
+<h3 id="operator_code"><code>operator_code</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Internal operator code (distinct from the
+  human-readable <code>meta_supplier_name</code>).</li>
+<li><strong>How built:</strong> From Stage 1's <code>opcName_clean</code>, a type-guard companion of
+  raw <code>opcName</code> (some values look numeric, e.g. <code>"69001"</code> for Sydney Zoo
+  products; the <code>_clean</code> column exists to flag/preserve these as text rather
+  than let a downstream loader auto-cast them to numeric — the value itself
+  is unchanged from the raw).</li>
+<li><strong>Example:</strong> <code>SKYUP</code></li>
+</ul>
+<h3 id="booking_channel_code"><code>booking_channel_code</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> Internal operator/booking-channel code, a separate
+  identifier from <code>operator_code</code>.</li>
+<li><strong>How built:</strong> Direct from raw <code>ocb</code> (100% filled; 5 distinct values
+  across the 24 products, e.g. <code>ADAMSROTT</code>, <code>LANCELIN</code>, <code>SKYAPI</code>).</li>
+<li><strong>Example:</strong> <code>SKYAPI</code></li>
+</ul>
+<h3 id="return_time-departure_time_display"><code>return_time</code> / <code>departure_time_display</code></h3>
+<ul>
+<li><strong>Type:</strong> string (clock time)</li>
+<li><strong>Description:</strong> Scheduled return and departure times — real scheduling
+  data, distinct from the always-blank <code>detail_start_time</code> above.</li>
+<li><strong>How built:</strong> Direct from raw <code>returning</code> / <code>departing</code> respectively
+  (both 100% filled).</li>
+<li><strong>Example:</strong> <code>return_time = "12:01 AM"</code>, <code>departure_time_display = "12:01 AM"</code></li>
+</ul>
+<h3 id="fare_types"><code>fare_types</code></h3>
+<ul>
+<li><strong>Type:</strong> string (JSON-encoded list)</li>
+<li><strong>Description:</strong> Per-fare-tier pricing and booking rules (Adult, Child,
+  Infant, Family, etc.) — CustomLinc's richest content field and the source
+  of the derived <code>product_price</code>. Kept as a single JSON-string column
+  (not flattened) since the list length varies per row (4–6 tiers).</li>
+<li><strong>How built:</strong> Direct from raw <code>fareTypes</code>, renamed straight through, no
+  cleaning applied — including one known embedded-HTML quirk: some tiers'
+  nested <code>farePrompt</code> sub-field contains a literal <code>&lt;br&gt;</code> tag (e.g.
+  <code>"&lt;br&gt;(Please select 1 Family when booking for 2 Adults and 2 Children)"</code>
+  on both Skyrail products' Family tier). This was flagged as an open
+  UNCERTAIN item in <code>reports/customlinc_stage2_column_selection.md</code> and, per
+  the actual <code>build_customlinc_stage2.py</code> code, was <strong>not</strong> cleaned — the
+  <code>&lt;br&gt;</code> passes through as-is inside the JSON string.</li>
+<li><strong>Example (excerpt, <code>SK1130QR4PUC</code>):</strong> <code>[{"code": "ADULT", ...,
+  "priceGross": 132, ...}, {"code": "CHILD", ..., "priceGross": 66, ...},
+  {"code": "INF", ..., "priceGross": 0, ...}, {"code": "FAMILY", ...,
+  "priceGross": 330, "farePrompt": "&lt;br&gt;(Please select 1 Family when booking
+  for 2 Adults and 2 Children)", ...}]</code></li>
+</ul>
+<h3 id="package_type"><code>package_type</code></h3>
+<ul>
+<li><strong>Type:</strong> string</li>
+<li><strong>Description:</strong> How to interpret <code>package_groups</code> for this row (only
+  meaningful where <code>package_groups</code> is also populated).</li>
+<li><strong>How built:</strong> Direct from raw <code>packageType</code> (4/24 rows populated: values
+  <code>"Package"</code> or <code>"Undefined"</code>).</li>
+<li><strong>Example:</strong> <code>Package</code></li>
+</ul>
+<h3 id="is_pickup_compulsory"><code>is_pickup_compulsory</code></h3>
+<ul>
+<li><strong>Type:</strong> boolean</li>
+<li><strong>Description:</strong> Whether a pickup location must be selected to book —
+  real booking-rule flag.</li>
+<li><strong>How built:</strong> Direct from raw <code>isPickupCompulsory</code>, 100% filled.</li>
+<li><strong>Example:</strong> <code>True</code></li>
+</ul>
+<h3 id="pickup_locations_general"><code>pickup_locations_general</code></h3>
+<ul>
+<li><strong>Type:</strong> string (JSON-encoded list)</li>
+<li><strong>Description:</strong> General reference list of named pickup points (hotels,
+  landmarks) available for this product — the <strong>top-level</strong> pickup list,
+  distinct from the richer nested copy inside <code>package_groups</code> (see below).</li>
+<li><strong>How built:</strong> Direct from raw top-level <code>pickupLocations</code>, renamed
+  straight through (8/24 rows populated). Per
+  <code>reports/customlinc_5_examples.md</code>'s comparison, this top-level list
+  references the same underlying location catalog as the nested copy (same
+  IDs/names/coordinates) but its <code>transfers</code> array is always empty/null —
+  i.e. it carries no per-fare-type pickup-surcharge pricing.</li>
+<li><strong>Example (<code>SK1130QR4PUC</code>):</strong> 73 named pickup points around Cairns (e.g.
+  <code>{"code": "1", "description": "181 The Esplanade (pick up Cairns
+  Queenslander)", "id": 1104, ..., "transfers": null}</code>).</li>
+</ul>
+<h3 id="package_groups"><code>package_groups</code></h3>
+<ul>
+<li><strong>Type:</strong> string (JSON-encoded list, up to 4 levels deep)</li>
+<li><strong>Description:</strong> Nested package/bundle structure —
+  <code>packageGroups → packageItems → pickupLocations → transfers</code>. The
+  <code>transfers</code> array at the deepest level carries real per-fare-type
+  pickup-surcharge pricing (Adult/Child/Concession/Family/Infant) that the
+  top-level <code>pickup_locations_general</code> never has.</li>
+<li><strong>How built:</strong> Direct from raw <code>packageGroups</code>, renamed straight through,
+  kept as a single JSON-string column rather than flattened (only 4/24 rows
+  populated: the item count varies per row, so flattening to fixed columns
+  would require an arbitrary max-depth/max-fanout decision that was
+  deliberately deferred, per the Stage 2 selection report).</li>
+<li><strong>Example (<code>SK1130QR4PUC</code>, first pickup entry inside the nested
+  structure):</strong> <code>{"code": "TBA", "description": " Hotel and pick up time to
+  be confirmed", ..., "pickupScheduleOid": "3040.6923", "time":
+  "/Date(-62135596740000)/", "transfers": [{"code": "Adult", "priceGross":
+  13.5, "priceNet": 10.8}, {"code": "Child", "priceGross": 13.5, ...},
+  {"code": "Concession", "priceGross": 0, ...}, {"code": "Family",
+  "priceGross": 54, ...}, {"code": "Infant", "priceGross": 0, ...}]}</code></li>
+</ul>
+<h3 id="departure_date"><code>departure_date</code></h3>
+<ul>
+<li><strong>Type:</strong> string (ISO date, <code>YYYY-MM-DD</code>)</li>
+<li><strong>Description:</strong> A real forward-looking departure date — not a
+  placeholder, unlike <code>detail_start_time</code>'s source field.</li>
+<li><strong>How built:</strong> Derived at Stage 2 by <code>parse_dotnet_date()</code> from raw
+  <code>departureDate</code>, which stores a .NET <code>/Date(ms)/</code> epoch string
+  (<code>/Date(1783900800000)/</code> on all 24 rows in this snapshot). Parsed to a
+  UTC date via <code>datetime.fromtimestamp(ms/1000, tz=utc).date()</code>.</li>
+<li><strong>Example:</strong> <code>2026-07-13</code></li>
+</ul>
+<hr />
+<h2 id="fields-customlinc-does-not-populate">Fields CustomLinc Does NOT Populate</h2>
+<p>Per the unified schema table in CLAUDE.md, CustomLinc is documented as a
+source for several fields that turn out to carry <strong>zero actual data</strong> once
+traced to the real raw JSON — confirmed both in
+<code>reports/customlinc_column_analysis.md</code> (100% empty across all 24 rows) and
+by their absence from <code>data_pipeline/stage2/customlinc_stage2.csv</code>'s
+<code>COLUMN_RENAME</code> list:</p>
+<ul>
+<li><strong><code>detail_description</code></strong> — CustomLinc has <strong>no description field of any
+  kind</strong>. Raw <code>webLongDesc</code>, <code>webShortDesc</code>, and <code>webpageDesc</code> are all 100%
+  empty across all 24 rows — confirmed the weakest source in the project, as
+  documented in CLAUDE.md's source-quality table ("Weak — no description in
+  detail API").</li>
+<li><strong><code>detail_what_is_included</code></strong> — documented source is raw <code>fareIncludes</code>,
+  which is 100% empty across all 24 rows. The column was excluded from
+  Stage 2's <code>COLUMN_RENAME</code> entirely (never reaches <code>unified_products.csv</code>
+  for this source), unlike, say, Fareharbor's always-empty-but-still-mapped
+  fields.</li>
+<li><strong><code>detail_booking_notes</code></strong> — documented source is raw <code>alert</code>, also 100%
+  empty across all 24 rows, and likewise excluded from <code>COLUMN_RENAME</code>.</li>
+<li><strong><code>detail_languages</code></strong> — documented source is raw <code>languageName</code>, also
+  100% empty, also excluded from <code>COLUMN_RENAME</code>.</li>
+<li><strong><code>location_city</code> / <code>location_state</code> / <code>location_country</code> /
+  <code>location_postcode</code> / <code>location_latitude</code> / <code>location_longitude</code></strong> — none
+  of these have a documented CustomLinc source in CLAUDE.md's Source Field
+  Mapping table to begin with (only <code>location_street</code> does), and none exist
+  in the Stage 2 output.</li>
+<li><strong><code>detail_return_time</code></strong> — documented as a CustomLinc-only field per the
+  Figma-mapped DETAIL PAGE table, but there is no <code>COLUMN_RENAME</code> entry
+  producing a unified field with this exact name; the closest analog kept is
+  the non-schema-named <code>return_time</code> (from raw <code>returning</code>), which is real
+  populated data (100% filled) but was never renamed to the schema's
+  documented <code>detail_return_time</code> label. This looks like a naming gap
+  between the schema-design doc and the actual Stage 2 build, worth flagging
+  to whoever owns the unified schema.</li>
+<li><strong><code>product_headline</code>, <code>product_images</code>, <code>product_tags</code></strong> — no raw
+  CustomLinc field maps to any of these; CustomLinc is not listed as a
+  source for them in CLAUDE.md's LISTING PAGE table either.</li>
+</ul>
+<hr />
+<h2 id="fields-documented-but-not-selected-for-the-unified-schema">Fields Documented But Not Selected for the Unified Schema</h2>
+<p>These raw/Stage-1 columns exist in <code>customlinc_stage1.csv</code> (70 columns
+total) but were deliberately excluded from <code>customlinc_stage2.csv</code>'s
+<code>COLUMN_RENAME</code> list (27 entries), so they never reach
+<code>unified_products.csv</code>. Listed here so a reader who finds them in an earlier
+pipeline stage doesn't wonder where they went:</p>
+<p><strong>22 columns are 100% empty across all 24 rows</strong> (per
+<code>reports/customlinc_column_analysis.md</code>): <code>acType</code>, <code>alert</code> (documented
+mapping to <code>detail_booking_notes</code> but no data), <code>defaultPromoCode</code>,
+<code>dropoffLocations</code>, <code>fareIncludes</code> (documented mapping to
+<code>detail_what_is_included</code> but no data), <code>image</code>, <code>imageCaption</code>,
+<code>languageName</code> (documented mapping to <code>detail_languages</code> but no data),
+<code>lowestPriceFareTypeCode</code>, <code>lowestPriceFareTypeShortName</code>, <code>nights</code>,
+<code>origins</code>, <code>priceOrigins</code>, <code>productOptions</code>, <code>surchargeCodes</code>, <code>vehicles</code>,
+<code>webContent</code>, <code>webLongDesc</code>, <code>webShortDesc</code>, <code>webpageDesc</code>,
+<code>webpageKeywords</code>, <code>webpageTitle</code>.</p>
+<p><strong>Superseded-by-<code>_clean</code>-companion originals</strong> (the raw column exists in
+Stage 1 but only the cleaned companion was selected for Stage 2): <code>code</code>
+(superseded by <code>_filename_product_id</code> → <code>product_id</code>; the two agree on all
+24/24 rows, but <code>_filename_product_id</code> was chosen as the authoritative ID
+per the cleaning checklist's recommendation), <code>name</code> (→ <code>name_clean</code>),
+<code>duration</code> (→ <code>duration_minutes</code>), <code>defaultDepartureDate</code> and
+<code>defaultDepartureDate_clean</code> (100% placeholder-epoch dates, no real data —
+neither version was selected), <code>departureTime</code> (→ <code>departureTime_clean</code>,
+though as noted above the cleaned version is itself 100% blank for this
+source), <code>defaultPickupLocationWeb</code> (→ <code>defaultPickupLocationWeb_clean</code>),
+<code>opcName</code> (→ <code>opcName_clean</code>), <code>webLeadTime</code> (→ <code>webLeadTime_clean</code>).</p>
+<p><strong>Internal ETL bookkeeping, not product data:</strong> <code>_source_filename</code>.</p>
+<p><strong>Zero-variation flag/financial fields</strong> — real columns with data in every
+row, but every row has the identical value (all <code>False</code> or all <code>0</code> in this
+24-row sample), so there is currently nothing for the unified schema to
+differentiate on: <code>areFaresPOA</code> (24/24 <code>False</code>), <code>areNamesRequired</code> (24/24
+<code>False</code>), <code>isNameCompulsory</code> (24/24 <code>False</code>), <code>isWeightCompulsory</code> (24/24
+<code>False</code>), <code>expiryMonths</code> (24/24 <code>0</code>), <code>yield</code> (24/24 <code>0</code>), <code>yieldVehicle</code>
+(24/24 <code>0</code>), <code>yieldVehicleUnits</code> (24/24 <code>0</code>). Per
+<code>reports/customlinc_stage2_column_selection.md</code>, these were flagged as
+UNCERTAIN rather than confidently excluded — future CustomLinc pulls may
+show real variation.</p>
+<p><strong><code>endLocation</code></strong> — identical to <code>startLocation</code>/<code>location_street</code> wherever
+either is populated (2/24 rows); not a second data point, so it was not
+carried forward.</p>
+    </div>
+  </main>
+</div>
+</body>
+</html>
