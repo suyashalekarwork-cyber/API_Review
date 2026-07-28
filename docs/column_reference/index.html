@@ -7,179 +7,432 @@
 <style>
 
 :root {
-  --bg: #f7f8fa;
-  --panel: #ffffff;
-  --border: #dfe3e8;
-  --text: #1d2733;
-  --muted: #6b7684;
-  --accent: #2563eb;
-  --accent3: #0e7490;
-  --code-bg: #f1f3f6;
+  --bg: #ffffff;
+  --bg-sidebar: #f8fafc;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  --accent: #7c3aed;
+  --accent-soft: #f3eefe;
+  --code-bg: #f1f5f9;
+  --code-text: #7c3aed;
+  --sidebar-width: 280px;
+  --content-max: 760px;
 }
 * { box-sizing: border-box; }
-html, body { height: 100%; }
+html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
+  font-size: 16px;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
-header.page-header {
-  padding: 20px 32px 14px;
-  background: var(--panel);
-  border-bottom: 1px solid var(--border);
-}
-header.page-header h1 { margin: 0 0 4px; font-size: 22px; }
-header.page-header p { margin: 0; color: var(--muted); font-size: 14px; }
-header.page-header .back-link { color: var(--accent); text-decoration: none; font-size: 13px; font-weight: 600; }
-header.page-header .back-link:hover { text-decoration: underline; }
+a { color: var(--accent); }
 
-.app-layout {
+/* ---------- Top bar ---------- */
+.topbar {
+  height: 56px;
   display: flex;
-  align-items: flex-start;
-  min-height: calc(100vh - 70px);
-}
-
-nav.side-nav {
-  width: 240px;
-  flex-shrink: 0;
-  background: #111827;
-  min-height: calc(100vh - 70px);
+  align-items: center;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  padding: 18px 0;
-  overflow-y: auto;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  z-index: 20;
 }
-.side-nav-section-title {
-  font-size: 10.5px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #6b7280;
-  padding: 10px 20px 6px;
-}
-.side-nav a.nav-link {
-  display: block;
-  width: 100%;
-  text-align: left;
-  background: none;
-  border: none;
-  color: #f3f4f6;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-left: 3px solid transparent;
+.topbar .site-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
   text-decoration: none;
-  box-sizing: border-box;
+  letter-spacing: -0.01em;
 }
-.side-nav a.nav-link:hover { background: #1f2937; }
-.side-nav a.nav-link.active { background: #1f2937; border-left-color: var(--accent); color: #fff; }
-.side-nav .nav-count { color: #9ca3af; font-size: 11px; font-weight: 400; margin-left: 4px; }
+.topbar .site-title .dot { color: var(--accent); }
+.topbar .site-subtitle {
+  font-size: 12.5px;
+  color: var(--text-tertiary);
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
+}
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 34px;
+  height: 34px;
+  margin-right: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
 
-main { flex: 1 1 auto; max-width: 900px; margin: 0 auto; padding: 32px 40px 80px; min-width: 0; }
+/* ---------- Shell ---------- */
+.shell {
+  display: flex;
+  align-items: flex-start;
+}
 
-.doc-content h1 { font-size: 26px; margin: 0 0 18px; border-bottom: 1px solid var(--border); padding-bottom: 14px; }
-.doc-content h2 {
-  font-size: 19px;
-  margin: 36px 0 14px;
-  padding-bottom: 6px;
+/* ---------- Sidebar ---------- */
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  height: calc(100vh - 56px);
+  position: sticky;
+  top: 56px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 18px 14px 40px;
+}
+.search-wrap { position: relative; margin-bottom: 18px; }
+.search-input {
+  width: 100%;
+  font-size: 13.5px;
+  font-family: inherit;
+  padding: 8px 10px 8px 32px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+}
+.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  font-size: 13px;
+  pointer-events: none;
+}
+.search-kbd {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10.5px;
+  color: var(--text-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  background: #fff;
+}
+#search-results {
+  display: none;
+  margin-bottom: 14px;
+  max-height: 340px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+#search-results.open { display: block; }
+#search-results .sr-item {
+  display: block;
+  padding: 7px 10px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+#search-results .sr-item:last-child { border-bottom: none; }
+#search-results .sr-item:hover, #search-results .sr-item.sr-active { background: var(--accent-soft); }
+#search-results .sr-field {
+  font-family: ui-monospace, Consolas, Menlo, monospace;
+  font-size: 12.5px;
+  color: var(--code-text);
+  display: block;
+}
+#search-results .sr-source { font-size: 11px; color: var(--text-tertiary); }
+#search-empty {
+  display: none;
+  font-size: 12.5px;
+  color: var(--text-tertiary);
+  padding: 10px;
+  font-style: italic;
+}
+
+.nav-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  padding: 14px 10px 6px;
+}
+.nav-section-title:first-of-type { padding-top: 4px; }
+.nav-list { list-style: none; margin: 0; padding: 0; }
+.nav-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin: 1px 0;
+}
+.nav-list a:hover { background: #eef1f5; color: var(--text); }
+.nav-list a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-list .nav-badge {
+  font-size: 10.5px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  white-space: nowrap;
+}
+.nav-list a.active .nav-badge { color: var(--accent); opacity: 0.7; }
+.nav-list.nested a { padding-left: 22px; }
+
+/* ---------- Main content ---------- */
+main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 40px 32px 120px;
+}
+.doc-col {
+  width: 100%;
+  max-width: var(--content-max);
+  min-width: 0;
+}
+.breadcrumb {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-bottom: 18px;
+  letter-spacing: 0.01em;
+}
+.breadcrumb a { color: var(--text-tertiary); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb .crumb-sep { margin: 0 4px; color: #cbd5e1; }
+.doc {
+  width: 100%;
+}
+.doc h1 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+  padding-bottom: 20px;
   border-bottom: 1px solid var(--border);
   color: var(--text);
 }
-.doc-content h3 {
-  font-size: 15.5px;
-  margin: 26px 0 8px;
-  color: var(--accent3);
-  font-family: Consolas, Monaco, monospace;
-  background: var(--code-bg);
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 5px;
+.doc > .doc-meta {
+  font-size: 13.5px;
+  color: var(--text-tertiary);
+  margin-bottom: 36px;
 }
-.doc-content p { font-size: 14px; margin: 0 0 12px; }
-.doc-content ul, .doc-content ol { font-size: 14px; margin: 0 0 14px; padding-left: 22px; }
-.doc-content li { margin-bottom: 4px; }
-.doc-content strong { color: var(--text); }
-.doc-content hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
-.doc-content code {
-  font-family: Consolas, Monaco, monospace;
-  font-size: 12.5px;
-  background: var(--code-bg);
-  padding: 1px 5px;
-  border-radius: 3px;
-  color: #92400e;
+.doc h2 {
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+  padding: 56px 0 18px;
+  color: var(--text);
+  scroll-margin-top: 72px;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
 }
-.doc-content pre {
+.doc h1 + h2,
+.doc h1 + p + h2 { border-top: none; margin-top: 0; padding-top: 8px; }
+.doc h2:first-of-type { border-top: none; margin-top: 8px; padding-top: 0; }
+.doc h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 34px 0 12px;
+  scroll-margin-top: 72px;
+}
+.doc h3:first-of-type { margin-top: 22px; }
+.doc h3 code {
+  font-size: 14.5px;
+  padding: 3px 8px;
+}
+.doc h3.h3-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  margin: 28px 0 14px;
+}
+.doc p { font-size: 15px; color: var(--text); margin: 0 0 14px; }
+.doc ul, .doc ol { font-size: 15px; margin: 0 0 16px; padding-left: 24px; }
+.doc li { margin-bottom: 8px; line-height: 1.65; }
+.doc li > ul, .doc li > ol { margin-top: 8px; }
+.doc strong { font-weight: 600; }
+.doc hr { border: none; border-top: 1px solid var(--border); margin: 16px 0 8px; }
+
+/* Inline field-name pills: short references within a sentence */
+.doc p code, .doc li code, .doc td code, .doc th code {
+  font-family: ui-monospace, Consolas, Menlo, monospace;
+  font-size: 13px;
   background: var(--code-bg);
-  padding: 10px 14px;
-  border-radius: 6px;
+  color: var(--code-text);
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+/* Standalone code blocks: script/file names, commands, multi-line values */
+.doc pre {
+  background: var(--code-bg);
+  padding: 12px 16px;
+  border-radius: 8px;
   overflow-x: auto;
   border: 1px solid var(--border);
+  margin: 0 0 14px;
 }
-.doc-content pre code { background: none; padding: 0; color: var(--text); }
+.doc pre code {
+  background: none;
+  padding: 0;
+  color: var(--text);
+  font-family: ui-monospace, Consolas, Menlo, monospace;
+  font-size: 13px;
+  white-space: pre;
+  font-weight: 600;
+}
 
-.doc-content table {
+.doc table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
-  margin: 0 0 20px;
-  background: var(--panel);
+  font-size: 13.5px;
+  margin: 0 0 24px;
   border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
 }
-.doc-content th {
+.doc th {
   text-align: left;
   font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--muted);
-  border-bottom: 2px solid var(--border);
-  background: var(--code-bg);
-  padding: 8px 10px;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 14px;
 }
-.doc-content td {
-  padding: 8px 10px;
+.doc td {
+  padding: 10px 14px;
   border-bottom: 1px solid var(--border);
   vertical-align: top;
+  color: var(--text);
 }
-.doc-content tr:last-child td { border-bottom: none; }
+.doc tr:last-child td { border-bottom: none; }
+.doc tbody tr:hover { background: #fafbfc; }
 
-.doc-content blockquote {
+.doc blockquote {
   border-left: 3px solid var(--accent);
-  margin: 0 0 14px;
-  padding: 4px 16px;
-  color: var(--muted);
-  background: var(--code-bg);
+  margin: 0 0 16px;
+  padding: 2px 18px;
+  color: var(--text-secondary);
+  background: var(--accent-soft);
+  border-radius: 0 8px 8px 0;
+}
+
+/* ---------- Right rail: On this page ---------- */
+.toc-rail {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 76px;
+  padding-top: 4px;
+}
+.toc-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  margin-bottom: 10px;
+}
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--border);
+}
+.toc-list li { margin: 0; }
+.toc-link {
+  display: block;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  padding: 5px 0 5px 14px;
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+  line-height: 1.4;
+}
+.toc-link:hover { color: var(--text); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+
+@media (max-width: 1180px) {
+  .toc-rail { display: none; }
 }
 
 @media (max-width: 900px) {
-  .app-layout { flex-direction: column; }
-  nav.side-nav { width: 100%; position: static; min-height: auto; }
-  main { padding: 20px; }
-  .doc-content table { font-size: 12px; }
+  .menu-toggle { display: inline-block; }
+  .sidebar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    z-index: 15;
+    width: 82vw;
+    max-width: 320px;
+    transform: translateX(-100%);
+    transition: transform 0.18s ease;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.08);
+  }
+  .sidebar.open { transform: translateX(0); }
+  main { padding: 24px 20px 80px; }
+  .doc h1 { font-size: 26px; }
 }
 
 </style>
 </head>
 <body>
-<header class="page-header">
-  <h1>TDU Unified Product API — Column Reference</h1>
-  <p>Field-level reference documentation for each of the 6 supplier sources feeding the unified schema. &middot; <a class="back-link" href="../fareharbor_raw_vs_extracted.html">&larr; Back to main dashboard</a></p>
-</header>
-<div class="app-layout">
-  <nav class="side-nav">
-    <div class="side-nav-section-title">Sources</div>
-    <a href="index.html" class="nav-link active">Overview</a>
-    <a href="fareharbor.html" class="nav-link">Fareharbor</a>
-    <a href="rezdy.html" class="nav-link">Rezdy</a>
-    <a href="livn.html" class="nav-link">Livn</a>
-    <a href="customlinc.html" class="nav-link">CustomLinc</a>
-    <a href="ventus.html" class="nav-link">Ventus</a>
-    <a href="ingresso.html" class="nav-link">Ingresso</a>
+<div class="topbar">
+  <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">&#9776;</button>
+  <a class="site-title" href="index.html">Column Reference<span class="dot">.</span></a>
+  <span class="site-subtitle">TDU Unified Product API</span>
+</div>
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="search-wrap">
+      <span class="search-icon">&#9906;</span>
+      <input type="text" class="search-input" id="doc-search" placeholder="Search fields..." autocomplete="off">
+      <span class="search-kbd">&#8984;K</span>
+      <div id="search-results"></div>
+      <div id="search-empty">No matching fields</div>
+    </div>
+    
+    <div class="nav-section-title">Documentation</div>
+    <ul class="nav-list">
+      <li><a href="index.html" class="active">Overview</a></li>
+    </ul>
+    <div class="nav-section-title">Sources</div>
+    <ul class="nav-list nested">
+      <li><a href="fareharbor.html" class="">Fareharbor<span class="nav-badge">37/87 fields</span></a></li><li><a href="rezdy.html" class="">Rezdy<span class="nav-badge">33/87 fields</span></a></li><li><a href="livn.html" class="">Livn<span class="nav-badge">35/87 fields</span></a></li><li><a href="customlinc.html" class="">CustomLinc<span class="nav-badge">30/87 fields</span></a></li><li><a href="ventus.html" class="">Ventus<span class="nav-badge">20/87 fields</span></a></li><li><a href="ingresso.html" class="">Ingresso<span class="nav-badge">22/87 fields</span></a></li>
+    </ul>
+    
   </nav>
   <main>
-    <div class="doc-content">
-<h1 id="column-reference-documentation">Column Reference Documentation</h1>
+    <div class="doc-col">
+      <div class="breadcrumb">Column Reference</div>
+      <div class="doc">
+<h1>Column Reference Documentation</h1>
 <p>This folder contains <strong>unified-schema field reference documentation</strong> for
 each supplier source in the TDU B2B Travel Portal data pipeline.</p>
 <p>Each file documents every unified-schema column that source actually
@@ -317,8 +570,115 @@ no longer the primary reference for "what does this unified field mean."</p>
   worth fixing at the source, not documentation errors to silently paper
   over.</li>
 </ul>
+      </div>
     </div>
+    
+    <aside class="toc-rail">
+      <div class="toc-title">On this page</div>
+      <ul class="toc-list">
+        <li><a href="#files-in-this-folder" class="toc-link">Files in This Folder</a></li>
+<li><a href="#tdu-not-yet-documented-pipeline-gap-not-just-a-docs-gap" class="toc-link">TDU — Not Yet Documented (Pipeline Gap, Not Just a Docs Gap)</a></li>
+<li><a href="#superseded-documentation" class="toc-link">Superseded Documentation</a></li>
+<li><a href="#naming-convention" class="toc-link">Naming Convention</a></li>
+<li><a href="#notes" class="toc-link">Notes</a></li>
+      </ul>
+    </aside>
+    
   </main>
 </div>
+<script>
+const SEARCH_INDEX = [{"field": "product_id", "source": "Fareharbor", "href": "fareharbor.html#product-id"}, {"field": "source", "source": "Fareharbor", "href": "fareharbor.html#source"}, {"field": "supplier_alias", "source": "Fareharbor", "href": "fareharbor.html#supplier-alias"}, {"field": "product_name", "source": "Fareharbor", "href": "fareharbor.html#product-name"}, {"field": "product_headline", "source": "Fareharbor", "href": "fareharbor.html#product-headline"}, {"field": "product_price", "source": "Fareharbor", "href": "fareharbor.html#product-price"}, {"field": "product_price_numeric", "source": "Fareharbor", "href": "fareharbor.html#product-price-numeric"}, {"field": "price_including_tax", "source": "Fareharbor", "href": "fareharbor.html#price-including-tax"}, {"field": "product_currency", "source": "Fareharbor", "href": "fareharbor.html#product-currency"}, {"field": "price_options_summary", "source": "Fareharbor", "href": "fareharbor.html#price-options-summary"}, {"field": "prototype_count", "source": "Fareharbor", "href": "fareharbor.html#prototype-count"}, {"field": "product_duration / duration_text", "source": "Fareharbor", "href": "fareharbor.html#product-duration-duration-text"}, {"field": "product_images / product_main_image / image_count", "source": "Fareharbor", "href": "fareharbor.html#product-images-product-main-image-image-count"}, {"field": "product_tags", "source": "Fareharbor", "href": "fareharbor.html#product-tags"}, {"field": "location_street, location_city, location_state, location_country, location_postcode", "source": "Fareharbor", "href": "fareharbor.html#location-street-location-city-location-state-location-country-location-postcode"}, {"field": "location_latitude / location_longitude", "source": "Fareharbor", "href": "fareharbor.html#location-latitude-location-longitude"}, {"field": "detail_description", "source": "Fareharbor", "href": "fareharbor.html#detail-description"}, {"field": "detail_highlights", "source": "Fareharbor", "href": "fareharbor.html#detail-highlights"}, {"field": "detail_itinerary", "source": "Fareharbor", "href": "fareharbor.html#detail-itinerary"}, {"field": "detail_what_is_not_included", "source": "Fareharbor", "href": "fareharbor.html#detail-what-is-not-included"}, {"field": "detail_what_to_bring", "source": "Fareharbor", "href": "fareharbor.html#detail-what-to-bring"}, {"field": "detail_what_is_included", "source": "Fareharbor", "href": "fareharbor.html#detail-what-is-included"}, {"field": "detail_booking_notes", "source": "Fareharbor", "href": "fareharbor.html#detail-booking-notes"}, {"field": "detail_cancellation_policy", "source": "Fareharbor", "href": "fareharbor.html#detail-cancellation-policy"}, {"field": "cancellation_type / cancellation_hours", "source": "Fareharbor", "href": "fareharbor.html#cancellation-type-cancellation-hours"}, {"field": "detail_tax_percentage", "source": "Fareharbor", "href": "fareharbor.html#detail-tax-percentage"}, {"field": "detail_health_safety", "source": "Fareharbor", "href": "fareharbor.html#detail-health-safety"}, {"field": "is_pickup_available", "source": "Fareharbor", "href": "fareharbor.html#is-pickup-available"}, {"field": "product_id", "source": "Rezdy", "href": "rezdy.html#product-id"}, {"field": "source", "source": "Rezdy", "href": "rezdy.html#source"}, {"field": "supplier_alias", "source": "Rezdy", "href": "rezdy.html#supplier-alias"}, {"field": "product_name", "source": "Rezdy", "href": "rezdy.html#product-name"}, {"field": "product_headline", "source": "Rezdy", "href": "rezdy.html#product-headline"}, {"field": "product_price", "source": "Rezdy", "href": "rezdy.html#product-price"}, {"field": "product_price_numeric", "source": "Rezdy", "href": "rezdy.html#product-price-numeric"}, {"field": "product_currency", "source": "Rezdy", "href": "rezdy.html#product-currency"}, {"field": "price_options", "source": "Rezdy", "href": "rezdy.html#price-options"}, {"field": "product_duration / duration_display", "source": "Rezdy", "href": "rezdy.html#product-duration-duration-display"}, {"field": "product_main_image / product_images / image_count", "source": "Rezdy", "href": "rezdy.html#product-main-image-product-images-image-count"}, {"field": "location_street, location_city, location_state, location_country, location_postcode", "source": "Rezdy", "href": "rezdy.html#location-street-location-city-location-state-location-country-location-postcode"}, {"field": "location_latitude / location_longitude", "source": "Rezdy", "href": "rezdy.html#location-latitude-location-longitude"}, {"field": "detail_description", "source": "Rezdy", "href": "rezdy.html#detail-description"}, {"field": "detail_highlights", "source": "Rezdy", "href": "rezdy.html#detail-highlights"}, {"field": "detail_what_is_included", "source": "Rezdy", "href": "rezdy.html#detail-what-is-included"}, {"field": "detail_what_is_not_included", "source": "Rezdy", "href": "rezdy.html#detail-what-is-not-included"}, {"field": "detail_itinerary", "source": "Rezdy", "href": "rezdy.html#detail-itinerary"}, {"field": "detail_booking_notes", "source": "Rezdy", "href": "rezdy.html#detail-booking-notes"}, {"field": "detail_what_to_bring", "source": "Rezdy", "href": "rezdy.html#detail-what-to-bring"}, {"field": "detail_accessibility", "source": "Rezdy", "href": "rezdy.html#detail-accessibility"}, {"field": "detail_cancellation_policy", "source": "Rezdy", "href": "rezdy.html#detail-cancellation-policy"}, {"field": "cancellation_days", "source": "Rezdy", "href": "rezdy.html#cancellation-days"}, {"field": "meta_supplier_id", "source": "Rezdy", "href": "rezdy.html#meta-supplier-id"}, {"field": "meta_supplier_name", "source": "Rezdy", "href": "rezdy.html#meta-supplier-name"}, {"field": "product_id", "source": "Livn", "href": "livn.html#product-id"}, {"field": "source", "source": "Livn", "href": "livn.html#source"}, {"field": "product_name / product_name_original", "source": "Livn", "href": "livn.html#product-name-product-name-original"}, {"field": "product_price / product_price_numeric", "source": "Livn", "href": "livn.html#product-price-product-price-numeric"}, {"field": "product_category", "source": "Livn", "href": "livn.html#product-category"}, {"field": "product_images", "source": "Livn", "href": "livn.html#product-images"}, {"field": "product_duration / product_duration_range_max", "source": "Livn", "href": "livn.html#product-duration-product-duration-range-max"}, {"field": "location_source / location_end_source", "source": "Livn", "href": "livn.html#location-source-location-end-source"}, {"field": "location_street, location_city, location_state, location_country, location_latitude, location_longitude", "source": "Livn", "href": "livn.html#location-street-location-city-location-state-location-country-location-latitude-location-longitude"}, {"field": "detail_description", "source": "Livn", "href": "livn.html#detail-description"}, {"field": "detail_highlights", "source": "Livn", "href": "livn.html#detail-highlights"}, {"field": "detail_what_is_included", "source": "Livn", "href": "livn.html#detail-what-is-included"}, {"field": "detail_itinerary", "source": "Livn", "href": "livn.html#detail-itinerary"}, {"field": "detail_what_is_not_included", "source": "Livn", "href": "livn.html#detail-what-is-not-included"}, {"field": "detail_what_to_bring", "source": "Livn", "href": "livn.html#detail-what-to-bring"}, {"field": "detail_booking_notes", "source": "Livn", "href": "livn.html#detail-booking-notes"}, {"field": "detail_group_size", "source": "Livn", "href": "livn.html#detail-group-size"}, {"field": "detail_min_age", "source": "Livn", "href": "livn.html#detail-min-age"}, {"field": "detail_operating_days", "source": "Livn", "href": "livn.html#detail-operating-days"}, {"field": "detail_start_time / detail_start_time_range_max", "source": "Livn", "href": "livn.html#detail-start-time-detail-start-time-range-max"}, {"field": "meta_supplier_id", "source": "Livn", "href": "livn.html#meta-supplier-id"}, {"field": "meta_supplier_name", "source": "Livn", "href": "livn.html#meta-supplier-name"}, {"field": "meta_supplier_website", "source": "Livn", "href": "livn.html#meta-supplier-website"}, {"field": "meta_supplier_email", "source": "Livn", "href": "livn.html#meta-supplier-email"}, {"field": "meta_supplier_phone", "source": "Livn", "href": "livn.html#meta-supplier-phone"}, {"field": "product_id", "source": "CustomLinc", "href": "customlinc.html#product-id"}, {"field": "source", "source": "CustomLinc", "href": "customlinc.html#source"}, {"field": "product_name", "source": "CustomLinc", "href": "customlinc.html#product-name"}, {"field": "product_category", "source": "CustomLinc", "href": "customlinc.html#product-category"}, {"field": "product_type_flag", "source": "CustomLinc", "href": "customlinc.html#product-type-flag"}, {"field": "product_currency", "source": "CustomLinc", "href": "customlinc.html#product-currency"}, {"field": "product_price", "source": "CustomLinc", "href": "customlinc.html#product-price"}, {"field": "product_price_numeric", "source": "CustomLinc", "href": "customlinc.html#product-price-numeric"}, {"field": "product_duration", "source": "CustomLinc", "href": "customlinc.html#product-duration"}, {"field": "duration_unit_source", "source": "CustomLinc", "href": "customlinc.html#duration-unit-source"}, {"field": "duration_display", "source": "CustomLinc", "href": "customlinc.html#duration-display"}, {"field": "location_street", "source": "CustomLinc", "href": "customlinc.html#location-street"}, {"field": "detail_operating_days", "source": "CustomLinc", "href": "customlinc.html#detail-operating-days"}, {"field": "detail_start_time", "source": "CustomLinc", "href": "customlinc.html#detail-start-time"}, {"field": "meeting_point_notes", "source": "CustomLinc", "href": "customlinc.html#meeting-point-notes"}, {"field": "booking_lead_time", "source": "CustomLinc", "href": "customlinc.html#booking-lead-time"}, {"field": "validity_start / validity_end", "source": "CustomLinc", "href": "customlinc.html#validity-start-validity-end"}, {"field": "availability", "source": "CustomLinc", "href": "customlinc.html#availability"}, {"field": "operator_code", "source": "CustomLinc", "href": "customlinc.html#operator-code"}, {"field": "booking_channel_code", "source": "CustomLinc", "href": "customlinc.html#booking-channel-code"}, {"field": "return_time / departure_time_display", "source": "CustomLinc", "href": "customlinc.html#return-time-departure-time-display"}, {"field": "fare_types", "source": "CustomLinc", "href": "customlinc.html#fare-types"}, {"field": "package_type", "source": "CustomLinc", "href": "customlinc.html#package-type"}, {"field": "is_pickup_compulsory", "source": "CustomLinc", "href": "customlinc.html#is-pickup-compulsory"}, {"field": "pickup_locations_general", "source": "CustomLinc", "href": "customlinc.html#pickup-locations-general"}, {"field": "package_groups", "source": "CustomLinc", "href": "customlinc.html#package-groups"}, {"field": "departure_date", "source": "CustomLinc", "href": "customlinc.html#departure-date"}, {"field": "product_id", "source": "Ventus", "href": "ventus.html#product-id"}, {"field": "source", "source": "Ventus", "href": "ventus.html#source"}, {"field": "product_name", "source": "Ventus", "href": "ventus.html#product-name"}, {"field": "product_price", "source": "Ventus", "href": "ventus.html#product-price"}, {"field": "product_price_numeric", "source": "Ventus", "href": "ventus.html#product-price-numeric"}, {"field": "product_images", "source": "Ventus", "href": "ventus.html#product-images"}, {"field": "product_category", "source": "Ventus", "href": "ventus.html#product-category"}, {"field": "flight_type_id", "source": "Ventus", "href": "ventus.html#flight-type-id"}, {"field": "location_city", "source": "Ventus", "href": "ventus.html#location-city"}, {"field": "location_id", "source": "Ventus", "href": "ventus.html#location-id"}, {"field": "detail_description", "source": "Ventus", "href": "ventus.html#detail-description"}, {"field": "detail_cancellation_policy", "source": "Ventus", "href": "ventus.html#detail-cancellation-policy"}, {"field": "detail_health_safety", "source": "Ventus", "href": "ventus.html#detail-health-safety"}, {"field": "has_breakfast_included / breakfast_details", "source": "Ventus", "href": "ventus.html#has-breakfast-included-breakfast-details"}, {"field": "has_transfer_included / transfer_id / transfer_name / transfer_pickup_hotels", "source": "Ventus", "href": "ventus.html#has-transfer-included-transfer-id-transfer-name-transfer-pickup-hotels"}, {"field": "non_flight_inclusions", "source": "Ventus", "href": "ventus.html#non-flight-inclusions"}, {"field": "product_id", "source": "Ingresso", "href": "ingresso.html#product-id"}, {"field": "source", "source": "Ingresso", "href": "ingresso.html#source"}, {"field": "event_code", "source": "Ingresso", "href": "ingresso.html#event-code"}, {"field": "product_name", "source": "Ingresso", "href": "ingresso.html#product-name"}, {"field": "product_price / product_price_numeric", "source": "Ingresso", "href": "ingresso.html#product-price-product-price-numeric"}, {"field": "product_currency", "source": "Ingresso", "href": "ingresso.html#product-currency"}, {"field": "product_category", "source": "Ingresso", "href": "ingresso.html#product-category"}, {"field": "location_city", "source": "Ingresso", "href": "ingresso.html#location-city"}, {"field": "location_country", "source": "Ingresso", "href": "ingresso.html#location-country"}, {"field": "location_postcode", "source": "Ingresso", "href": "ingresso.html#location-postcode"}, {"field": "location_latitude / location_longitude", "source": "Ingresso", "href": "ingresso.html#location-latitude-location-longitude"}, {"field": "location_street", "source": "Ingresso", "href": "ingresso.html#location-street"}, {"field": "detail_description", "source": "Ingresso", "href": "ingresso.html#detail-description"}, {"field": "detail_booking_notes", "source": "Ingresso", "href": "ingresso.html#detail-booking-notes"}, {"field": "meta_supplier_id", "source": "Ingresso", "href": "ingresso.html#meta-supplier-id"}, {"field": "meta_supplier_name", "source": "Ingresso", "href": "ingresso.html#meta-supplier-name"}];
+const TOC_IDS = ["files-in-this-folder", "tdu-not-yet-documented-pipeline-gap-not-just-a-docs-gap", "superseded-documentation", "naming-convention", "notes"];
+
+(function () {
+  const input = document.getElementById('doc-search');
+  const results = document.getElementById('search-results');
+  const empty = document.getElementById('search-empty');
+  if (!input) return;
+
+  let active = -1;
+
+  function render(items) {
+    results.innerHTML = '';
+    if (!items.length) {
+      results.classList.remove('open');
+      empty.style.display = input.value.trim() ? 'block' : 'none';
+      return;
+    }
+    empty.style.display = 'none';
+    items.slice(0, 30).forEach((item, i) => {
+      const a = document.createElement('a');
+      a.className = 'sr-item';
+      a.href = item.href;
+      a.innerHTML = '<span class="sr-field">' + item.field + '</span><span class="sr-source">' + item.source + '</span>';
+      if (i === active) a.classList.add('sr-active');
+      results.appendChild(a);
+    });
+    results.classList.add('open');
+  }
+
+  function search(q) {
+    q = q.trim().toLowerCase();
+    active = -1;
+    if (!q) { render([]); return; }
+    const hits = SEARCH_INDEX.filter(item => item.field.toLowerCase().includes(q) || item.source.toLowerCase().includes(q));
+    render(hits);
+  }
+
+  input.addEventListener('input', () => search(input.value));
+  input.addEventListener('focus', () => { if (input.value.trim()) search(input.value); });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-wrap')) results.classList.remove('open');
+  });
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      input.focus();
+      input.select();
+    }
+    if (e.key === 'Escape') { input.blur(); results.classList.remove('open'); }
+    const items = results.querySelectorAll('.sr-item');
+    if (!items.length || !results.classList.contains('open')) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      active = Math.min(active + 1, items.length - 1);
+      items.forEach((el, i) => el.classList.toggle('sr-active', i === active));
+      items[active].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      active = Math.max(active - 1, 0);
+      items.forEach((el, i) => el.classList.toggle('sr-active', i === active));
+      items[active].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && active >= 0) {
+      window.location.href = items[active].getAttribute('href');
+    }
+  });
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  if (menuToggle && sidebar) {
+    menuToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  }
+
+  // Right-rail "On this page" scroll-spy
+  if (typeof TOC_IDS !== 'undefined' && TOC_IDS.length) {
+    const tocLinks = Array.from(document.querySelectorAll('.toc-link'));
+    const sections = TOC_IDS.map(id => document.getElementById(id)).filter(Boolean);
+
+    function updateActive() {
+      let current = sections[0];
+      for (const sec of sections) {
+        if (sec.getBoundingClientRect().top - 90 <= 0) current = sec;
+      }
+      tocLinks.forEach(link => {
+        link.classList.toggle('active', current && link.getAttribute('href') === '#' + current.id);
+      });
+    }
+    document.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+  }
+})();
+
+</script>
 </body>
 </html>
