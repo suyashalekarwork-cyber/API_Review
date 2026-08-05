@@ -133,13 +133,36 @@ both. It confirms the recommendation below on independent evidence.
 on coverage, at $7,309. Coverage and placement are close to uncorrelated: a
 model can preserve every word and still file half of them wrong.
 
-**The single largest defect is in the prompt, not any model.** V4.4 maps the
-raw label `extras:` to `redo_desc_what_excluded`, assuming "extras" means paid
+**One defect found here is in the prompt, not any model.** V4.4 maps the raw
+label `extras:` to `redo_desc_what_excluded`, assuming "extras" means paid
 add-ons. On product 451390 it means a *complimentary* shuttle bus and free
 low-sensory sessions — so the output states the opposite of the source. Because
 V4.4 declares the mapping "authoritative and overrides your own judgment", the
 two most expensive models tested both obeyed it and both got it wrong. No
-choice of model fixes this.
+choice of model fixes it.
+
+**Scale of that defect, measured across the full dataset** (all 11,231
+Fareharbor rows, not just these 10 products):
+
+| `extras:` section contains | Rows | V4.4 verdict |
+|---|---|---|
+| Paid signals only | 438 | correct — genuinely not included |
+| Ambiguous (no clear signal) | 407 | unknowable from keywords |
+| **Free signals only** | **8** | **misfiled** |
+| Mixed free + paid | 9 | needs sentence-level handling |
+
+862 products carry an `extras:` section and only **8 (0.9%) are clearly
+misfiled**. So the mapping is right in the large majority of cases. The defect
+is real and customer-facing on those 8, but it is NOT a pipeline-wide problem —
+an earlier draft of this report called it "the single largest defect" on the
+strength of one product, before the frequency was measured. That was wrong.
+
+Consequence for the fix: a prompt-version bump is poor value here (a full
+re-run and re-validation to correct 8 rows), and narrowing rules is exactly
+what caused the V4.6 regression, where added rules made the model drop content
+instead of routing it to the catch-all. A deterministic post-hoc correction —
+move free-signal text out of `what_excluded` into `what_included` — fixes all 8
+with no re-run and no regression risk.
 
 ## 8. Recommendation
 
@@ -147,16 +170,18 @@ choice of model fixes this.
 best placement record, and it outperforms a model costing 146x more.
 
 Before committing to a full run:
-1. **Fix the `extras:` rule** in a V4.7 prompt — route on meaning
-   (complimentary/free/included → `what_included`; explicit surcharge →
-   `what_excluded`). This is a real defect producing customer-facing
-   falsehoods, and it is model-independent. Not yet built.
-2. **Strip markdown in code.** gpt-5.4-nano leaves `**`/`##` in 17 fields, the
-   worst of any model — cosmetic and trivially fixable, but it must be fixed.
+1. **Strip markdown in code.** gpt-5.4-nano leaves `**`/`##` in 17 fields, the
+   worst of any model — cosmetic, trivially fixable, zero risk. Highest
+   value-per-effort item on this list.
+2. **Fix the 8 misfiled `extras:` rows in code**, not in the prompt — move
+   free-signal text out of `what_excluded` into `what_included`. Deterministic,
+   no re-run, no regression risk. A V4.7 prompt bump is not justified for 0.9%
+   of rows (see section 7).
 3. **Check the duplication behaviour** (section 4) on a wider sample.
-4. An LLM judge has still NOT been run. The audit above is rule-based
-   detection: it finds defects it was told to look for and misses types nobody
-   has named. Absence of a finding is not proof of correct placement.
+4. An LLM judge has still NOT been run on these models. The audit above is
+   rule-based detection: it finds defects it was told to look for and misses
+   types nobody has named. Absence of a finding is not proof of correct
+   placement. This repo's own `checker/` is the tool for that job.
 
 Do not pursue gpt-5.5-pro. On this evidence it is not the best model for this
 task even ignoring cost — gpt-5.4-nano beat it on both content and placement.

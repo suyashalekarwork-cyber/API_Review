@@ -36,24 +36,40 @@ placement, where gpt-5.5-pro is last of the five audited.
 
 ---
 
-## The finding that matters most
+## Why coverage alone is not enough
 
-**The single largest defect is in the prompt, not in any model.**
+Product 451390: every model scored 99–100% coverage. Two of them filed
+**"a COMPLIMENTARY shuttle bus"** under `redo_desc_what_excluded` — *"what is
+NOT included"*. The words all survived, so coverage saw nothing wrong, while
+the output told the customer the opposite of what the supplier wrote.
 
-V4.4 maps the raw Fareharbor label `extras:` to `redo_desc_what_excluded`,
-assuming "extras" means paid add-ons. On product 451390 it means a
-**complimentary shuttle bus** and free low-sensory accessibility sessions.
-Filing those under "what is NOT included" tells the customer the opposite of
-what the supplier wrote.
+The cause is the prompt, not the model. V4.4 maps the raw label `extras:` to
+`redo_desc_what_excluded`, assuming "extras" means paid add-ons, and states the
+mapping "is authoritative and overrides your own judgment" — so a model
+following the prompt correctly produces the wrong answer. **gpt-5.5-pro and
+gpt-5.6-terra, the two most expensive models tested, both obeyed and both got
+it wrong.** No change of model fixes it.
 
-V4.4 states the label mapping "is authoritative and overrides your own
-judgment" — so a model that follows the prompt correctly produces the wrong
-answer. **gpt-5.5-pro and gpt-5.6-terra, the two most expensive models tested,
-both obeyed and both got it wrong.** No change of model fixes this.
+**How often this actually happens** (measured across all 11,231 Fareharbor
+rows, not just these 10 products):
 
-Every model scored 99–100% coverage on that product. Coverage counts words
-that survived; it cannot see that they contradict the field they landed in.
-That is the whole reason the placement audit exists.
+| `extras:` section contains | Rows | V4.4 verdict |
+|---|---|---|
+| Paid signals only | 438 | correct — genuinely not included |
+| Ambiguous (no clear signal) | 407 | unknowable from keywords |
+| **Free signals only** | **8** | **misfiled** |
+| Mixed free + paid | 9 | needs sentence-level handling |
+
+862 products carry an `extras:` section and only **8 (0.9%) are clearly
+misfiled** — the mapping is right in the large majority of cases. The defect is
+real and customer-facing on those 8, but it is not a pipeline-wide problem. An
+earlier draft of this README called it "the single largest defect" on the
+strength of a single product, before the frequency was measured; that was
+wrong, and the fix belongs in code rather than a prompt-version bump.
+
+The general lesson holds regardless of the count: **coverage counts words that
+survived and cannot see that they contradict the field they landed in.** That
+is the whole reason the placement audit exists.
 
 `enchanted_forest_field_mapping.txt` walks through this product field by
 field.
@@ -150,11 +166,14 @@ because bad JSON was tracked separately from quality.
 
 ## Before a full production run
 
-1. **Fix the `extras:` rule** in a V4.7 prompt — route on meaning
-   (complimentary/free/included → `what_included`; explicit surcharge →
-   `what_excluded`). Model-independent, and it produces customer-facing
-   falsehoods today. **Not yet built.**
-2. **Strip markdown in code.** gpt-5.4-nano leaves `**`/`##` in 17 fields —
-   worst of any model, but cosmetic and trivially fixable.
+1. **Strip markdown in code.** gpt-5.4-nano leaves `**`/`##` in 17 fields —
+   worst of any model. Cosmetic, trivially fixable, zero risk. Highest
+   value-per-effort item here.
+2. **Fix the 8 misfiled `extras:` rows in code, not in the prompt** — move
+   free-signal text out of `what_excluded` into `what_included`. Deterministic,
+   no re-run, no regression risk. A V4.7 prompt bump is not worth a full re-run
+   and re-validation for 0.9% of rows, and added narrowing rules are exactly
+   what caused the V4.6 regression (rules made the model drop content instead
+   of routing it to the catch-all).
 3. **Run a judge** on gpt-5.4-nano vs gpt-4o-mini to confirm the audit.
 4. **Check the duplication behaviour** on a wider sample.
