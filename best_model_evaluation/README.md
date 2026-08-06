@@ -12,6 +12,25 @@ whether the data is usable.
 
 ---
 
+> ### ⚠️ CONCLUSION REVISED — read `MODEL_DECISION_REPORT.md` first
+>
+> This folder recommends **gpt-5.4-nano**. That has since changed.
+>
+> A third measurement — **human review** — found gpt-5.4-nano emits **1.32x the
+> source words on 8 of 10 products**, inventing and duplicating content.
+> Coverage cannot detect this: a word counted twice still counts as present, so
+> duplication *raises* the coverage score.
+>
+> **Current recommendation: `gpt-5.6-terra` ($487)**, or gpt-5.4-nano ($50)
+> behind a de-duplication pass. `MODEL_DECISION_REPORT.md` consolidates all
+> three evidence sources — automated testing, human review, and OpenAI's own
+> documentation — and is the authoritative version.
+>
+> Everything below remains accurate **as a content-survival measurement** and
+> is kept for the audit trail.
+
+---
+
 ## Headline result
 
 **gpt-5.4-nano.** Best on both measurements, at $50 to process all 23,034

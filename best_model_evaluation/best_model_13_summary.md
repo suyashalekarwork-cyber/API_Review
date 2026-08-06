@@ -166,6 +166,24 @@ with no re-run and no regression risk.
 
 ## 8. Recommendation
 
+> ### ⚠️ SUPERSEDED — see `MODEL_DECISION_REPORT.md`
+>
+> **Human review found that gpt-5.4-nano emits 1.32x the source words on 8 of
+> 10 products** — it invents and duplicates content rather than losing it.
+>
+> Coverage scoring is structurally blind to this: a word counted twice still
+> counts as present, so duplication *raises* the score. gpt-5.4-nano's 99.75%
+> is partly earned by the behaviour a human reviewer failed it for.
+>
+> **Current recommendation: `gpt-5.6-terra` ($487)** — faithful to source
+> (0.96x), best judged placement, passed human review. gpt-5.4-nano ($50)
+> remains viable *only* behind a code pass that strips markdown and
+> de-duplicates.
+>
+> The ranking below still stands as a **content-survival** measurement. What
+> changed is the recognition that content survival alone does not decide
+> quality. Original text kept for the audit trail.
+
 **Switch to gpt-5.4-nano.** $50 for all 23,034 products, zero missing content,
 best placement record, and it outperforms a model costing 146x more.
 
